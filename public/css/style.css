@@ -1,0 +1,1081 @@
+ /* width and height of google map */
+ #google_map {
+    width: 90%;
+    height: 500px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Marker Edit form */
+.marker-edit label {
+    display: block;
+    margin-bottom: 5px;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff!important;
+    background-color: #E1261C!important;
+    border-color:#E1261C!important;
+}
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color:  #E1261C!important;
+    background-color: #fff!important;
+    border: 1px solid #dee2e6!important;
+}
+.btn-dark {
+    border: 1px solid #E1261C !important;
+    color: #ffffffff !important;
+    background-color:#E1261C !important;
+	
+    
+}
+.marker-edit label span {
+    width: 100px;
+    float: left;
+}
+/* audit standard style  */
+.audit_standard_card{
+    margin-top: 1em;
+    padding: 1em;
+    padding-bottom: 3em;
+}
+.marker-edit label input,
+.marker-edit label select {
+    height: 24px;
+}
+
+.marker-edit label textarea {
+    height: 60px;
+}
+
+.marker-edit label input,
+.marker-edit label select,
+.marker-edit label textarea {
+    width: 60%;
+    margin: 0px;
+    padding-left: 5px;
+    border: 1px solid #DDD;
+    border-radius: 3px;
+}
+
+/* Marker Info Window */
+h1.marker-heading {
+    color: #585858;
+    margin: 0px;
+    padding: 0px;
+    font: 18px "Trebuchet MS", Arial;
+    border-bottom: 1px dotted #D8D8D8;
+}
+div.marker-info-win {
+    max-width: 300px;
+    margin-right: -20px;
+}
+div.marker-info-win p {
+    padding: 0px;
+    margin: 10px 0px 10px 0;
+}
+div.marker-inner-win {
+    padding: 5px;
+}
+button.save-marker,
+button.remove-marker {
+    border: none;
+    background: rgba(0, 0, 0, 0);
+    color: #00F;
+    padding: 0px;
+    text-decoration: underline;
+    margin-right: 10px;
+    cursor: pointer;
+
+}
+/* width */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+/* Track */
+/* ::-webkit-scrollbar-track { */
+    /*background: #36b7ca; */
+/* } */
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #676876;
+}
+
+/* Handle on hover */
+.file-upload {
+    background-color: #ffffff;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.file-upload-btn {
+    width: 100%;
+    margin: 0;
+    color: #fff;
+    background: #1FB264;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #15824B;
+    transition: all .2s ease;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.file-upload-btn:hover {
+    background: #1AA059;
+    color: #ffffff;
+    transition: all .2s ease;
+    cursor: pointer;
+}
+
+.file-upload-btn:active {
+    border: 0;
+    transition: all .2s ease;
+}
+
+.file-upload-content {
+    display: none;
+    text-align: center;
+}
+
+.file-upload-input {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.image-upload-wrap {
+    margin-top: 20px;
+    border: 4px dashed #1FB264;
+    position: relative;
+}
+
+.image-dropping,
+.image-upload-wrap:hover {
+    background-color: #1FB264;
+    border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+    padding: 0 15px 15px 15px;
+    color: #222;
+}
+
+.drag-text {
+    text-align: center;
+}
+
+.drag-text h3 {
+    width: 100%;
+    font-weight: 100;
+    text-transform: uppercase;
+    color: #15824B;
+    padding: 60px 0;
+}
+
+
+.remove-image {
+    width: 200px;
+    margin: 0;
+    color: #fff;
+    background: #cd4535;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    border-bottom: 4px solid #b02818;
+    transition: all .2s ease;
+    outline: none;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.remove-image:hover {
+    background: #c13b2a;
+    color: #ffffff;
+    transition: all .2s ease;
+    cursor: pointer;
+}
+
+.remove-image:active {
+    border: 0;
+    transition: all .2s ease;
+}
+
+.modal-right-bar {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 99; /* Sit on top */
+padding-top: 0px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content */
+.modal-content-right-bar {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 20%;
+    height: 145%;
+    margin-right: 0;
+
+}
+
+/* The Close Button */
+.jcvalvesclose {
+    color: #aaaaaa;
+    float: right;
+    font-size: 22px;
+    margin-top: -0.3em;
+    font-weight: bold;
+}
+
+.jcvalvesclose:hover,
+.jcvalvesclose:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+.settings {
+background-color: #E1261C;
+color: #ffffff;
+padding: 15px;
+border-bottom: 1px solid #D3D3D3;
+}
+.product-group{
+color: #000000;
+padding: 15px;
+border-bottom: 1px solid #D3D3D3;
+}
+.product-group:hover {
+background-color: #D3D8D9;
+}
+.plant{
+color: #000000;
+padding: 15px;
+border-bottom: 1px solid #D3D3D3;
+}
+.plant:hover {
+background-color: #D3D8D9;
+}
+.employees{
+color: #000000;
+padding: 15px;
+border-bottom: 1px solid #D3D3D3;
+}
+
+.audit-setting{
+    color: #000000;
+    font-weight: bold;
+    }
+.employees:hover {
+background-color: #D3D8D9;
+}
+.meetings {
+color: #000000;
+padding: 15px;
+border-bottom: 1px solid #D3D3D3;
+}
+.meetings:hover {
+background-color: #D3D8D9;
+}
+.plantoriginalmodal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+padding-top:48px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content */
+.plantoriginalmodal-content {
+background-color: #fefefe;
+margin: auto;
+border: 1px solid #888;
+width: 20%;
+height: 100%;
+margin-right: 0;
+}
+/* The Close Button */
+.plantsclose {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.plantsclose:hover,
+.plantsclose:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+.product_group{
+
+background-color: #5BB2E5;
+color: #ffffff;
+font-size: 20px;
+padding: 15px;
+border-bottom: 1px solid #D3D3D3;  
+}
+.product_btns {
+margin-top: 30em;   
+}
+.employees_btns{
+margin-top: 17em;
+}
+/* The Modal (background) */
+.productoriginalmodal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+padding-top:48px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content */
+.productoriginalmodal-content {
+background-color: #fefefe;
+margin: auto;
+border: 1px solid #888;
+width: 20%;
+height: 100%;
+margin-right: 0;
+
+}
+
+/* The Close Button */
+.productclose {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.productclose:hover,
+.productclose:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+
+/* The Modal (background) */
+.departmentsoriginalmodal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+padding-top:48px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content */
+.departmentsoriginalmodal-content {
+background-color: #fefefe;
+margin: auto;
+border: 1px solid #888;
+width: 20%;
+height: 100%;
+margin-right: 0;
+
+}
+
+/* The Close Button */
+.departmentsclose {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.departmentsclose:hover,
+.departmentsclose:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+.departments_btns {
+margin-top: 12em;
+
+}
+.update_employees_btns{
+margin-top: 10em;
+}
+
+
+/* The Modal (background) */
+.plantsupdateoriginalmodal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+padding-top: 100px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content */
+.plantsupdateoriginalmodal-content {
+background-color: #fefefe;
+margin: auto;
+padding: 20px;
+border: 1px solid #888;
+width: 20%;
+height: 70%;
+margin-right: 0;
+
+}
+
+/* The Close Button */
+.plantsupdateclose {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.plantsupdateclose:hover,
+.plantsupdateclose:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+/* The Modal (background) */
+.employeesoriginalmodal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 999; /* Sit on top */
+/*padding-top: 47px;*/ /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+
+/* Modal Content */
+.employeesoriginalmodal-content {
+background-color: #fefefe;
+margin: auto;
+border: 1px solid #888;
+width: 100%;
+height: 100%;
+position: fixed;
+
+}
+
+/* The Close Button */
+.employeesclose {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.employeesclose:hover,
+.employeesclose:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+.emppop{
+background-color: #5BB2E5;
+color: #ffffff;
+padding: 15px;
+border-bottom: 1px solid #D3D3D3;
+}
+/* The Modal (background) */
+.mroriginalmodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    /*padding-top: 47px;*/ /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
+    }
+    
+    /* Modal Content */
+    .mroriginalmodal-content {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    
+    }
+    
+    /* The Close Button */
+    .mrclose {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    }
+    
+    .mrclose:hover,
+    .mrclose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    }
+    .mrpop{
+    background-color: #5BB2E5;
+    color: #ffffff;
+    padding: 15px;
+    border-bottom: 1px solid #D3D3D3;
+    }
+    #mrtable{
+        border-collapse: collapse;
+    }
+    .mr_btns{
+        margin-top: 7em;
+        margin-right: 1.6em;
+    }
+
+
+    /* The Modal (background) */
+.customeroriginalmodal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    /*padding-top: 47px;*/ /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
+    }
+    
+    /* Modal Content */
+    .customeroriginalmodal-content {
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    
+    }
+    
+    /* The Close Button */
+    .customerclose {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    }
+    
+    .customerclose:hover,
+    .customerclose:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    }
+    .customerpop{
+    background-color: #5BB2E5;
+    color: #ffffff;
+    padding: 15px;
+    border-bottom: 1px solid #D3D3D3;
+    }
+    #customertable{
+        border-collapse: collapse;
+    }
+    .customer_btns{
+        margin-top: 7em;
+        margin-right: 1.6em;
+    }
+
+#buttone{
+display:block;
+margin:20px auto;
+padding:10px 30px;
+background-color:#eee;
+border:solid #ccc 1px;
+cursor: pointer;
+}
+#overlay{	
+position: fixed;
+top: 0;
+z-index: 100;
+width: 100%;
+height:100%;
+display: none;
+background: rgba(0,0,0,0.6);
+}
+.cv-spinner {
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;  
+}
+.spinner {
+width: 40px;
+height: 40px;
+border: 4px #ddd solid;
+border-top: 4px #2e93e6 solid;
+border-radius: 50%;
+animation: sp-anime 0.8s infinite linear;
+}
+@keyframes sp-anime {
+100% { 
+transform: rotate(360deg); 
+}
+}
+.is-hide{
+display:none;
+}
+/* The Modal (background) */
+.updateplantsoriginalmodal {
+display: none; /* Hidden by default */
+position: fixed; /* Stay in place */
+z-index: 1; /* Sit on top */
+padding-top: 0px; /* Location of the box */
+left: 0;
+top: 0;
+width: 100%; /* Full width */
+height: 100%; /* Full height */
+overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+
+}
+
+/* Modal Content */
+.updateplantsoriginalmodal-content {
+background-color: #fefefe;
+margin: auto;
+border: 1px solid #888;
+width: 20%;
+height: 70%;
+margin-right: 0;
+
+}
+
+/* The Close Button */
+.updateplantsclose {
+color: #aaaaaa;
+float: right;
+font-size: 28px;
+font-weight: bold;
+}
+
+.updateplantsclose:hover,
+.updateplantsclose:focus {
+color: #000;
+text-decoration: none;
+cursor: pointer;
+}
+.emppop{
+background-color: #5BB2E5;
+color: #ffffff;
+padding: 15px;
+border-bottom: 1px solid #D3D3D3;
+}
+th{ text-transform: uppercase;}
+.productcomponent{
+    margin-top: 2em;
+    padding: 1em;
+}
+/* .product_component_head{ */
+    /* background-color: lightblue; */
+   
+/* } */
+
+/* styling page will be displayed when your using QRcode  */
+img {
+    max-width: 100%;
+}
+.smart-scan-sec {
+    max-width: 600px;
+    margin: auto;
+}
+.smart-scan-sec .logo {
+    text-align: center;
+    padding: 20px 0px;
+}
+.smart-scan-sec .logo p {
+    font-size: 16px;
+    color: #000;
+    font-style: italic;
+}
+.smart-scan-sec .logo img {
+    max-width: 100px;
+}
+.smart-scan-table table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+.smart-scan-table table tbody td,
+.smart-scan-table table thead th{
+    border: 1px solid #000;
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    font-weight: normal;
+}
+.smart-scan-table table thead th {
+    text-align: left;
+    background-color: #e62e2d;
+    color: #fff;
+    font-size: 14px;
+}
+.smart-scan-table table tbody td {
+    width: 50%;
+    color: #000;
+    font-size: 14px;
+}
+* {
+    box-sizing: border-box;
+}
+.smart-scan-grid {
+    padding: 20px 0px;
+    width: 100%;
+    float: left;
+}
+.smart-scan-grid .data-sheet-main {
+    width: 100%;
+    float: left;
+}
+.smart-scan-grid .data-sheet {
+    width: 50%;
+    float: left;
+}
+.smart-scan-grid .data-sheet p {
+    color: #fff;
+    background: #e62e2d;
+    font-size: 14px;
+    border: 1px solid #000;
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    max-width: 250px;
+    min-height: 78px;
+}
+.smart-scan-grid .contact-us .data-sheet {
+    width: 100%;
+}
+.smart-scan-grid .contact-us .data-sheet p {
+    margin-left: auto;
+    margin-right: auto;
+}
+.smart-scan-grid .data-sheet p {
+	display: grid;
+	align-items: center;
+}
+@media (max-width: 767px) {
+	.smart-scan-sec {
+		padding: 15px 15px;
+	}
+	.smart-scan-grid .data-sheet {
+		padding: 0px 10px;
+	}
+}
+@media (max-width: 460px) {
+	.smart-scan-grid .data-sheet p {
+		font-size: 13px;
+		padding: 10px 10px;
+	}
+}
+
+
+/*New css 27-06-2022*/
+.certificate .card-body {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgb(76 87 125 / 2%);
+    border-radius: 0.625rem;
+    margin-bottom: 15px;
+}
+.certificate .card-body table {
+    background-color: #f8f8f8;
+    width: 100% !important;
+}
+section > div.row {
+    margin: 0px;
+}
+.content .card,
+.wrapper .content-wrapper .card.content {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgb(76 87 125 / 2%);
+    border-radius: 0.625rem;
+}
+.content .card .card-body.table-responsive {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.card-body table td .btn-success {
+    color: #fff !important;
+    background-color: #28a745 !important;
+    border: 1px solid #28a745 !important;
+    box-shadow: none;
+}
+.text-box,
+form .form-control {
+    padding: 0.825rem 1.5rem;
+    border-radius: 6px;
+    line-height: 20px;
+    height: auto !important;
+    min-height: inherit;
+}
+.add-supplier-form {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgb(76 87 125 / 2%);
+    border-radius: 6px;
+    padding: 15px;
+    margin: 0px;
+}
+form .add-supplier-form .form-group .text-box {
+    max-width: 100%;
+}
+form .add-supplier-form .form-group {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.add-supplier-form .supplier-hr {
+    margin-left: 22px;
+    margin-right: 22px;
+    width: calc(100% - 60px);
+}
+.text-sm .content-header .breadcrumb {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+.text-sm .content-header {
+    padding-bottom: 0px;
+}
+.main-footer {
+    text-align: left;
+    border-top: none;
+    background-color: transparent;
+}
+.dataTables_wrapper table.dataTable {
+    width: 100% !important;
+    background-color: #f8f8f8;
+}
+.form-group .btn-primary {
+    margin-right: 10px;
+    min-width: 100px;
+}
+h1, h2, h3, h4, h5, h6, p, a, label, span, b, .left-side-content div, strong, button {
+    font-family: 'Poppins', sans-serif !important;
+}
+div.dataTables_wrapper div.dataTables_filter input.form-control {
+    padding: 10px 10px;
+    border-radius: 6px;
+    line-height: 20px;
+    height: auto;
+    min-height: inherit;
+}
+
+.content-wrapper button[type="submit"]:hover, .content-wrapper a.btn-success:hover, .content-wrapper .btn-toolbar a.btn-primary:hover, .content-wrapper .btn-toolbar a.btn-outline-primary:hover {
+    background-color: #ed2b33 !important;
+}
+
+div .btn-cancel:hover {
+    background-color: #f8f8f8;
+}
+form .form-control:disabled, form .form-control[readonly] {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+input.form-control:focus {
+    box-shadow: none;
+    outline: none;
+}
+ul.pagination li.paginate_button.previous.disabled a.page-link {
+    color: #b7b7b7 !important;
+}
+ul.pagination li.paginate_button.next.disabled a.page-link {
+    color: #b7b7b7 !important;
+}
+.certificate > br {
+    display: none;
+}
+a.btn-edit.select2edit {
+    margin-top: 20px;
+    display: flex;
+    padding-left: 2px;
+    color: transparent;
+}
+
+a.btn-edit.select2edit:before {
+    content: "\F040";
+    font-family: 'FontAwesome';
+    color: #000;
+    background-color: #dadada;
+    padding: 10px 10px;
+    border-radius: 5px;
+    line-height: 1;
+}
+.text-sm .modal a.nav-link {
+    padding: 0.4rem 0.8rem !important;
+}
+
+.modal a.nav-link {
+    color: #e1261c;
+}
+
+.dataTables_wrapper table.dataTable thead th.sorting_asc:before {
+    content: "\f106";
+    font: normal normal normal 14px/1 FontAwesome;
+    display: inline-block;
+    font-size: 20px;
+    bottom: calc(50% - 10px);
+    right: 10px;
+}
+.dataTables_wrapper table.dataTable thead th.sorting_desc:after {
+    content: "\f107";
+    font: normal normal normal 14px/1 FontAwesome;
+    display: inline-block;
+    font-size: 20px;
+    bottom: calc(50% - 10px);
+    right: 10px;
+}
+.dataTables_wrapper table.dataTable thead th:before,
+.dataTables_wrapper table.dataTable thead th:after {
+    display: none;
+}
+#nav-bar .sidebar > ul li a i {
+    font-size: 22px;
+}
+#nav-bar.show .sidebar ul li:hover .nav_logo-name {
+    padding-left: 0px;
+}
+#nav-bar.show .sidebar > ul li a {
+    text-align: left;
+    transition: all 0.5s ease;
+}
+#nav-bar .sidebar > ul li,
+#nav-bar .sidebar > ul li:hover {
+    transition: all 0.5s ease;
+}
+.l-navbar,
+.l-navbar.show,
+.wrapper .content-wrapper {
+    transition: all 0.5s ease;
+}
+#nav-bar .sidebar ul li.hoverli .file_menu li a {
+    padding: 15px 6px 10px;
+    color: #5e5e5e;
+}
+#nav-bar .sidebar ul li.hoverli .file_menu li a {
+    font-weight: normal;
+}
+#nav-bar .sidebar > ul li a:hover,
+#nav-bar .sidebar ul li.hoverli .file_menu li a:hover,
+#nav-bar .sidebar > ul li a.active {
+    color: #ed2b33;
+}
+#nav-bar .sidebar ul li.hoverli .file_menu li a {
+    transition: none;
+}
+form#add-mechanical table td input.add-color,
+form#edit-mechanical table td input.add-color {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    margin-bottom: 12px;
+}
+.wrapper .content-wrapper .card.content .container {
+    padding-top: 20px;
+}
+@media screen and (min-width: 768px) {
+    .body-pd:hover {
+        padding-left: calc(68px + 155px);
+        transition: all 0.5s ease;
+    }
+    #nav-bar:hover {
+        width: calc(68px + 155px);
+        transition: all 0.5s ease;
+    }
+    #nav-bar:hover .sidebar > ul li,
+    #nav-bar:hover .sidebar > ul li:hover {
+        width: auto;
+    }
+    #nav-bar:hover .sidebar > ul li .nav_logo-name {
+        visibility: visible;
+    }
+    #nav-bar:hover .sidebar ul li:hover .nav_logo-name {
+        padding-left: 0px;
+    }
+    #nav-bar:hover .sidebar ul li.hoverli ul.file_menu {
+        display: block !important;
+        position: absolute;
+        top: 0px;
+        left: 40px;
+        width: calc(100% - 40px);
+    }
+    #nav-bar .sidebar > ul li a {
+        padding-right: 0px;
+    }
+}
+@media screen and (min-width: 1301px) and (max-width: 1390px) {
+    .plant-card .btn-toolbar  .btn-group a.btn {
+        font-size: 13px !important;
+    }
+}
+@media screen and (min-width: 767px) and (max-width: 1300px) {
+    .plant-card .btn-toolbar  .btn-group a.btn {
+        font-size: 12px !important;
+    }
+}
