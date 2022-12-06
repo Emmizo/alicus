@@ -99,23 +99,11 @@
                                                             <td>{{ $client->updated_at }}</td>
 
                                                             <td>
-                                                                <div class="dropdown">
-                                                                    <button class=" dropdown-toggle" type="button"
-                                                                        id="dropdownMenuButton" data-toggle="dropdown"
-                                                                        aria-haspopup="true" aria-expanded="false">
-                                                                        ...
-                                                                    </button>
 
-                                                                    <div class="dropdown-menu"
-                                                                        aria-labelledby="dropdownMenuButton">
-                                                                        <a class="dropdown-item"
-                                                                            href="{{ route('document-list', ['id' => $client_id, 'name' => $name]) }}"><i
-                                                                                class="fa fa-trash fa-fw"></i>
-                                                                            Delete</a>
-
-                                                                    </div>
-
-                                                                </div>
+                                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-trash"/>
+      </button>
+                                                                
                                                             </td>
                                                         </tr>
 
@@ -145,6 +133,7 @@
     </div>
     </div>
     </div>
+   
     <!-- Modal -->
     <div class="modal fade " id="add-client" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">

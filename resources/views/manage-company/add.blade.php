@@ -32,7 +32,7 @@
                     @endif
                     <form role="form" id="add-new-company" action="{{ route('company-save') }}" name="add-category"
                         method="POST" enctype="multipart/form-data">
-
+                        @csrf
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="col-md-4 mb-3">
@@ -105,14 +105,14 @@
                                     <div class="custom-file">
                                         <input type="file" name="company_logo" class="custom-file-input" id="profile_pic"
                                             accept="image/*">
-                                        <img id="blah" />
+                                        <img style="width:170px; height:150px" id="blah" />
                                         <p style="color:red;">(File size upto 5MB & allowed png, jpg & jpeg)</p>
                                         <label class="custom-file-label" for="profile_pic">Choose file</label>
                                     </div>
                                 </div>
                             </div>
                             <br>
-                            <div class="col-md-4 mb-3 form-group clearfix">
+                            {{-- <div class="col-md-4 mb-3 form-group clearfix">
                                 <label for="profile_pic">Status</label><br><br>
                                 <div class="icheck-primary d-inline">
                                     <input type="radio" id="radioPrimary1" name="status" checked="" value="1">
@@ -122,7 +122,7 @@
                                     <input type="radio" id="radioPrimary2" name="status" value="0">
                                     <label for="radioPrimary2">Inactive</label>
                                 </div>
-                            </div>
+                            </div> --}}
 
 
                             <div class="float-left">
@@ -180,7 +180,7 @@
                     company_logo: {
                         extension: "jpeg,jpg,png",
                         maxsize: 5242880, // <- 5 MB
-                        required: true,
+                        // required: true,
                     },
 
                 },
@@ -206,7 +206,7 @@
                     company_logo: {
                         extension: "Please upload file in these format only (jpg, jpeg, png).",
                         maxsize: "File size must be less than 5 mb.",
-                        required: "Company logo required",
+                        // required: "Company logo required",
                     },
 
 
@@ -232,6 +232,7 @@
                         var name = $(this).attr('name');
                         form_data.append(name, $("#" + getID).val());
                     });
+
                     var files = $('#profile_pic')[0].files[0];
                     form_data.append('company_logo', files);
                     // for (var pair of form_data.entries()) {

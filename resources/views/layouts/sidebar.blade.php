@@ -39,32 +39,35 @@
                             <span class="nav_logo-name">Manage Roles</span> </a>
                     </li>
                 @endif
-                <li>
-                    <ul class="hover">
-                        <li class="hoverli">
+                @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
+                    <li>
+                        <ul class="hover">
+                            <li class="hoverli">
 
-                            <i class="fa fa-list" aria-hidden="true"></i>
+                                <i class="fa fa-list" aria-hidden="true"></i>
 
-                            <ul class="file_menu" style="display:none;">
-                                <li>
+                                <ul class="file_menu" style="display:none;">
+                                    <li>
 
-                                <li><a href="">&nbsp;&nbsp;Reports</a></li>
-
-
-                                <li><a href="{{ route('report-today-list') }}">&nbsp;&nbsp;My Client Report
-                                    </a>
-                                </li>
+                                    <li><a href="">&nbsp;&nbsp;Reports</a></li>
 
 
-                                {{-- <li><a href="">&nbsp;&nbsp;My Client Weekly Report </a> </li>
+                                    <li><a href="{{ route('report-today-list') }}">&nbsp;&nbsp;My Client Report
+                                        </a>
+                                    </li>
+
+
+                                    {{-- <li><a href="">&nbsp;&nbsp;My Client Weekly Report </a> </li>
 
 
                                 <li><a href="">&nbsp;&nbsp;My Client Monthly Report </a> </li> --}}
 
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                                </ul>
+
+                            </li>
+                @endif
+            </ul>
+            </li>
 
 
             </ul>

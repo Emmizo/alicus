@@ -117,6 +117,10 @@ class DocumentController extends Controller
      */
     public function destroy($id)
     {
-        //
+       $del= Document::find($id);
+       File::delete(public_path('/documents/' . $del->doc_name));
+       $del->delete();
+       
+
     }
 }

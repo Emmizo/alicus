@@ -75,14 +75,14 @@ class CompanyController extends Controller
             'last_name' => 'required',
             'company_name' => 'required|unique:companies,company_name',
             'phone' => 'required',
-            'company_logo' => 'required|mimes:jpeg,png,jpg|max:5120',
+            // 'company_logo' => 'required|mimes:jpeg,png,jpg|max:5120',
         ]);
         if ($validator->fails()) {
-            $data1 ['status'] = 401;
-            $data1 ['data'] = 'Validation Error.';
-            $data1 ['message'] =$validator->errors()->first();
-            return response()->json($data1); 
-        }
+            return redirect(route('company-add'))
+            ->withErrors($validator)
+            ->withInput();
+}
+       if($request->file('company_logo')){
         $directory = public_path().'/companies_logo';
                if (!is_dir($directory)) {
                    mkdir($directory);
@@ -99,13 +99,24 @@ class CompanyController extends Controller
                 'email' => $request->email,
                 'company_logo'=> $imageName,
                ]);
+            }else{
+                $comp =Company::create([
+                    'first_name' => $request->first_name,
+                    'last_name' => $request->last_name,
+                    'company_name' => $request->company_name,
+                    'phone' => $request->phone,
+                    'email' => $request->email,
+                    // 'company_logo'=> $imageName,
+                   ]);
+            }
+               
                 // new Company();
                
             //    $comp->save();
                $request->session()
                     ->flash('success', "Company is created successfully");
-                    // return redirect(route('company-list'));
-                    return response()->json(['status' => 201,'message' => "new  added"]);
+                    return redirect(route('company-list'));
+                    // return response()->json(['status' => 201,'message' => "new  added"]);
         
     }
 

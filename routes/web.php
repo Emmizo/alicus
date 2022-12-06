@@ -92,7 +92,7 @@ Route::group(['prefix' => '/manage-company','middleware'=> ['auth','nocache'],'n
     Route::get('/list-company', 'CompanyController@index')->name('company-list');
     Route::get('/datatable-company', 'CompanyController@getDatatable')->name('company-datatable');
     Route::get('/add-company', 'CompanyController@add')->name('company-add');
-    Route::post('/save-company', 'CompanyController@store')->name('company-save');
+    Route::any('/save-company', 'CompanyController@store')->name('company-save');
     Route::get('/edit-company/{id}', 'CompanyController@edit')->name('company-edit');
     Route::post('/update-company', 'CompanyController@update')->name('company-update');
     Route::post('/status-company', 'CompanyController@status')->name('company-status');
