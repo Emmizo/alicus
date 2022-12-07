@@ -117,7 +117,7 @@ class PasswordController extends Controller
     }
     catch(Exception $e)
     {
-        return back()->withErrors(['errors' => 'Something went wrong '.$ex->getMessage()]);
+        return back()->withErrors(['errors' => 'Something went wrong '.$e->getMessage()]);
     }
     }
     /**
