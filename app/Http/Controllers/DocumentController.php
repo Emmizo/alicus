@@ -54,7 +54,7 @@ class DocumentController extends Controller
         }
         $str = str_replace(" ", "-", $request->company_name);
         $directory = public_path().'/documents/'.$str;
-            
+            echo $directory;
             $file = new Document();
             if (!is_dir($directory)) {
                 mkdir($directory);

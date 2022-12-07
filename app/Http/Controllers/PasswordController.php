@@ -41,7 +41,7 @@ class PasswordController extends Controller
     public function viewReset(Request $request)
     {
        
-        $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        // $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
         $data['email'] = $request->email;
         $data['token'] = $request->token;
         return view('auth.reset-password',$data);
