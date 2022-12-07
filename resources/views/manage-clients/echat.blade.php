@@ -55,14 +55,14 @@
                                                                 placeholder="Search echat">
                                                         </div>
                                                     </div>
-                                                    <div class="row  col-8 justify-content-end">
-                                                        <div class='col-lg-3 col-md-4 col-sm-3'>
+                                                    <div class="row  col-md-12 justify-content-end">
+                                                        <div class='col-lg-3 col-md-8 col-sm-3'>
                                                             <a href="#" class="btn btn-success" data-toggle="modal"
                                                                 data-target="#add-client">
                                                                 <i
                                                                     class="fa fa-plus-square"></i>&nbsp;{{ $add }}</a>
                                                         </div>
-                                                        <div class="col-lg-3 col-md-3 col-sm-3">
+                                                        <div class="col-lg-3 col-md-4 col-sm-3">
                                                             <input class="btn btn-primary" type='button' id='print-data'
                                                                 value='Print'>
                                                         </div>
@@ -72,7 +72,48 @@
                                                 <br>
                                                 <br>
                                                 <div id="printData">
-
+                                                    <div class="col-12 container row">
+                                                        <div class="col-md-6">
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-3 mb-3">
+                                                                    Cleint Name:
+                                                                </div>
+                                                                <div class="col-md-4 ">
+                                                                    <b>{{ $name ?? '' }}</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-3 mb-3">
+                                                                    Date of Birth:
+                                                                </div>
+                                                                <div class="col-md-3 ">
+                                                                    <b>{{ $birth ?? '' }}</b>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12  row">
+                                                                <div class="col-md-3 mb-3">
+                                                                    Admitted Date:
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <b>{{ $started ?? '' }}</b>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 ">
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-3 mb-3">Company:</div>
+                                                                <div class="col-md-3 mb-3">{{ $data->company_name }}</div>
+                                                            </div>
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-3 mb-3">Phone:</div>
+                                                                <div class="col-md-3 mb-3">{{ $data->phone }}</div>
+                                                            </div>
+                                                            <div class="col-md-12 row">
+                                                                <div class="col-md-3 mb-3">Email:</div>
+                                                                <div class="col-md-3 mb-3">{{ $data->email }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <section class="mt-5">
                                                         <div class="container2">
                                                             <div id="myDIV">
@@ -306,7 +347,7 @@
                                                                                     height="90"
                                                                                     style="border: 1px solid #ddd;"></canvas>
                                                                                 <br>
-            
+
                                                                                 <div class="col-md-12 row">
                                                                                     <div class="col-md-3">
                                                                                         <input type="button"
@@ -373,7 +414,7 @@
         <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
         <script type="text/javascript">
             /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
             function myFunction() {
                 document.getElementById("myDropdown").classList.toggle("show");
             }

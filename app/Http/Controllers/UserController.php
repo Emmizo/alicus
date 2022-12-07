@@ -68,7 +68,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function getUserListAjax(Request $request)
     {
@@ -80,7 +80,7 @@ class UserController extends Controller
                 return $request->role!="" ?
                     $query->where('users.role', $request->role) : '';
             })
-            ->where('users.is_delete',0)->get();
+            ->where('users.is_delete',0)->where('users.company_id',$userAuth->company_id)->get();
 
         return datatables()->of($user)
                         ->addColumn('action', function($user) use($userAuth){
@@ -168,7 +168,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:Kwizera
+     * @author alicus:Kwizera
      */
     public function add(Request $request)
     {
@@ -184,7 +184,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:Kwizera
+     * @author alicus:Kwizera
      */
     public function addAdmin(Request $request)
     {
@@ -200,7 +200,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function edit(Request $request)
     {
@@ -227,7 +227,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function editAdmin(Request $request)
     {
@@ -254,7 +254,7 @@ class UserController extends Controller
      *
      * @param UserCreateRequest $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:Kwizera
+     * @author alicus:Kwizera
      */
     public function save(UserCreateRequest $request)
     {
@@ -350,7 +350,7 @@ class UserController extends Controller
      *
      * @param UserCreateRequest $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:Kwizera
+     * @author alicus:Kwizera
      */
     public function saveAdmin(UserCreateRequest $request)
     {
@@ -446,7 +446,7 @@ class UserController extends Controller
      *
      * @param UserUpdateRequest $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function update(Request $request)
     {
@@ -502,7 +502,7 @@ class UserController extends Controller
      *
      * @param UserUpdateRequest $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function updateAdmin(Request $request)
     {
@@ -559,7 +559,7 @@ class UserController extends Controller
      *
      * @param UserUpdateRequest $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function updateProfile2(Request $request)
     {
@@ -614,7 +614,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function delete(Request $request)
     {
@@ -629,7 +629,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function deleteAdmin(Request $request)
     {
@@ -644,7 +644,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function status(Request $request)
     {
@@ -660,7 +660,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function statusAdmin(Request $request)
     {
@@ -676,7 +676,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:kwizera
+     * @author alicus:kwizera
      */
     public function deleteImage(Request $request)
     {
@@ -691,7 +691,7 @@ class UserController extends Controller
      *
      * @param Request $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:Kwizera
+     * @author alicus:Kwizera
      */
     public function editProfile(Request $request)
     {
@@ -713,7 +713,7 @@ class UserController extends Controller
      *
      * @param SportsUpdateRequest $request
      * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
-     * @author Techaffinity:Kwizera
+     * @author alicus:Kwizera
      */
 	public function updateProfile(Request $request) {
         $validator = \Validator::make($request->all(), [

@@ -239,7 +239,7 @@ class ClientController extends Controller
     {
         $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
         $data['title'] = "Manage Medication";
-        $data['add']= "Add Medical to ".$request->name;
+        $data['add']= "Medication Report";
         $data['data']=$comp;
         $data['name']=$request->name;
         $data['client']=$request->client;
