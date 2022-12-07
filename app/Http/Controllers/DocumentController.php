@@ -56,10 +56,10 @@ class DocumentController extends Controller
         $directory = public_path().'/documents/'.$str;
             // echo $directory;
             $file = new Document();
-            // if (!is_dir($directory)) {
-            //     mkdir($directory);
-            //     chmod($directory, 0777);
-            // }
+            if (!is_dir($directory)) {
+                mkdir($directory);
+                chmod($directory, 0777);
+            }
             $docs = Helper::IDGenerator(new Document, 'docs',3, $request->title);
             $imageName = $str.'/'.$docs.'.' . $request->file('doc_name')->getClientOriginalExtension();
             $request->file('doc_name')->move($directory, $imageName);
