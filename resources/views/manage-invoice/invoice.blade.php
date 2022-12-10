@@ -30,7 +30,7 @@
             <div class="card-body">
                 @foreach ($invoices as $key => $invoice)
                     <div class="col-12 container font-weight-bold row">
-                        <div class="col-md-6 fs-5">
+                        <div class="col-md-6 fs-6">
                             <div class="col-md-12 row">
                                 <div class="col-md-5 mb-3">
                                     Client Name:
@@ -56,18 +56,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 ">
+                        <div class="col-md-6 fs-6">
                             <div class="col-md-12 row">
-                                <div class="col-md-3 mb-3 fs-5">Company:</div>
-                                <div class="col-md-8 mb-3 fs-5">{{ $data->company_name }}</div>
+                                <div class="col-md-3 mb-3 ">Company:</div>
+                                <div class="col-md-8 mb-3 ">{{ $data->company_name }}</div>
                             </div>
                             <div class="col-md-12 row">
-                                <div class="col-md-3 mb-3 fs-5">Phone:</div>
-                                <div class="col-md-8 mb-3 fs-5">{{ $data->phone }}</div>
+                                <div class="col-md-3 mb-3 ">Phone:</div>
+                                <div class="col-md-8 mb-3 ">{{ $data->phone }}</div>
                             </div>
                             <div class="col-md-12 row">
-                                <div class="col-md-3 mb-3  fs-5">Email:</div>
-                                <div class="col-md-8 mb-3 fs-5">{{ $data->email }}</div>
+                                <div class="col-md-3 mb-3  ">Email:</div>
+                                <div class="col-md-8 mb-3 ">{{ $data->email }}</div>
                             </div>
                         </div>
                     </div>
