@@ -56,33 +56,52 @@
                             <br>
                             <div id="printData">
                                 <div class="col-12 container">
-                                    <div class="col-md-6">
-                                        <div class="col-md-12 row">
-                                            <div class="col-md-6">
-                                                Cleint Name:
+                                    <div class="col-md-12 row">
+
+                                        <div class="col-md-6 fs-5 font-weight-bold">
+                                            <div class="col-md-12 ">
+                                                <div class="col-md-12 row">
+                                                    <div class="col-md-5">
+                                                        Client Name:
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <b>{{ $client->client_name ?? '' }}</b>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6 mb-3">
-                                                <b>{{ $client->client_name ?? '' }}</b>
+                                            <div class="col-md-12">
+                                                <div class="col-md-12 row">
+                                                    <div class="col-md-5 mb-3">
+                                                        Date of Birth:
+                                                    </div>
+                                                    <div class="col-md-7 mb-3">
+                                                        <b>{{ $client->BOD }}</b>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-12 row">
+                                                    <div class="col-md-5 mb-3">
+                                                        Admitted Date:
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <b>{{ $client->created_at }}</b>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="col-md-12 row">
-                                            <div class="col-md-6 mb-3">
-                                                Date of Birth:
+                                        <div class="col-md-6 fs-5 font-weight-bold print">
+                                            <div class="col-md-12 row">
+                                                <div class="col-md-5 mb-3">Company:</div>
+                                                <div class="col-md-7 mb-3">{{ $data->company_name }}</div>
                                             </div>
-                                            <div class="col-md-6 mb-3">
-                                                <b>{{ $client->BOD }}</b>
+                                            <div class="col-md-12 row">
+                                                <div class="col-md-5 mb-3">Phone:</div>
+                                                <div class="col-md-7 mb-3">{{ $data->phone }}</div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="col-md-12 row">
-                                            <div class="col-md-6 mb-3">
-                                                Admitted Date:
-                                            </div>
-                                            <div class="col-md-6">
-                                                <b>{{ $client->created_at }}</b>
+                                            <div class="col-md-12 row">
+                                                <div class="col-md-5 mb-3">Email:</div>
+                                                <div class="col-md-7 mb-3">{{ $data->email }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -196,7 +215,7 @@
                     <div class="modal-header">
                         <h5 class="modal-title col-md-6" id="exampleModalLabel">
 
-                            <div class="col-12 container">
+                            <div class="col-12 fs-5 font-weight-bold container">
                                 <div class="col-md-12 row">
                                     <div class="col-md-6 mb-3">
                                         Cleint Name:
@@ -462,7 +481,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

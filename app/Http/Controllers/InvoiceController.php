@@ -15,17 +15,24 @@ class InvoiceController extends Controller
     public function index(Request $request)
     {
         $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
-        $data['title'] = "Manage Document";
-        $data['birth']= $request->birth;
-        $createDate = new \DateTime($request->date);
-        $strip = $createDate->format('Y-m-d');
-        $data['started']= $strip;
+        $data['title'] = "Manage Invoice";
+        // $data['birth']= $request->birth;
+        
+        
         $data['data']=$comp;
         $data['name']=$request->name;
-        $data['clientId']= $request->id;
-        $data['invoice']=Invoice::where('client_id',$request->id)->first();
+        // $data['clientId']= $request->id;
+        // $data['invoicess']=Invoice::where('client_id',$request->id)->orderBy('created_at','DESC')->get();
+        $invoice=Invoice::rightjoin('clients','clients.id','invoices.client_id')
+        ->select('clients.client_name','clients.id as clientId','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
+        ->where('clients.id',$request->id)->get();
+        $data['invoicess']= $invoice;
+        $data['clientId']=$request->id;
+        $createDate = new \DateTime($invoice[0]->created_at);
+        $strip = $createDate->format('Y-m-d');
+        $data['started']= $strip;
         $data['invoices']=Invoice::where('client_id',$request->id)->count();
-        return view('manage-clients.invoice',$data);
+        return view('manage-invoice.index',$data);
         //
     }
 
@@ -84,9 +91,12 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['data']=$comp;
+        $data['invoicess']=Invoice::join('clients','clients.id','invoices.client_id')->where('client_id',$request->id)->first();
+        return view('manage-invoice.edit',$data);
     }
 
     /**
@@ -95,9 +105,36 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function view($id){
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Invoice";
+        $data['data']=$comp;
+        $data['invoices']=Invoice::join('clients','clients.id','invoices.client_id')
+        ->select('clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
+        ->where('invoices.id',$id)->get();
+        
+        return view('manage-invoice.invoice',$data);
+    
+    }
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
-        //
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Invoice";
+        $data['data']=$comp;
+        $invoice=Invoice::join('clients','clients.id','invoices.client_id')
+        ->select('clients.client_name','clients.id as clientId','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
+        ->where('invoices.id',$id)->get();
+        $data['invoices']= $invoice;
+        $createDate = new \DateTime($invoice[0]->created_at);
+        $strip = $createDate->format('Y-m-d');
+        $data['started']= $strip;
+        return view('manage-invoice.edit-invoice',$data);
     }
 
     /**
@@ -126,12 +163,13 @@ class InvoiceController extends Controller
                 $data1 ['message'] =$validator->errors()->first();
                 return response()->json($data1); 
             }
-        $add=Invoice::where('id',$request->invoice_id)->update([
+        $add=Invoice::create([
+            'client_id'=> $request->client_id,
             'start_date'=> $request->start_date,
             'billing_date'=> $request->billing_date,
             'price_per_day'=> $request->price_per_day,
             'no_of_day'=> $request->no_of_day,
-            // 'staff_id'=>\Auth::user()->id,
+            'staff_id'=>\Auth::user()->id,
             'tot'=> $request->tot,
             'payment'=>$request->payment,
             'due_payment'=>$request->due_payment,
@@ -145,8 +183,16 @@ class InvoiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function all($id)
     {
-        //
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Invoice";
+        $data['data']=$comp;
+        $data['invoices']=Invoice::join('clients','clients.id','invoices.client_id')
+        ->select('clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
+        ->where('invoices.client_id',$id)->get();
+        $data['id']=$id;
+        
+        return view('manage-invoice.all',$data);
     }
 }

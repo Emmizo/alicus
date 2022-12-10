@@ -1262,12 +1262,9 @@ table.table-bordered th{
   gap: 0.5em;
   padding-left: 18px;
   }
-  /* html{
-	margin:0px;
-  } */
-  /* body{
-	margin:10mm 15mm 10mm 15mm;
-  } */
+  .print{
+	display:none;
+  }
   @page {
 	size:auto;
 	margin:0cm;
@@ -1278,12 +1275,19 @@ table.table-bordered th{
             .noprint {
                 display: none!important;
             }
+			#print-invoice{
+				page-break-after: always;
+			}
 			
-			
+			.print{
+				display:block;
+			  }
+			  footer.print {
+				position: fixed;
+				bottom: 0;
+			  }
 			  html{
 				margin:0px;
-				display:flex;
-				justify-content:center;
 				align-items:center;
 			  }
 			  body{
@@ -1304,6 +1308,7 @@ table.table-bordered th{
 			width: 100%!important;
 			border: 1px solid black!important;
 }
+
 		
 	  
 	  

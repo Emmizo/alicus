@@ -57,6 +57,23 @@
                             <div class="col-12 container d-print-none">
                                 <input class="btn btn-primary" type='button' id='print-data' value='Print'>
                             </div>
+                            <div class="col-12 container row">
+
+                                <div class="col-md-6 fs-5 font-weight-bold print">
+                                    <div class="col-md-12 row">
+                                        <div class="col-md-6 mb-3">Company:</div>
+                                        <div class="col-md-6 mb-3">{{ $data->company_name }}</div>
+                                    </div>
+                                    <div class="col-md-12 row">
+                                        <div class="col-md-6 mb-3">Phone:</div>
+                                        <div class="col-md-6 mb-3">{{ $data->phone }}</div>
+                                    </div>
+                                    <div class="col-md-12 row">
+                                        <div class="col-md-6 mb-3">Email:</div>
+                                        <div class="col-md-6 mb-3">{{ $data->email }}</div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
                                 <h4><u>List of client available in <b>{{ $data->company_name }}</b> company</u></h4>
                             </div>
@@ -144,7 +161,7 @@
                                                                                 class="fa fa-file fa-fw"></i>Manage Group
                                                                             Notes</a>
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('invoice', ['id' => $client->id, 'date' => $client->created_at, 'birth' => $client->BOD, 'name' => $client->client_name,]) }}"><i
+                                                                            href="{{ route('invoice', ['id' => $client->id]) }}"><i
                                                                                 class="fa fa-file fa-fw"></i>Generate
                                                                             Invoice</a>
                                                                     </div>
@@ -411,7 +428,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

@@ -17,7 +17,7 @@
             <input class="btn btn-primary" type='button' id='print-data' value='Print'>
         </div>
     </section>
-    <div class="col-md-12 mt-3 ">
+    <div class="col-md-12 fs-5 font-weight-bold mt-3 ">
         <div class="col-md-6">
             <div class="col-md-12 row">
                 <div class="col-md-6">

@@ -18,7 +18,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone')->where('users.id',\Auth::user()->id)->first();
         $data['title'] = "Manage Client";
         $data['add']= "Add Client";
         $data['data']=$comp;
@@ -263,7 +263,6 @@ class ClientController extends Controller
      public function add(Request $request){
         $validator = \Validator::make($request->all(), [
             'medical_id'=>'required',
-            
             ]);
             if ($validator->fails()) {
                 $data1 ['status'] = 401;

@@ -162,9 +162,12 @@ Route::group(['prefix' => '/manage-report','middleware'=> ['auth','nocache'],'na
 #Invoice
 
 Route::group(['prefix' => '/invoice','middleware'=> ['auth','nocache'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
-    Route::get('/invoice/{id}/{date}/{birth}/{name}/', 'InvoiceController@index')->name('invoice');
+    Route::get('/invoice/{id}', 'InvoiceController@index')->name('invoice');
+    Route::get('/all-invoice/{id}', 'InvoiceController@all')->name('all-invoice');
     Route::post('/create-invoice','InvoiceController@store')->name('add-invoice');
     Route::post('/update-invoice','InvoiceController@update')->name('update-invoice');
+    Route::get('/view-invoice/{id}', 'InvoiceController@view')->name('view-invoice');
+    Route::get('/edit-invoice/{id}', 'InvoiceController@edit')->name('edit-invoice');
     
 });
 

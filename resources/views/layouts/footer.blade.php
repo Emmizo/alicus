@@ -33,33 +33,21 @@
 <script src="{{ asset('jSignature-master/libs/jSignature.min.js') }}"></script>
 <script src="{{ asset('jSignature-master/libs/modernizr.js') }}"></script>
 
-{{-- <script src="https://willowsystems.github.io/jSignature/js/libs/jSignature.min.js"></script> --}}
-{{-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> --}}
+
 <link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
     rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js">
 </script>
-<script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
-
-
-
-<script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
 
 
 
 
+<footer class="main-footer print">
+    <strong>Staff {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }} on
+        {{ date('Y-m-d H:i:s') }}</strong>
+
+
+</footer>
 <footer class="main-footer d-print-none">
     <strong>{{ config('app.name') }} &copy; {{ date('Y') }} .</strong>
     All rights reserved.
