@@ -156,7 +156,7 @@ Route::group(['prefix' => '/manage-report','middleware'=> ['auth','nocache'],'na
     Route::any('/weekly-report-client', 'ReportController@clientWeekly')->name('weekly-client');
     Route::get('/weekly-report-client-ajax', 'ReportController@weeklyAjax')->name('weekly-client-ajax');
     Route::get('/monthly-report-client','ReportController@clientMonthly')->name('monthly-client');
-    Route::get('/weekly-report-client-ajax', 'ReportController@monthlyAjax')->name('monthly-client-ajax');
+    Route::get('/monthly-report-client-ajax', 'ReportController@monthlyAjax')->name('monthly-client-ajax');
 });
 
 #Invoice
