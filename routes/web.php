@@ -109,6 +109,7 @@ Route::group(['prefix' => '/manage-client','middleware'=> ['auth','nocache'],'na
     Route::post('/update-client', 'ClientController@update')->name('client-update');
     Route::post('/status-client', 'ClientController@status')->name('client-status');
     Route::post('/delete-client', 'ClientController@delete')->name('client-delete');
+    Route::get('/add-client','ClientController@addClient')->name('client-add');
 });
 #Manage Client 
 Route::group(['prefix' => '/manage-client','middleware'=> ['auth','nocache'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
@@ -168,7 +169,13 @@ Route::group(['prefix' => '/invoice','middleware'=> ['auth','nocache'],'namespac
     Route::post('/update-invoice','InvoiceController@update')->name('update-invoice');
     Route::get('/view-invoice/{id}', 'InvoiceController@view')->name('view-invoice');
     Route::get('/edit-invoice/{id}', 'InvoiceController@edit')->name('edit-invoice');
+    Route::get('/all-invoices', 'InvoiceController@all_invoices')->name('all-invoices');
     
+});
+
+#insurance routes
+Route::group(['prefix' => '/insurance','middleware'=> ['auth','nocache'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
+Route::post('save-insurance','InsuranceController@store')->name('save-insurance');
 });
 
 

@@ -22,7 +22,7 @@ class ClientController extends Controller
         $data['title'] = "Manage Client";
         $data['add']= "Add Client";
         $data['data']=$comp;
-        
+        $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
         $data['clients'] = Client::join('companies','clients.company_id','companies.id')->join('users','users.id','clients.created_by')->select('clients.*','users.first_name','users.last_name')->where('clients.company_id',$comp->comp_id)->get(); 
         return view('manage-clients.index',$data);
         //
@@ -33,9 +33,14 @@ class ClientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function addClient()
     {
-        //
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Client";
+        $data['add']= "Add Client";
+        $data['data']=$comp;
+        $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
+        return view('manage-clients.add',$data);
     }
 
     /**
@@ -102,6 +107,7 @@ class ClientController extends Controller
         'primary_care_provider'=>$request->primary_care_provider,
         'client_PIN'=>$request->client_PIN,
         'company_id'=>$request->comp_id,
+        'insurance_code' =>$request->insurance_code,
         'created_by'=>\Auth::user()->id,
         ]);
         $request->session()
@@ -203,6 +209,7 @@ class ClientController extends Controller
             'emergency_address'=>$request->emergency_address,
             'primary_care_provider'=>$request->primary_care_provider,
             'client_PIN'=>$request->client_PIN,
+            'insurance_code' =>$request->insurance_code,
             'created_by'=>\Auth::user()->id,
             ]);
             $request->session()

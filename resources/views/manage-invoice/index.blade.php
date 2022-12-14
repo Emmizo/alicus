@@ -151,8 +151,9 @@
                         <th>Price per Day</th>
                         <th>Paid</th>
                         <th>Total payment</th>
-                        <th>Admitted at</th>
+                        
                         <th>Due Payment</th>
+                        <th>Admitted at</th>
                         <th>Action</th>
                     </tr>
                 </thead>

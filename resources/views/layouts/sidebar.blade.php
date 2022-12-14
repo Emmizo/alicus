@@ -16,6 +16,12 @@
                             <span class="nav_logo-name">My Client</span> </a>
                     </li>
                 @endif
+                @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
+                    <li><a href="{{ route('all-invoices') }}" class="nav_logo"><i class="fa fa-file"
+                                aria-hidden="true"></i>
+                            <span class="nav_logo-name">Manage Invoice</span> </a>
+                    </li>
+                @endif
                 {{-- @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
                     <li><a href="{{ route('medication-list', ['id' => $data->company_id, 'name' => $data->company_name]) }}"
                             class="nav_logo"><i class="fa fa-users" aria-hidden="true"></i>

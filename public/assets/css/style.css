@@ -1308,6 +1308,12 @@ table.table-bordered th{
 			width: 100%!important;
 			border: 1px solid black!important;
 }
+			#insurance_codes{
+				display:none;
+				}
+			.insurance_codes{
+			display:block!important;
+				}
 
 		
 	  

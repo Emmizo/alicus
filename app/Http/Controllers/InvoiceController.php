@@ -192,7 +192,27 @@ class InvoiceController extends Controller
         ->select('clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
         ->where('invoices.client_id',$id)->get();
         $data['id']=$id;
-        
         return view('manage-invoice.all',$data);
+    }
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function all_invoices(){
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Invoice";
+        $data['data']=$comp;
+        $invoice=Invoice::join('clients','clients.id','invoices.client_id')
+        ->select('clients.id as clientId','clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.due_payment',\DB::raw("SUM('invoices.tot') as total"))
+        ->groupBy('clients.id','clients.client_name','clients.telephone','clients.BOD','clients.created_at','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.due_payment')
+        ->distinct('clients.id','clients.client_name')
+        ->where('clients.company_id',$comp->comp_id)
+        ->get();
+        $invoiceUnique= $invoice->unique('clientId');
+        $invoiceUnique->values()->all();
+        $data['invoices']=$invoiceUnique;
+        return view('manage-invoice.all-invoice',$data);
     }
 }
