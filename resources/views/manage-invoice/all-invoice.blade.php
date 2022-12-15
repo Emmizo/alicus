@@ -23,8 +23,31 @@
 
 
             <div class="card-body ">
+                <div class=" col-lg-12 col-md-4 col-sm-3">
+                    {{-- <div class="search">
+                        <i class="fa fa-search"></i>
+                        <input type="text" class="form-control" id="myInput2" placeholder="Search Insurance"
+                            name="insurance_id" value="{{ request('search') }}">
+                    </div> --}}
+                    <form action="{{ route('all-invoices') }}" method="GET">
+                        <div class="search col-md-12 row">
+                            <div class="col-md-6">
+                                <select class="form-control col-md-12" type="text" name="search" required>
+                                    <option>--Select insurance--</option>
+                                    @foreach ($insurances as $insurance)
+                                        <option value="{{ $insurance->id }}">{{ $insurance->insurance_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <button class="btn btn-primary" type="submit">Search</button>
+                            </div>
+                        </div>
 
-                <fieldset class="border p-2">
+                    </form>
+                </div>
+
+                <fieldset class="border p-2 mt-5">
                     <legend class="float-none w-auto">Invoice</legend>
                     <div id="print-invoice" class="mb-5">
                         <div class="col-12 container font-weight-bold row">
@@ -91,28 +114,30 @@
                                 </tr>
                                 <?php $sum = 0; ?>
                                 @foreach ($invoices as $key => $invoice)
-                                    <tr>
-                                        <td>{{ $invoice->client_name }}</td>
-                                        <td>{{ $invoice->start_date }}</td>
-                                        <td>{{ $invoice->billing_date }}</td>
-                                        <td>{{ $invoice->no_of_day }}</td>
-                                        <td>{{ $invoice->price_per_day }}</td>
-                                        <td>{{ $invoice->tot }}</td>
-                                        <?= $sum += $invoice->tot ?>
-                                    </tr>
-                                @endforeach
+                            <tbody id="myTable">
                                 <tr>
-                                    <td style="text-align:right;" colspan="5">Grand Total:</td>
-                                    <td>{{ $sum }}</td>
+                                    <td>{{ $invoice->client_name }}</td>
+                                    <td>{{ $invoice->start_date }}</td>
+                                    <td>{{ $invoice->billing_date }}</td>
+                                    <td>{{ $invoice->no_of_day }}</td>
+                                    <td>{{ $invoice->price_per_day }}</td>
+                                    <td>{{ $invoice->tot }}</td>
+                                    <?= $sum += $invoice->tot ?>
                                 </tr>
-                                <tr>
-                                    <td style="text-align:right;" colspan="5">Payment:</td>
-                                    <td>{{ $invoices[0]->due_payment ?? '' }}</td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align:right;" colspan="5">Due Balance:</td>
-                                    <td class="text-red">{{ $invoices[0]->due_payment ?? '' }}</td>
-                                </tr>
+                            </tbody>
+                            @endforeach
+                            <tr>
+                                <td style="text-align:right;" colspan="5">Grand Total:</td>
+                                <td>{{ $sum }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;" colspan="5">Payment:</td>
+                                <td>{{ $invoices[0]->due_payment ?? '' }}</td>
+                            </tr>
+                            <tr>
+                                <td style="text-align:right;" colspan="5">Due Balance:</td>
+                                <td class="text-red">{{ $invoices[0]->due_payment ?? '' }}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -154,5 +179,14 @@
                 printData();
             })
         })
+        $(document).ready(function() {
+            $("#myInput").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#myTable tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+
+        });
     </script>
 @endsection

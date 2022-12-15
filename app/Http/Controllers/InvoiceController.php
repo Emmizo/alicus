@@ -204,11 +204,12 @@ class InvoiceController extends Controller
         $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
         $data['title'] = "Manage Invoice";
         $data['data']=$comp;
+        $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
         $invoice=Invoice::join('clients','clients.id','invoices.client_id')
         ->select('clients.id as clientId','clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.due_payment',\DB::raw("SUM('invoices.tot') as total"))
         ->groupBy('clients.id','clients.client_name','clients.telephone','clients.BOD','clients.created_at','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.due_payment')
         ->distinct('clients.id','clients.client_name')
-        ->where('clients.company_id',$comp->comp_id)
+        ->where('clients.company_id',$comp->comp_id)->where('clients.insurance_ID', 'like', '%' . request('search') . '%')
         ->get();
         $invoiceUnique= $invoice->unique('clientId');
         $invoiceUnique->values()->all();

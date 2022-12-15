@@ -603,7 +603,7 @@
                     },
                     messages: {
                         insurance_name: {
-                            required: "Please enter size",
+                            required: "Please enter insurance",
                         },
 
                     },
@@ -687,10 +687,13 @@
             $(document).ready(function() {
                 $(document).on('change', '#insurance-id', function() {
                     var val = $(this).val();
-                    if (val != "Other" && val != null) {
+                    // alert(val);
+                    if (!val) {
+                        $('#insurance_codes').removeClass('insurance_codes');
+                        $('#insurance_codes').hide();
+                    } else {
                         $('#insurance_codes').attr('class', 'col-md-4 mb-3 insurance_codes');
                         $('#insurance_codes').show();
-                        // $('#insurance_code').remove();
                     }
                 })
             });
