@@ -151,32 +151,12 @@
                                                     <select name="race"
                                                         class="form-control text-box select2size select2 " id="race2">
                                                         <option value="">Please select</option>
-                                                        <option>American Indan or Alaska Native</option>
-                                                        <option>Asian</option>
-                                                        <option>Black or African-American</option>
-                                                        <option>Native Hawaiian or Other Pacific Islander</option>
-                                                        <option>White</option>
-                                                        <option>Asian-Asian Indian</option>
-                                                        <option>Asian-Chinese</option>
-                                                        <option>Asian-Fillipino</option>
-                                                        <option>Asian-Japanese</option>
-                                                        <option>Asian-Korean</option>
-                                                        <option>Asian-Vietnamese</option>
-                                                        <option>Asian-Vietnamese</option>
-                                                        <option>Asian-Other Asian</option>
-                                                        <option>Asian-Unknown</option>
-                                                        <option>Native Hawaiian or Other Pacific Islander - Chamorro
-                                                        </option>
-                                                        <option>Native Hawaiian or Other Pacific Islander - Guarmanian
-                                                        </option>
-                                                        <option>Native Hawaiian or Other Pacific Islander - Native Hawaiian
-                                                        </option>
-                                                        <option>Native Hawaiian or Other Pacific Islander - Samoan</option>
-                                                        <option>Native Hawaiian or Other Pacific Islander - Unknown</option>
-                                                        <option>Other</option>
-                                                        <option>Unknown</option>
-                                                        <option>Alaskan Native</option>
-                                                        <option>Multi-Racial</option>
+                                                        @foreach ($race as $r)
+                                                            <?php $selected = $r == $client->race ? 'selected' : ''; ?>
+                                                            <option value="{{ $r }}" <?= $selected ?>>
+                                                                {{ $r }}</option>
+                                                        @endforeach
+
 
                                                     </select>
                                                     <small class="text-danger">{{ $errors->first('race') }}</small>
@@ -194,21 +174,12 @@
                                                         class="form-control text-box select2size select2 "
                                                         id="ethnicity1">
                                                         <option value="">Please select</option>
-                                                        <option>Hispanic or Latino</option>
-                                                        <option>Ashkenazi Jewish</option>
-                                                        <option>Not Hispanic or Latino</option>
-                                                        <option>Hispanic or Latino - Central American</option>
-                                                        <option>Hispanic or Latino - Cuban</option>
-                                                        <option>Hispanic or Latino - Dominican</option>
-                                                        <option>Hispanic or Latino - Mexican</option>
-                                                        <option>Hispanic or Latino - Other Hispanic</option>
-                                                        <option>Hispanic or Latino - Puerto Rican</option>
-                                                        <option>Hispanic or Latino - South American</option>
-                                                        <option>Haitian</option>
-                                                        <option>Spanish/Latino</option>
-                                                        <option>Mexican</option>
-                                                        <option>Mexican American</option>
-                                                        <option>None of the Above</option>
+                                                        @foreach ($eth as $t)
+                                                            <?php $selected = $t == $client->ethnicity ? 'selected' : ''; ?>
+                                                            <option <?= $selected ?> value="{{ $t }}"
+                                                                <?= $selected ?>>
+                                                                {{ $t }}</option>
+                                                        @endforeach
                                                     </select>
                                                     <small class="text-danger">{{ $errors->first('ethnicity') }}</small>
                                                 </div>
@@ -224,9 +195,12 @@
                                                         class="form-control text-box select2size select2 "
                                                         id="gender_birth">
                                                         <option value="">Please select</option>
-                                                        <option value="Male">Male</option>
-                                                        <option value="Female">Female</option>
-                                                        <option value="Unknown">Unknown</option>
+                                                        @foreach ($genders as $gender)
+                                                            <?php $selected = $gender == $client->gender_birth ? 'selected' : ''; ?>
+                                                            <option value="{{ $gender }}" <?= $selected ?>>
+                                                                {{ $gender }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                     <small
                                                         class="text-danger">{{ $errors->first('gender_birth') }}</small>
@@ -242,9 +216,12 @@
                                                         class="form-control text-box select2size select2 "
                                                         id="martial_status">
                                                         <option value="">Please select</option>
-                                                        <option value="Married">Married</option>
-                                                        <option value="Divorced">Divorced</option>
-                                                        <option value="Single">Single</option>
+                                                        @foreach ($martials as $martial)
+                                                            <?php $selected = $martial == $client->martial_status ? 'selected' : ''; ?>
+                                                            <option value=" {{ $martial }}" <?= $selected ?>>
+                                                                {{ $martial }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                     {{-- <input type="text" class="form-control" id="martial_status1"
                                                         name="martial_status" value="{{ $client->martial_status }}"> --}}
@@ -270,12 +247,12 @@
                                                         class="form-control text-box select2size select2 "
                                                         id="preferred_language">
                                                         <option value="">Please select</option>
-                                                        <option>English</option>
-                                                        <option>Spanish</option>
-                                                        <option>French</option>
-                                                        <option>Swahili</option>
-                                                        <option>Protuguese</option>
-                                                        <option>Latin</option>
+                                                        @foreach ($languages as $lan)
+                                                            <?php $selected = $lan == $client->preferred_language ? 'selected' : ''; ?>
+                                                            <option <?= $selected ?> value="{{ $lan }}">
+                                                                {{ $lan }}
+                                                            </option>
+                                                        @endforeach
                                                     </select>
                                                     {{-- <input type="text" class="form-control" id="preffered_languages"
                                                         name="preferred_language"
@@ -294,8 +271,12 @@
                                                         class="form-control text-box select2size select2 "
                                                         id="employment1">
                                                         <option value="">Please select</option>
-                                                        <option>Employed</option>
-                                                        <option>Unemployed</option>
+                                                        @foreach ($emp as $em)
+                                                            <?php $selected = $em == $client->employment_status ? 'selected' : ''; ?>
+                                                            <option value="{{ $em }}" <?= $selected ?>>
+                                                                {{ $em }}
+                                                            </option>
+                                                        @endforeach
 
                                                     </select>
                                                     {{-- <input type="text" class="form-control" id="employment1"
@@ -375,6 +356,16 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
+                                            <div class="col-md-4 mb-3" id="insurance_codes">
+                                                <div class="form-group">
+                                                    <label for="category_name">Payor Code<span
+                                                            class="text-danger">*</span></label>
+                                                    <input type="text" class="form-control" id="insurance_code"
+                                                        name="insurance_code">
+                                                    <small
+                                                        class="text-danger">{{ $errors->first('insurance_code') }}</small>
+                                                </div>
+                                            </div>
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
                                                     <label for="category_name">Client
@@ -582,6 +573,11 @@
                         var name = $(this).attr('name');
                         form_data.append(name, $("#" + getID).val());
                     });
+                    $('#update-client select').each(function(i, e) {
+                        var getID = $(this).attr('id');
+                        var name = $(this).attr('name');
+                        form_data.append(name, $("#" + getID).val());
+                    });
 
                     $.ajaxSetup({
                         headers: {
@@ -602,7 +598,8 @@
                                 "<i class='fa fa-spin fa-spinner'></i> Submit");
                         },
                         success: function(result) {
-                            window.location.href = "{{ route('client-list') }}";
+                            if (result.status == 201)
+                                window.location.href = "{{ route('client-list') }}";
                             // $('#send_btn').html(" Submit");
                         },
                         error: function(error) {
@@ -621,5 +618,29 @@
         function resetForm() {
             document.getElementById("add-user").reset();
         }
+        $(document).ready(function() {
+            $(document).on('change', '#insurance-id', function() {
+                var val = $(this).val();
+                // alert(val);
+                if (!val) {
+                    $('#insurance_codes').removeClass('insurance_codes');
+                    $('#insurance_codes').hide();
+                } else {
+                    $('#insurance_codes').attr('class', 'col-md-4 mb-3 insurance_codes');
+                    $('#insurance_codes').show();
+                }
+            })
+        });
+        $(document).ready(function() {
+            var val = $('#insurance-id').val();
+
+            if (!val) {
+                $('#insurance_codes').removeClass('insurance_codes');
+                $('#insurance_codes').hide();
+            } else {
+                $('#insurance_codes').attr('class', 'col-md-4 mb-3 insurance_codes');
+                $('#insurance_codes').show();
+            }
+        });
     </script>
 @endsection

@@ -151,6 +151,72 @@ class ClientController extends Controller
         $data['data']=$comp;
         $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
         $data['clients'] = Client::join('companies','clients.company_id','companies.id')->select('clients.*')->where('clients.id',$id)->get(); 
+        $data['race']=[
+            'American Indan or Alaska Native',
+        'Asian',
+        'Black or African-American',
+        'Native Hawaiian or Other Pacific Islander',
+        'White',
+        'Asian-Asian Indian',
+        'Asian-Chinese',
+        'Asian-Fillipino',
+        'Asian-Japanese',
+        'Asian-Korean',
+        'Asian-Vietnamese',
+        'Asian-Vietnamese',
+        'Asian-Other Asian',
+        'Asian-Unknown',
+        'Native Hawaiian or Other Pacific Islander - Chamorro',
+        
+        'Native Hawaiian or Other Pacific Islander - Guarmanian',
+        
+        'Native Hawaiian or Other Pacific Islander - Native Hawaiian',
+        
+        'Native Hawaiian or Other Pacific Islander - Samoan',
+        'Native Hawaiian or Other Pacific Islander - Unknown',
+        'Other',
+        'Unknown',
+        'Alaskan Native',
+        'Multi-Racial'];
+
+        $data['eth']=[
+            'Hispanic or Latino',
+            'Ashkenazi Jewish',
+            'Not Hispanic or Latino',
+            'Hispanic or Latino - Central American',
+            'Hispanic or Latino - Cuban',
+            'Hispanic or Latino - Dominican',
+            'Hispanic or Latino - Mexican',
+            'Hispanic or Latino - Other Hispanic',
+            'Hispanic or Latino - Puerto Rican',
+            'Hispanic or Latino - South American',
+            'Haitian',
+            'Spanish/Latino',
+            'Mexican',
+            'Mexican American',
+            'None of the Above',
+        ];
+        $data['genders']=[
+            'Male',
+            'Female',
+            'Unknown'
+        ];
+        $data['martials']=[
+            'Married',
+            'Divorced',
+            'Single',
+        ];
+        $data['languages']=[
+            'English',
+            'Spanish',
+            'French',
+            'Swahili',
+            'Latin',
+        ];
+        $data['emp']=[
+            'Employed',
+            'Unemployed'
+        ];
         return view('manage-clients.edit', $data);
         //
     }
