@@ -394,5 +394,10 @@ class ClientController extends Controller
         return redirect(route('client-list'));
 
     }
-
+ public function undo($id){
+    $currentDateTime = Carbon::now();
+    $newDateTime = Carbon::now()->addDay();
+    $client = Client::where('id',$id)->update(['discharged'=>0,'created_at'=>$newDateTime]);
+    return redirect(route('client-list'));
+ }
 }

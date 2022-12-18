@@ -172,8 +172,8 @@
                                                                                 class="fa fa-file fa-fw"></i>Generate
                                                                             Invoice</a>
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('invoice', ['id' => $client->id]) }}"><i
-                                                                                class="fa fa-close fa-fw"></i>Discharge</a>
+                                                                            href="{{ route('redischarging', ['id' => $client->id]) }}"><i
+                                                                                class="fa fa-undo fa-fw"></i>Redischarge</a>
                                                                     </div>
 
                                                                 </div>
@@ -221,7 +221,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

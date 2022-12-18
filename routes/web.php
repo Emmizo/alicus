@@ -211,5 +211,7 @@ Route::group(['prefix' => '/discharged','middleware'=> ['auth','nocache'],'names
     Route::get('/dis-view-client/{id}', 'ClientController@showDis')->name('dis-client-view');
     Route::get('/dis-view-invoice/{id}', 'InvoiceController@viewDis')->name('dis-view-invoice');
     Route::get('/dis-all-invoice/{id}', 'InvoiceController@allDis')->name('dis-all-invoice');
+    Route::get('redischarging/{id}', 'ClientController@undo')->name('redischarging');
+    
 });
 
