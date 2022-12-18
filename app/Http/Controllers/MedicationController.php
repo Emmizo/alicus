@@ -20,10 +20,25 @@ class MedicationController extends Controller
         $data['data']=$comp;
         $data['name']=$request->name;
         $data['client_id']= $request->client_id;
-        $data['medications'] = Medication::join('clients','clients.id','medications.client_id')->select('clients.client_name','medications.*')->where('medications.client_id',$request->client_id)->get();
+        $data['medications'] = Medication::join('clients','clients.id','medications.client_id')->select('clients.client_name','medications.*')->where('medications.client_id',$request->client_id)->where('medications.discharged',0)->get();
         return view('manage-clients.apply-medical',$data);
     }
-
+/**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexDis(Request $request)
+    {
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Medication";
+        $data['add']= "Add Medical to ".$request->name;
+        $data['data']=$comp;
+        $data['name']=$request->name;
+        $data['client_id']= $request->client_id;
+        $data['medications'] = Medication::join('clients','clients.id','medications.client_id')->select('clients.client_name','medications.*')->where('medications.client_id',$request->client_id)->where('medications.discharged',0)->get();
+        return view('manage-archive.apply-medical',$data);
+    }
     /**
      * Show the form for creating a new resource.
      *

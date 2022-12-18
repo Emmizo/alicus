@@ -20,7 +20,7 @@
                 <div class="login-panal row">
                     <div class="col-md-6 col-sm-6 col-xs-12 p-0">
                         <div class="login-img">
-                            <img src="{{ asset('assets/images/admin-logo.png') }}" class="logo-login" alt="logo">
+                            {{-- <img src="{{ asset('assets/images/admin-logo.png') }}" class="logo-login" alt="logo"> --}}
                         </div>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">

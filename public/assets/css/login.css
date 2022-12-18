@@ -15,7 +15,7 @@
 }
 .login-img {
     background: url(../images/login.png) no-repeat;
-    background-size: cover;
+    background-size:cover;
     height: 100%;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;

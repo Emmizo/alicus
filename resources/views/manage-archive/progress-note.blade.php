@@ -37,15 +37,15 @@
                                     <div class="search">
                                         <i class="fa fa-search"></i>
                                         <input type="text" class="form-control" id="myInput"
-                                            placeholder="Search Group note">
+                                            placeholder="Search Progress Note">
                                     </div>
                                 </div>
                                 <div class="row  col-8 justify-content-end">
-                                    <div class='col-lg-3 col-md-4 col-sm-3'>
+                                    {{-- <div class='col-lg-3 col-md-4 col-sm-3'>
                                         <a href="#" class="btn btn-success" data-toggle="modal"
                                             data-target="#add-client">
                                             <i class="fa fa-plus-square"></i>&nbsp;{{ $add }}</a>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-3 col-md-3 col-sm-3">
                                         <input class="btn btn-primary" type='button' id='print-data' value='Print'>
                                     </div>
@@ -117,12 +117,9 @@
                                                                 <th class="w-10px pe-2">
                                                                     No
                                                                 </th>
-                                                                <th class="min-w-125px hidde-responsive-j6">Topic
-                                                                </th>
-                                                                <th>Group note</th>
-                                                                <th>Mood</th>
-                                                                {{-- <th>Email</th> --}}
-                                                                <th>Effect</th>
+
+                                                                <th>Progress Note</th>
+
                                                                 <th>Level Of Participation</th>
                                                                 {{-- <th>SSN</th> --}}
                                                                 <th>Admitted by</th>
@@ -136,15 +133,9 @@
                                                             <tbody id="myTable">
                                                                 <tr>
                                                                     <td>{{ $key + 1 }}</td>
-                                                                    <td>
-                                                                        {{ $client->topic }}
-                                                                    </td>
-                                                                    <td>{{ $client->group_note }}</td>
-                                                                    <td>{{ preg_replace('/[^A-Za-z0-9\-\(,) ]/', ' ', $client->mood) }}
-                                                                    </td>
-                                                                    {{-- <td>{{ $client->email }}</td> --}}
-                                                                    <td>{{ preg_replace('/[^A-Za-z0-9\-\(,) ]/', ' ', $client->effect) }}
-                                                                    </td>
+
+                                                                    <td>{{ $client->progress_note }}</td>
+
                                                                     <td>{{ preg_replace('/[^A-Za-z0-9\-\(,) ]/', ' ', $client->level_participation) }}
                                                                     </td>
                                                                     {{-- <td>{{ $client->SSN }}</td> --}}
@@ -165,7 +156,7 @@
                                                                             <div class="dropdown-menu"
                                                                                 aria-labelledby="dropdownMenuButton">
                                                                                 <a class="dropdown-item"
-                                                                                    href="{{ route('view-group-note-list', ['id' => $client->id, 'name' => $client->client_name, 'birth' => $client->BOD, 'created' => $client->created_at]) }}"><i
+                                                                                    href="{{ route('view-progress-note-list', ['id' => $client->id, 'name' => $client->client_name, 'birth' => $client->BOD, 'created' => $client->created_at]) }}"><i
                                                                                         class="fa fa-eye fa-fw"></i>
                                                                                     View Notes</a>
 
@@ -190,7 +181,7 @@
                     @else
                         <div class="d-flex justify-content-center">
                             <b>
-                                <h3>No group note found</h3>
+                                <h3>No Progress Notes found</h3>
                             </b>
                         </div>
     @endif
@@ -248,164 +239,22 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="modal-title" id="exampleModalLabel">GROUP SESSION NOTES</h5>
+                        <h5 class="modal-title text-uppercase" id="exampleModalLabel">Progress Note</h5>
                         <hr />
-                        <div class="form-row">
-                            <div class="col-md-8 mb-3">
-                                <div class="form-group">
-                                    <label for="category_name">Topic<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="topic" name="topic">
-                                    <small class="text-danger">{{ $errors->first('topic') }}</small>
-                                </div>
-                            </div>
 
-                        </div>
                         <div class="form-row">
                             <div class="col-md-8 mb-3">
                                 <div class="form-group">
-                                    <label for="category_name">Group note<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="group_note" name="group_note" rows="6"></textarea>
-                                    <small class="text-danger">{{ $errors->first('group_note') }}</small>
+                                    <label for="category_name">Progress Note<span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="group_note" name="progress_note" rows="6"></textarea>
+                                    <small class="text-danger">{{ $errors->first('progress') }}</small>
                                 </div>
                             </div>
 
                         </div>
                         <input type="hidden" id="client_id" name="client_id" value="{{ $clientID }}">
-                        {{-- Demograph --}}
-                        <h5 class="modal-title" id="exampleModalLabel">MOOD</h5>
-                        <hr />
-                        <div class="form-row">
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="moods" name="mood[]" value="Appropriate">
-                                <label for="vehicle1"> Propriate</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Conflicted">
-                                <label for="vehicle2"> Conflicted</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Annoyed">
-                                <label for="vehicle3"> Annoyed</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Anxious">
-                                <label for="vehicle1"> Anxious</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Restless">
-                                <label for="vehicle2"> Restless</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Energetic">
-                                <label for="vehicle3"> Energetic</label><br><br>
 
 
-                            </div>
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="moods" name="mood[]" value="Inappropriate">
-                                <label for="vehicle1"> Inappropriate</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Fearful">
-                                <label for="vehicle2"> Fearful</label><br>
-                                <input type="checkbox" id="vehicle3" name="mood[]" value="Depressed">
-                                <label for="vehicle3"> Depressed</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Envious">
-                                <label for="vehicle1"> Envious</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Hopeful">
-                                <label for="vehicle2"> Hopeful</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Excited">
-                                <label for="vehicle3"> Excited</label><br><br>
-
-
-                            </div>
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="moods" name="mood[]" value="Neutral">
-                                <label for="vehicle1"> Neutral</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Hopeless">
-                                <label for="vehicle2"> Hopeless</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Guilty">
-                                <label for="vehicle3"> Guilty</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Bored">
-                                <label for="vehicle1"> Bored</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Optimistic">
-                                <label for="vehicle2"> Optimistic</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Uninterested">
-                                <label for="vehicle3"> Uninterested</label><br><br>
-
-
-                            </div>
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="moods" name="mood[]" value="Cheerful">
-                                <label for="vehicle2"> Cheeful</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Helpless">
-                                <label for="vehicle2"> Helpless</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Lonely">
-                                <label for="vehicle3"> Lonely</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Regretful">
-                                <label for="vehicle1"> Regretful</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Relaxed">
-                                <label for="vehicle2"> Relaxed</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Interested">
-                                <label for="vehicle3"> Interested</label><br><br>
-
-
-                            </div>
-
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="mood" name="mood[]" value="Angry">
-                                <label for="vehicle2"> Angry</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Jealous">
-                                <label for="vehicle2"> Jealous</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Panicky">
-                                <label for="vehicle3"> Panicky</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Tensed">
-                                <label for="vehicle1"> Tensed</label><br>
-                                <input type="checkbox" id="moods" name="mood[]" value="Happy">
-                                <label for="vehicle2"> Happy</label><br>
-
-
-
-                            </div>
-
-                        </div>
-                        <h5 class="modal-title" id="exampleModalLabel">Effect</h5>
-                        <hr />
-                        <div class="form-row">
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="effects" name="effect[]" value="Motivated">
-                                <label for="vehicle1"> Motivated</label><br>
-                                <input type="checkbox" id="effect" name="effect[]" value="Restricted">
-                                <label for="vehicle2"> Restricted</label><br>
-
-
-
-                            </div>
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="effect" name="effect[]" value="Angry">
-                                <label for="vehicle1"> Angry</label><br>
-                                <input type="checkbox" id="effect" name="effect[]" value="Inappropriate">
-                                <label for="vehicle2"> Inappropriate</label><br>
-
-
-
-                            </div>
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="effect" name="effect[]" value="Anxious">
-                                <label for="vehicle1"> Anxious</label><br>
-                                <input type="checkbox" id="effect" name="effect[]" value="Sad">
-                                <label for="vehicle2"> Sad</label><br>
-
-                            </div>
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="effect" name="effect[]" value="Appropriate">
-                                <label for="vehicle2"> Appropriate</label><br>
-                                <input type="checkbox" id="vehicle2" name="effect[]" value="Happy">
-                                <label for="vehicle2"> Happy</label><br>
-
-
-
-                            </div>
-                            <div class="col-md- mb-3">
-                                <input type="checkbox" id="effect" name="effect[]" value="Fearful">
-                                <label for="vehicle2"> Fearful</label><br>
-                                <input type="checkbox" id="vehicle2" name="effect[]" value="Motivated">
-                                <label for="vehicle2"> Motivated</label><br>
-
-
-
-
-                            </div>
-
-                        </div>
                         <h5 class="modal-title" id="exampleModalLabel">Level of participation</h5>
                         <hr />
                         <div class="form-row">
@@ -446,17 +295,7 @@
 
 
                         </div>
-                        <hr />
-                        <div class="form-row">
-                            <div class="col-md-8 mb-3">
-                                <div class="form-group">
-                                    <label for="category_name">Comment if any<span class="text-danger"></span></label>
-                                    <textarea class="form-control" id="comments" name="comments" rows="6"></textarea>
 
-                                </div>
-                            </div>
-
-                        </div>
 
                     </div>
                     <div class="modal-footer">
@@ -481,7 +320,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -618,20 +457,16 @@
         $(document).ready(function() {
             $('#adding-group').validate({
                 rules: {
-                    topic: {
-                        required: true,
-                    },
-                    group_notes: {
+
+                    progress_note: {
                         required: true,
                     },
 
 
                 },
                 messages: {
-                    topic: {
-                        required: "Please topic required",
-                    },
-                    group_notes: {
+
+                    progress_note: {
                         required: "Please Group note required",
                     },
 
@@ -661,38 +496,19 @@
 
                     var client = $('#client_id').val();
                     form_data.append('client_id', client);
-                    var topic = $('#topic').val();
-                    form_data.append('topic', topic);
-                    var group = $('#group_note').val();
-                    form_data.append('group_note', group);
-                    // $("#send_btn").click(function() {
-                    var selectedLanguage3 = new Array();
-                    $('input[name="mood[]"]:checked').each(function() {
-                        var mood = $(this).val();
-                        form_data.append('mood[]', mood);
-                        console.log(mood)
 
-                    });
-                    // console.log("Number of  Languages: " + mood);
-                    // });
+                    var group = $('#group_note').val();
+                    form_data.append('progress_note', group);
                     // $("#send_btn").click(function() {
-                    var selected = new Array();
-                    $('input[name="effect[]"]:checked').each(function() {
-                        var effect = $(this).val();
-                        form_data.append('effect[]', effect)
-                    });
-                    // console.log(" selected Languages: " + effect);
-                    // });
+
+
                     // $("#send_btn").click(function() {
                     var selectedLanguage1 = new Array();
                     $('input[name="level_participation[]"]:checked').each(function() {
                         var level = $(this).val();
                         form_data.append('level_participation[]', level);
                     });
-                    // console.log("Number : " + level);
-                    // });
-                    var comment = $("#comments").val();
-                    form_data.append("comments", comment);
+
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -700,7 +516,7 @@
                     });
 
                     $.ajax({
-                        url: "{{ route('save-group-note') }}",
+                        url: "{{ route('save-progress-note') }}",
                         type: "POST",
                         dataType: "json",
                         data: form_data,
@@ -713,7 +529,7 @@
                         },
                         success: function(result) {
                             window.location.href =
-                                '{{ route('group-note-list', ['id' => $data->comp_id, 'client' => $clientID, 'name' => $client->client_name]) }}';
+                                '{{ route('progress', ['id' => $data->comp_id, 'client' => $clientID, 'name' => $client->client_name]) }}';
                             // $('#send_btn').html(" Submit");
                         },
                         error: function(error) {

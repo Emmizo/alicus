@@ -7,6 +7,12 @@ use App\Models\Client;
 use App\Models\User;
 use App\Models\Medication;
 use App\Models\Echat;
+use App\Models\Individiual;
+use App\Models\GroupNote;
+use App\Models\Progress;
+use App\Models\Invoice;
+use App\Models\Document;
+use Carbon\Carbon;
 
 
 class ClientController extends Controller
@@ -23,7 +29,9 @@ class ClientController extends Controller
         $data['add']= "Add Client";
         $data['data']=$comp;
         $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
-        $data['clients'] = Client::join('companies','clients.company_id','companies.id')->join('users','users.id','clients.created_by')->select('clients.*','users.first_name','users.last_name')->where('clients.company_id',$comp->comp_id)->get(); 
+        $data['clients'] = Client::join('companies','clients.company_id','companies.id')->join('users','users.id','clients.created_by')->select('clients.*','users.first_name','users.last_name')->where('clients.company_id',$comp->comp_id)
+        ->where('clients.discharged',0)
+        ->get(); 
         return view('manage-clients.index',$data);
         //
     }
@@ -54,25 +62,15 @@ class ClientController extends Controller
         $validator = \Validator::make($request->all(), [
         'client_name'=>'required',
         'BOD'=>'required',
-        'SSN'=>'required',
         'insurance_ID'=>'required',
         'country'=>'required',
-        'address'=>'required',
-        'telephone'=>'required',
-        'email'=>'required',
         'race'=>'required',
         'house_hold'=>'required',
         'ethnicity'=>'required',
         'gender_birth'=>'required',
         'martial_status'=>'required',
         'preferred_language'=>'required',
-        'employment_status'=>'required',
-        'emergency_name'=>'required',
-        'emergency_phone'=>'required',
-        'emergency_name'=>'required',
-        'relationship'=>'required',
-        'emergency_address'=>'required',
-        'primary_care_provider'=>'required',
+        
         'client_PIN'=>'required',
         'comp_id'=>'required',
         ]);
@@ -82,7 +80,8 @@ class ClientController extends Controller
             $data1 ['message'] =$validator->errors()->first();
             return response()->json($data1); 
         }
-
+        $currentDateTime = Carbon::now();
+        $newDateTime = Carbon::now()->addDay();
         $client= Client::create([
         'client_name'=>$request->client_name,
         'BOD'=>$request->BOD,
@@ -109,6 +108,7 @@ class ClientController extends Controller
         'company_id'=>$request->comp_id,
         'insurance_code' =>$request->insurance_code,
         'created_by'=>\Auth::user()->id,
+        'created_at'=>$newDateTime,
         ]);
         $request->session()
         ->flash('success', "New patient added");
@@ -129,6 +129,13 @@ class ClientController extends Controller
         $data['clients'] = Client::join('companies','clients.company_id','companies.id')->select('clients.*')->where('clients.id',$id)->get(); 
         return view('manage-clients.view', $data);
     }
+    public function showDis($id)
+    {
+        $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        $data['title']="More Information";
+        $data['clients'] = Client::join('companies','clients.company_id','companies.id')->select('clients.*')->where('clients.id',$id)->get(); 
+        return view('manage-archive.view-client', $data);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -138,9 +145,11 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
-        $data['title']="Edit Patient";
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        $data['title']="Edit Facesheet";
         $data['clientID']=$id;
+        $data['data']=$comp;
+        $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
         $data['clients'] = Client::join('companies','clients.company_id','companies.id')->select('clients.*')->where('clients.id',$id)->get(); 
         return view('manage-clients.edit', $data);
         //
@@ -158,12 +167,12 @@ class ClientController extends Controller
         $validator = \Validator::make($request->all(), [
             'client_name'=>'required',
             'BOD'=>'required',
-            'SSN'=>'required',
-            'insurance_ID'=>'required',
+            // 'SSN'=>'required',
+            // 'insurance_ID'=>'required',
             'country'=>'required',
-            'address'=>'required',
-            'telephone'=>'required',
-            'email'=>'required',
+            // 'address'=>'required',
+            // 'telephone'=>'required',
+            // 'email'=>'required',
             'race'=>'required',
             'house_hold'=>'required',
             'ethnicity'=>'required',
@@ -171,12 +180,12 @@ class ClientController extends Controller
             'martial_status'=>'required',
             'preferred_language'=>'required',
             'employment_status'=>'required',
-            'emergency_name'=>'required',
-            'emergency_phone'=>'required',
-            'emergency_name'=>'required',
-            'relationship'=>'required',
-            'emergency_address'=>'required',
-            'primary_care_provider'=>'required',
+            // 'emergency_name'=>'required',
+            // 'emergency_phone'=>'required',
+            // 'emergency_name'=>'required',
+            // 'relationship'=>'required',
+            // 'emergency_address'=>'required',
+            // 'primary_care_provider'=>'required',
             'client_PIN'=>'required',
             ]);
             if ($validator->fails()) {
@@ -254,10 +263,27 @@ class ClientController extends Controller
         $data['echats']=Echat::join('medications','medications.id','echat.medical_applied_id')
         ->join('clients','medications.client_id','clients.id')
         ->select('medications.medication_name','medications.dose_units','medications.dose_quantity','medications.frequency','echat.*')
-        ->where('medications.client_id',$request->client)->get();
+        ->where('medications.client_id',$request->client)->where('medications.discharged',0)->get();
         $data['medications'] = Medication::join('clients','clients.id','medications.client_id')
-        ->select('medications.*')->where('medications.client_id',$request->client)->get();
+        ->select('medications.*')->where('medications.client_id',$request->client)->where('medications.discharged',0)->get();
         return view('manage-clients.echat',$data);
+    }
+    public function applyViewDis(Request $request)
+    {
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Medication";
+        $data['add']= "Medication Report";
+        $data['data']=$comp;
+        $data['name']=$request->name;
+        $data['client']=$request->client;
+        $data['company_id']= $request->id;
+        $data['echats']=Echat::join('medications','medications.id','echat.medical_applied_id')
+        ->join('clients','medications.client_id','clients.id')
+        ->select('medications.medication_name','medications.dose_units','medications.dose_quantity','medications.frequency','echat.*')
+        ->where('medications.client_id',$request->client)->where('medications.discharged',1)->get();
+        $data['medications'] = Medication::join('clients','clients.id','medications.client_id')
+        ->select('medications.*')->where('medications.client_id',$request->client)->where('medications.discharged',1)->get();
+        return view('manage-archive.echat',$data);
     }
 
     /**
@@ -316,7 +342,7 @@ class ClientController extends Controller
                 $add->medical_applied_id= $med;
                 $add->client_pin =$request->client_pin;
                 $add->staff_id=\Auth::user()->id;
-                $add->staff_signature=$request->staff_signature;
+                $add->staff_signature=\Auth::user()->id;
                 $add->qty=$request->qty[$key];
                 $add->action = $request->action[$key];
 
@@ -332,5 +358,41 @@ class ClientController extends Controller
             return redirect(route('client-list'));
 
     }
-    
+    /**
+     * dicharge the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function Discharged(Request $request){
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Client";
+        $data['add']= "Add Client";
+        $data['data']=$comp;
+        $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
+        $data['clients'] = Client::join('companies','clients.company_id','companies.id')->join('users','users.id','clients.created_by')->select('clients.*','users.first_name','users.last_name')->where('clients.company_id',$comp->comp_id)
+        ->where('clients.discharged',1)
+        ->get(); 
+        return view('manage-archive.index',$data);
+    }
+/**
+     * dicsharging the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function discharging($id) {
+        $currentDateTime = Carbon::now();
+        $newDateTime = Carbon::now()->addDay();
+        $client = Client::where('id',$id)->update(['discharged'=>1,'discharged_at'=>$newDateTime]);
+        $doc = Document::where('client_id',$id)->update(['discharged'=>1]);
+        $group= GroupNote::where('client_id',$id)->update(['discharged'=>1]);
+        $individual = Individiual::where('client_id',$id)->update(['discharged'=>1]);
+        $progress = Progress::where('client_id',$id)->update(['discharged'=>1]);
+        $invoice=Invoice::where('client_id',$id)->update(['discharged'=>1]);
+        $echat=Medication::where('client_id',$id)->update(['discharged'=>1]);
+        return redirect(route('client-list'));
+
+    }
+
 }

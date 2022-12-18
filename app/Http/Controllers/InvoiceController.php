@@ -35,6 +35,26 @@ class InvoiceController extends Controller
         return view('manage-invoice.index',$data);
         //
     }
+    public function indexDis(Request $request)
+    {
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Invoice";
+        
+        $data['data']=$comp;
+        $data['name']=$request->name;
+        $invoice=Invoice::rightjoin('clients','clients.id','invoices.client_id')
+        ->select('clients.client_name','clients.id as clientId','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
+        ->where('clients.id',$request->id)->get();
+        $data['invoicess']= $invoice;
+        // return $invoice;
+        $data['clientId']=$request->id;
+        $createDate = new \DateTime($invoice[0]->created_at);
+        $strip = $createDate->format('Y-m-d');
+        $data['started']= $strip;
+        $data['invoices']=Invoice::where('client_id',$request->id)->count();
+        return view('manage-archive.index-invoice',$data);
+        //
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -111,9 +131,20 @@ class InvoiceController extends Controller
         $data['data']=$comp;
         $data['invoices']=Invoice::join('clients','clients.id','invoices.client_id')
         ->select('clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
-        ->where('invoices.id',$id)->get();
+        ->where('invoices.id',$id)->where('invoices.discharged',0)->get();
         
         return view('manage-invoice.invoice',$data);
+    
+    }
+    public function viewDis($id){
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Invoice";
+        $data['data']=$comp;
+        $data['invoices']=Invoice::join('clients','clients.id','invoices.client_id')
+        ->select('clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
+        ->where('invoices.id',$id)->where('invoices.discharged',1)->get();
+        
+        return view('manage-archive.invoice',$data);
     
     }
     /**
@@ -194,22 +225,43 @@ class InvoiceController extends Controller
         $data['id']=$id;
         return view('manage-invoice.all',$data);
     }
+    public function allDis($id)
+    {
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Invoice";
+        $data['data']=$comp;
+        $data['invoices']=Invoice::join('clients','clients.id','invoices.client_id')
+        ->select('clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
+        ->where('invoices.client_id',$id)->get();
+        $data['id']=$id;
+        return view('manage-archive.all-invoice',$data);
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function all_invoices(){
+    public function all_invoices(Request $request){
         $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
         $data['title'] = "Manage Invoice";
         $data['data']=$comp;
-        $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
+        $from=$request->from;
+        $to=$request->to;
+        $data['from'] = $from;
+        $data['to'] = $to;
+        $data['insurancess'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
+        $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->where('id',$request->search)->get();
+        $data['paid']=Invoice::join('clients','clients.id','invoices.client_id')->where('clients.company_id',$comp->comp_id)->where('clients.insurance_ID', 'like', '%' . request('search') . '%')->sum('invoices.payment');
         $invoice=Invoice::join('clients','clients.id','invoices.client_id')
-        ->select('clients.id as clientId','clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.due_payment',\DB::raw("SUM('invoices.tot') as total"))
-        ->groupBy('clients.id','clients.client_name','clients.telephone','clients.BOD','clients.created_at','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.due_payment')
-        ->distinct('clients.id','clients.client_name')
+        ->select('clients.id as clientId','clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.payment','invoices.due_payment',\DB::raw("SUM(invoices.payment) as total_paid"))
+        
+        ->groupBy('clients.id','clients.client_name','clients.telephone','clients.BOD','clients.created_at','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.payment','invoices.due_payment')
         ->where('clients.company_id',$comp->comp_id)->where('clients.insurance_ID', 'like', '%' . request('search') . '%')
+        ->when(isset($to), function($q) use($from, $to){
+            $q->whereBetween('invoices.created_at', [$from, $to]);
+        })
+        // ->whereBetween('invoices.created_at', 'like', '%' . [$request->from, $request->to])
         ->get();
         $invoiceUnique= $invoice->unique('clientId');
         $invoiceUnique->values()->all();

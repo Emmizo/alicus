@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mt-5">
+            <div class="row mb-2">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
@@ -37,7 +37,7 @@
                                     <div class="search">
                                         <i class="fa fa-search"></i>
                                         <input type="text" class="form-control" id="myInput"
-                                            placeholder="Search Document">
+                                            placeholder="Search Medication">
                                     </div>
                                 </div>
                                 <div class="row  col-8 justify-content-end">
@@ -51,58 +51,75 @@
                             </div>
                             <br>
                             <br>
-
+                            <div class="col-12 container">
+                                Medication
+                            </div>
                             <section class="mt-5">
                                 <div class="container2">
                                     <div id="myDIV">
 
-                                        @if ($documents->count() > 0)
-                                            <table class="table table-bordered certificate-table">
+                                        @if ($medications->count() > 0)
+                                            <table class="table table-bordered certificate-table tab-bc">
                                                 <thead>
 
                                                     <tr>
                                                         <th class="w-10px pe-2">
                                                             No
                                                         </th>
-                                                        <th class="min-w-125px hidde-responsive-j6">Title
+                                                        <th class="min-w-125px hidde-responsive-j6">Medication
                                                         </th>
-                                                        <th>View Document</th>
+                                                        <th>Dose Units</th>
+                                                        <th>Dose Quantity</th>
 
+                                                        <th>Frequency</th>
+                                                        <th>Prescriber</th>
+                                                        <th>Start Date</th>
 
-                                                        <th>Admitted by</th>
+                                                        {{-- <th>Admitted by</th> --}}
                                                         <th>Admitted date</th>
                                                         <th>Updated at</th>
                                                         <th style="">Actions</th>
                                                     </tr>
 
                                                 </thead>
-                                                @foreach ($documents as $key => $client)
+                                                @foreach ($medications as $key => $client)
                                                     <tbody id="myTable">
                                                         <tr>
                                                             <td>{{ $key + 1 }}</td>
                                                             <td>
-                                                                {{ $client->title }}
+                                                                {{ $client->medication_name }}
                                                             </td>
-                                                            <td>
-                                                                <button type="button"
-                                                                    class="btn btn-primary btn-block document"
-                                                                    data-toggle="modal" data-target="#view-doc"
-                                                                    data-url="{{ URL::asset('/documents/' . $client->doc_name) }}">View
-                                                                    Document</button>
+                                                            <td>{{ $client->dose_units }}</td>
+                                                            <td>{{ $client->dose_quantity }}</td>
 
-                                                            </td>
+                                                            <td>{{ $client->frequency }}</td>
+                                                            <td>{{ $client->prescriber }}</td>
 
-                                                            <td>{{ $client->first_name }}</td>
+                                                            <td>{{ $client->date_start }}</td>
                                                             <td>{{ $client->created_at }}</td>
                                                             <td>{{ $client->updated_at }}</td>
 
                                                             <td>
+                                                                <div class="dropdown">
+                                                                    <button class=" dropdown-toggle" type="button"
+                                                                        id="dropdownMenuButton" data-toggle="dropdown"
+                                                                        aria-haspopup="true" aria-expanded="false">
+                                                                        ...
+                                                                    </button>
 
-                                                                <button type="button" class="btn btn-primary"
-                                                                    data-toggle="modal" data-target="#exampleModal">
-                                                                    <i class="fa fa-trash" />
-                                                                </button>
+                                                                    <div class="dropdown-menu"
+                                                                        aria-labelledby="dropdownMenuButton">
 
+                                                                        <a class="dropdown-item"
+                                                                            href="{{ route('medication-edit', [$client->id]) }}"><i
+                                                                                class="fa fa-edit fa-fw"></i>Edit</a>
+                                                                        <a class="dropdown-item" href="#contact"><i
+                                                                                class="fa fa-trash fa-fw"></i>Delete
+                                                                        </a>
+
+                                                                    </div>
+
+                                                                </div>
                                                             </td>
                                                         </tr>
 
@@ -120,7 +137,7 @@
             @else
                 <div class="d-flex justify-content-center">
                     <b>
-                        <h3>No Document available to {{ $name ?? '' }}</h3>
+                        <h3>No Medication in {{ $data->company_name }}<h3>
                     </b>
                 </div>
     @endif
@@ -132,45 +149,72 @@
     </div>
     </div>
     </div>
-
     <!-- Modal -->
     <div class="modal fade " id="add-client" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <form role="form" id="add-doc" action="" name="add-client-m" method="POST" enctype="multipart/form-data">
-            <div class="modal-dialog modal-md" role="document">
+        <form role="form" id="add-medication" action="" name="add-client-m" method="POST"
+            enctype="multipart/form-data">
+            <div class="modal-dialog modal-xl" role="document">
 
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">UPLOAD DOCUMENT</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">MEDICATION</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ $name . '\'s documents' }}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">ADD MEDICATION</h5>
                         <hr />
                         <div class="form-row">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
-                                    <label for="category_name">Title<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="title" name="title">
-                                    <small class="text-danger">{{ $errors->first('title') }}</small>
+                                    <label for="category_name">Medicaton Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="medication" name="medication_name">
+                                    <small class="text-danger">{{ $errors->first('medication_name') }}</small>
                                 </div>
                             </div>
-                            <input type="hidden" name="company_name" id="company_name"
-                                value="{{ $data->company_name }}" />
-                            <input type="hidden" name="client_id" id="client_id2" value="{{ $client_id }}">
+                            <div class="col-md-4 mb-3">
+                                <div class="form-group">
+                                    <label for="category_name">Dose Units<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="dose_unit" name="dose_units">
+                                    <small class="text-danger">{{ $errors->first('dose_units') }}</small>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="form-row">
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
-                                    <label for="category_name">Upload document<span class="text-danger">*</span></label>
-                                    <input type="file" class="form-control" id="doc_names" name="doc_name">
-                                    <small class="text-danger">{{ $errors->first('doc_name') }}</small>
+                                    <label for="category_name">Frequency<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="frequencies" name="frequency">
+                                    <small class="text-danger">{{ $errors->first('frequency') }}</small>
                                 </div>
                             </div>
-
-
+                            <div class="col-md-4 mb-3">
+                                <div class="form-group">
+                                    <label for="category_name">Prescriber<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="prescribes" name="prescriber">
+                                    <small class="text-danger">{{ $errors->first('prescriber') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="company_id" id="comp_id" value="{{ $data->comp_id }}">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <div class="form-group">
+                                    <label for="category_name">Dose Quantity<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="dose_qty" name="dose_quantity">
+                                    <small class="text-danger">{{ $errors->first('dose_quantity') }}</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="form-group">
+                                    <label for="category_name">Date Start<span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" id="date_started" name="date_start">
+                                    <small class="text-danger">{{ $errors->first('date_start') }}</small>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -178,35 +222,7 @@
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-dark btn-lg" id="send_btn"> <i
                                 class="fa fa-plus"></i>&nbsp; Save</button>
-                        {{-- <button type="submit" class="btn btn-primary" id="send_btn">Save</button> --}}
                     </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <!-- Modal -->
-    <div class="modal fade " id="view-doc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <form role="form" id="add-doc" action="" name="add-client-m" method="POST"
-            enctype="multipart/form-data">
-            <div class="modal-dialog modal-lg" role="document">
-
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">UPLOAD DOCUMENT</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h5 class="modal-title" id="exampleModalLabel">{{ $name . '\'s documents' }}</h5>
-                        <hr />
-                        <div id="doc">
-
-                        </div>
-
-                    </div>
-
                 </div>
             </div>
         </form>
@@ -223,7 +239,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -356,27 +372,48 @@
             //   });
         });
         $(document).ready(function() {
-            $('#add-doc').validate({
+            $('#add-medication').validate({
                 rules: {
-                    title: {
+                    medication_name: {
                         required: true,
                     },
-                    doc_name: {
+                    dose_units: {
                         required: true,
-                        extension: "pdf",
-                        maxsize: 10485760,
+                    },
+                    dose_quantity: {
+                        required: true,
                     },
 
+                    frequency: {
+                        required: true,
+                    },
+                    prescriber: {
+                        required: true,
+                    },
+                    date_start: {
+                        required: true,
+                    },
 
                 },
                 messages: {
-                    title: {
-                        required: "Please Enter Title of document",
+                    mediction_name: {
+                        required: "Please Enter Medication name",
                     },
-                    doc_name: {
-                        required: "Please upload document",
-                        extension: "Accepts only pdf file!",
-                        maxsize: "File size must be less than 10 mb."
+                    dose_units: {
+                        required: "Please Enter Dose Unit",
+                    },
+                    dose_quantity: {
+                        required: "Please Enter Dose Quantity",
+                    },
+                    frequency: {
+                        required: "Please enter frequency",
+
+                    },
+                    prescriber: {
+                        required: "Please enter prescriber",
+                    },
+                    date_start: {
+                        required: "Please Enter date start",
                     },
 
                 },
@@ -396,13 +433,12 @@
                     console.log('Form submitted');
 
                     var form_data = new FormData();
-                    $('#add-doc input').each(function(i, e) {
+                    $('#add-medication input').each(function(i, e) {
                         var getID = $(this).attr('id');
                         var name = $(this).attr('name');
                         form_data.append(name, $("#" + getID).val());
                     });
-                    var files = $('#doc_names')[0].files[0];
-                    form_data.append('doc_name', files);
+
                     $.ajaxSetup({
                         headers: {
                             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -410,7 +446,7 @@
                     });
 
                     $.ajax({
-                        url: "{{ route('document-save') }}",
+                        url: "{{ route('medication-save') }}",
                         type: "POST",
                         dataType: "json",
                         data: form_data,
@@ -422,9 +458,8 @@
                                 "<i class='fa fa-spin fa-spinner'></i> Submit");
                         },
                         success: function(result) {
-                            window.location.href =
-                                "{{ route('document-list', ['id' => $client_id, 'name' => $name]) }}";
-                            $('#send_btn').html(" Submit");
+                            // window.location.href = "{{ route('client-list') }}";
+                            // $('#send_btn').html(" Submit");
                         },
                         error: function(error) {
                             console.log(error);
@@ -442,13 +477,5 @@
         function resetForm() {
             document.getElementById("add-user").reset();
         }
-        $(document).on('click', '.document', function() {
-            var url = $(this).attr('data-url');
-
-            $('#doc').empty();
-
-            $('#doc').append(
-                ' <iframe src="' + url + '" width="100%" height="900px" frameborder="0"></iframe>');
-        });
     </script>
 @endsection

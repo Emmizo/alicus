@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Individiual;
 use App\Models\User;
-use App\Models\GroupNote;
 use App\Models\Client;
 
-class GroupNoteController extends Controller
+class IndividualController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,31 +17,32 @@ class GroupNoteController extends Controller
     public function index(Request $request)
     {
         $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
-        $data['title'] = "Manage Group Note";
-        $data['add']= "Add Group Note ";
+        $data['title'] = "Manage Individual Therapy Note";
+        $data['add']= "Add Individual Therapy Note ";
         $data['data']=$comp;
         $data['client']=Client::select('clients.id','client_name','BOD','created_at')->where('id',$request->client)->first();
         $data['company_id']= $request->id;
         $data['clientID']= $request->client;
-        $data['groups'] = GroupNote::join('clients','clients.id','group_notes.client_id')
-        ->join('users','users.id','group_notes.staff_id')
-        ->select('users.first_name','users.last_name','clients.client_name','clients.BOD','clients.created_at as admitted_at','group_notes.*')->where('group_notes.client_id',$request->client)->where('group_notes.discharged',0)->get();
-        return view('manage-group-note.index',$data);
+        $data['groups'] = Individiual::join('clients','clients.id','individual_notes.client_id')
+        ->join('users','users.id','individual_notes.staff_id')
+        ->select('users.first_name','users.last_name','clients.client_name','clients.BOD','clients.created_at as admitted_at','individual_notes.*')->where('individual_notes.client_id',$request->client)->where('individual_notes.discharged',0)->get();
+        return view('individual-therapy-notes.index',$data);
     }
     public function indexDis(Request $request)
     {
         $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
-        $data['title'] = "Manage Group Note";
-        $data['add']= "Add Group Note ";
+        $data['title'] = "Manage Individual Therapy Note";
+        $data['add']= "Add Individual Therapy Note ";
         $data['data']=$comp;
         $data['client']=Client::select('clients.id','client_name','BOD','created_at')->where('id',$request->client)->first();
         $data['company_id']= $request->id;
         $data['clientID']= $request->client;
-        $data['groups'] = GroupNote::join('clients','clients.id','group_notes.client_id')
-        ->join('users','users.id','group_notes.staff_id')
-        ->select('users.first_name','users.last_name','clients.client_name','clients.BOD','clients.created_at as admitted_at','group_notes.*')->where('group_notes.client_id',$request->client)->where('group_notes.discharged',1)->get();
-        return view('manage-archive.group-note',$data);
+        $data['groups'] = Individiual::join('clients','clients.id','individual_notes.client_id')
+        ->join('users','users.id','individual_notes.staff_id')
+        ->select('users.first_name','users.last_name','clients.client_name','clients.BOD','clients.created_at as admitted_at','individual_notes.*')->where('individual_notes.client_id',$request->client)->where('individual_notes.discharged',1)->get();
+        return view('manage-archive.individual-therapy',$data);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -63,7 +64,7 @@ class GroupNoteController extends Controller
         $validator = \Validator::make($request->all(), [
             'client_id'=>'required',
             'topic'=>'required',
-            'group_note'=>'required',
+            'individual_therapy'=>'required',
             'mood'=>'required',
             'effect'=>'required',
             // 'level_participation'=>'required',
@@ -74,10 +75,10 @@ class GroupNoteController extends Controller
                 $data1 ['message'] =$validator->errors()->first();
                 return response()->json($data1); 
             }
-        $add=New GroupNote();
+        $add=New Individiual();
         $add->client_id=$request->client_id;
         $add->topic= $request->topic;
-        $add->group_note= $request->group_note;
+        $add->individual_therapy= $request->individual_therapy;
         $add->mood= json_encode($request->mood);
         $add->effect= json_encode($request->effect);
         $add->level_participation= json_encode($request->level_participation);
@@ -86,11 +87,9 @@ class GroupNoteController extends Controller
         $add->save();
 
         $request->session()
-        ->flash('success', "New group notes added");
+        ->flash('success', "New Individual notes added");
         // return redirect(route('company-list'));
         return response()->json(['status' => 201,'message' => "updated"]);
-
-    
     }
 
     /**
@@ -102,26 +101,26 @@ class GroupNoteController extends Controller
     public function show(Request $request)
     {
         $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
-        $data['title'] = "Manage Group Note";
+        $data['title'] = "Manage Individual Therapy Note";
         $data['add']= "Add Group note ";
         $data['data']=$comp;
         $data['name']=$request->name;
         $data['birth'] = $request->birth;
         $data['created']=$request->created;
-        $data['groups'] = GroupNote::where('id',$request->id)->where('discharged',0)->get();
-        return view('manage-group-note.view',$data);
+        $data['groups'] = Individiual::where('id',$request->id)->where('discharged',0)->get();
+        return view('individual-therapy-notes.view',$data);
     }
     public function showDis(Request $request)
     {
         $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
-        $data['title'] = "Manage Group Note";
+        $data['title'] = "Manage Individual Therapy Note";
         $data['add']= "Add Group note ";
         $data['data']=$comp;
         $data['name']=$request->name;
         $data['birth'] = $request->birth;
         $data['created']=$request->created;
-        $data['groups'] = GroupNote::where('id',$request->id)->where('discharged',1)->get();
-        return view('manage-archive.view-group-note',$data);
+        $data['groups'] = Individiual::where('id',$request->id)->where('discharged',1)->get();
+        return view('manage-archive.view-individual',$data);
     }
 
     /**

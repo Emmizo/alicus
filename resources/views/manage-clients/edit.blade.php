@@ -36,8 +36,8 @@
                             <div class="modal-dialog modal-xl" role="document">
 
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">FACESHEET</h5>
+                                    <div class="modal-header d-flex justify-content-center">
+                                        <h5 class="modal-title fs-3" id="exampleModalLabel">FACESHEET</h5>
 
                                     </div>
                                     <div class="modal-body">
@@ -65,7 +65,7 @@
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">SSN<span class="text-danger">*</span></label>
+                                                    <label for="category_name">SSN</label>
                                                     <input type="text" class="form-control" id="ssn1" name="SSN"
                                                         value="{{ $client->SSN }}">
                                                     <small class="text-danger">{{ $errors->first('SSN') }}</small>
@@ -75,11 +75,27 @@
                                         <div class="form-row">
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Insurance
+                                                    <label>Payor name<span class="text-danger">*</span></label>
+                                                    <select name="insurance_ID"
+                                                        class="form-control text-box select2size select2 size"
+                                                        id="insurance-id">
+                                                        <option value="">Please select</option>
+                                                        @foreach ($insurances as $insurance)
+                                                            <?php $selected = $insurance->id == $client->insurance_ID ? 'selected' : ''; ?>
+                                                            <option value="{{ $insurance->id }}" <?= $selected ?>>
+                                                                {{ $insurance->insurance_name }}
+                                                            </option>
+                                                        @endforeach
+                                                        <option value="">Don't use Insurance</option>
+                                                        {{-- <option value="Other">Other</option> --}}
+                                                    </select>
+                                                    <small
+                                                        class="help-block text-danger">{{ $errors->first('insurance_ID') }}</small>
+                                                    {{-- <label for="category_name">Insurance
                                                         ID<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="insurance_id2"
                                                         name="insurance_ID" value="{{ $client->insurance_ID }}">
-                                                    <small class="text-danger">{{ $errors->first('insurance_ID') }}</small>
+                                                    <small class="text-danger">{{ $errors->first('insurance_ID') }}</small> --}}
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-3">
@@ -104,8 +120,7 @@
                                         <div class="form-row">
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Telephone<span
-                                                            class="text-danger">*</span></label>
+                                                    <label for="category_name">Telephone</label>
                                                     <input type="text" class="form-control" id="telephone1"
                                                         name="telephone" value="{{ $client->telephone }}">
                                                     <small class="text-danger">{{ $errors->first('telephone') }}</small>
@@ -113,8 +128,7 @@
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Email<span
-                                                            class="text-danger">*</span></label>
+                                                    <label for="category_name">Email</label>
                                                     <input type="text" class="form-control" id="email1"
                                                         name="email" value="{{ $client->email }}">
                                                     <small class="text-danger">{{ $errors->first('email') }}</small>
@@ -128,28 +142,92 @@
                                         <div class="form-row">
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Race<span
+                                                    {{-- <label for="category_name">Race<span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="race2"
-                                                        name="race" value="{{ $client->race }}">
+                                                        name="race" value="{{ $client->race }}"> --}}
+
+                                                    <label>Race<span class="text-danger">*</span></label>
+                                                    <select name="race"
+                                                        class="form-control text-box select2size select2 " id="race2">
+                                                        <option value="">Please select</option>
+                                                        <option>American Indan or Alaska Native</option>
+                                                        <option>Asian</option>
+                                                        <option>Black or African-American</option>
+                                                        <option>Native Hawaiian or Other Pacific Islander</option>
+                                                        <option>White</option>
+                                                        <option>Asian-Asian Indian</option>
+                                                        <option>Asian-Chinese</option>
+                                                        <option>Asian-Fillipino</option>
+                                                        <option>Asian-Japanese</option>
+                                                        <option>Asian-Korean</option>
+                                                        <option>Asian-Vietnamese</option>
+                                                        <option>Asian-Vietnamese</option>
+                                                        <option>Asian-Other Asian</option>
+                                                        <option>Asian-Unknown</option>
+                                                        <option>Native Hawaiian or Other Pacific Islander - Chamorro
+                                                        </option>
+                                                        <option>Native Hawaiian or Other Pacific Islander - Guarmanian
+                                                        </option>
+                                                        <option>Native Hawaiian or Other Pacific Islander - Native Hawaiian
+                                                        </option>
+                                                        <option>Native Hawaiian or Other Pacific Islander - Samoan</option>
+                                                        <option>Native Hawaiian or Other Pacific Islander - Unknown</option>
+                                                        <option>Other</option>
+                                                        <option>Unknown</option>
+                                                        <option>Alaskan Native</option>
+                                                        <option>Multi-Racial</option>
+
+                                                    </select>
                                                     <small class="text-danger">{{ $errors->first('race') }}</small>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Ethnicity<span
+                                                    {{-- <label for="category_name">Ethnicity<span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="ethnicity1"
-                                                        name="ethnicity" value="{{ $client->ethnicity }}">
+                                                        name="ethnicity" value="{{ $client->ethnicity }}"> --}}
+
+                                                    <label>Ethnicity<span class="text-danger">*</span></label>
+                                                    <select name="ethnicity"
+                                                        class="form-control text-box select2size select2 "
+                                                        id="ethnicity1">
+                                                        <option value="">Please select</option>
+                                                        <option>Hispanic or Latino</option>
+                                                        <option>Ashkenazi Jewish</option>
+                                                        <option>Not Hispanic or Latino</option>
+                                                        <option>Hispanic or Latino - Central American</option>
+                                                        <option>Hispanic or Latino - Cuban</option>
+                                                        <option>Hispanic or Latino - Dominican</option>
+                                                        <option>Hispanic or Latino - Mexican</option>
+                                                        <option>Hispanic or Latino - Other Hispanic</option>
+                                                        <option>Hispanic or Latino - Puerto Rican</option>
+                                                        <option>Hispanic or Latino - South American</option>
+                                                        <option>Haitian</option>
+                                                        <option>Spanish/Latino</option>
+                                                        <option>Mexican</option>
+                                                        <option>Mexican American</option>
+                                                        <option>None of the Above</option>
+                                                    </select>
                                                     <small class="text-danger">{{ $errors->first('ethnicity') }}</small>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Gender
+                                                    {{-- <label for="category_name">Gender
                                                         at Birth<span class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="gender_at_birth"
-                                                        name="gender_birth" value="{{ $client->gender_birth }}">
+                                                        name="gender_birth" value="{{ $client->gender_birth }}"> --}}
+                                                    <label>Gender at Birth<span class="text-danger">*</span></label>
+                                                    <select name="gender_birth"
+                                                        class="form-control text-box select2size select2 "
+                                                        id="gender_birth">
+                                                        <option value="">Please select</option>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Unknown">Unknown</option>
+                                                    </select>
                                                     <small
                                                         class="text-danger">{{ $errors->first('gender_birth') }}</small>
                                                 </div>
@@ -160,8 +238,16 @@
                                                 <div class="form-group">
                                                     <label for="category_name">Martial
                                                         Status<span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" id="martial_status1"
-                                                        name="martial_status" value="{{ $client->martial_status }}">
+                                                    <select name="martial_status"
+                                                        class="form-control text-box select2size select2 "
+                                                        id="martial_status">
+                                                        <option value="">Please select</option>
+                                                        <option value="Married">Married</option>
+                                                        <option value="Divorced">Divorced</option>
+                                                        <option value="Single">Single</option>
+                                                    </select>
+                                                    {{-- <input type="text" class="form-control" id="martial_status1"
+                                                        name="martial_status" value="{{ $client->martial_status }}"> --}}
                                                     <small
                                                         class="text-danger">{{ $errors->first('martial_status') }}</small>
                                                 </div>
@@ -179,9 +265,21 @@
                                                 <div class="form-group">
                                                     <label for="category_name">Preferred
                                                         Language<span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" id="preffered_languages"
+
+                                                    <select name="preferred_language"
+                                                        class="form-control text-box select2size select2 "
+                                                        id="preferred_language">
+                                                        <option value="">Please select</option>
+                                                        <option>English</option>
+                                                        <option>Spanish</option>
+                                                        <option>French</option>
+                                                        <option>Swahili</option>
+                                                        <option>Protuguese</option>
+                                                        <option>Latin</option>
+                                                    </select>
+                                                    {{-- <input type="text" class="form-control" id="preffered_languages"
                                                         name="preferred_language"
-                                                        value="{{ $client->preferred_language }}">
+                                                        value="{{ $client->preferred_language }}"> --}}
                                                     <small
                                                         class="text-danger">{{ $errors->first('preferred_language') }}</small>
                                                 </div>
@@ -192,9 +290,17 @@
                                                 <div class="form-group">
                                                     <label for="category_name">Employment
                                                         Status<span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control" id="employment1"
+                                                    <select name="employment_status"
+                                                        class="form-control text-box select2size select2 "
+                                                        id="employment1">
+                                                        <option value="">Please select</option>
+                                                        <option>Employed</option>
+                                                        <option>Unemployed</option>
+
+                                                    </select>
+                                                    {{-- <input type="text" class="form-control" id="employment1"
                                                         name="employment_status"
-                                                        value="{{ $client->employment_status }}">
+                                                        value="{{ $client->employment_status }}"> --}}
                                                     <small
                                                         class="text-danger">{{ $errors->first('employment_status') }}</small>
                                                 </div>
@@ -208,8 +314,7 @@
                                         <div class="form-row">
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">names<span
-                                                            class="text-danger">*</span></label>
+                                                    <label for="category_name">names</label>
                                                     <input type="text" class="form-control" id="emergency_name2"
                                                         name="emergency_name" value="{{ $client->emergency_name }}">
                                                     <small
@@ -220,8 +325,7 @@
                                                 value="{{ $client->id ?? '' }}">
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Phone<span
-                                                            class="text-danger">*</span></label>
+                                                    <label for="category_name">Phone</label>
                                                     <input type="text" class="form-control" id="emergency_phone1"
                                                         name="emergency_phone" value="{{ $client->emergency_phone }}">
                                                     <small
@@ -230,8 +334,7 @@
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Email<span
-                                                            class="text-danger">*</span></label>
+                                                    <label for="category_name">Email</label>
                                                     <input type="text" class="form-control" id="emergency_email"
                                                         name="emergency_email" value="{{ $client->emergency_email }}">
                                                     <small
@@ -242,8 +345,7 @@
                                         <div class="form-row">
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Relationship<span
-                                                            class="text-danger">*</span></label>
+                                                    <label for="category_name">Relationship</span></label>
                                                     <input type="text" class="form-control" id="relationship1"
                                                         name="relationship" value="{{ $client->relationship }}">
                                                     <small
@@ -252,8 +354,7 @@
                                             </div>
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
-                                                    <label for="category_name">Address<span
-                                                            class="text-danger">*</span></label>
+                                                    <label for="category_name">Address</label>
                                                     <input type="text" class="form-control" id="emergency_address2"
                                                         name="emergency_address"
                                                         value="{{ $client->emergency_address }}">
@@ -264,7 +365,7 @@
                                             <div class="col-md-4 mb-3">
                                                 <div class="form-group">
                                                     <label for="category_name">Primary
-                                                        Care Provider<span class="text-danger">*</span></label>
+                                                        Care Provider</label>
                                                     <input type="text" class="form-control"
                                                         id="primary_care_provider1" name="primary_care_provider"
                                                         value="{{ $client->primary_care_provider }}">
@@ -323,18 +424,18 @@
                     BOD: {
                         required: true,
                     },
-                    SSN: {
-                        required: true,
-                    },
+                    // SSN: {
+                    //     required: true,
+                    // },
 
-                    email: {
-                        required: true,
-                        email: true,
-                    },
-                    telephone: {
-                        required: true,
-                        minlength: 14,
-                    },
+                    // email: {
+                    //     required: true,
+                    //     email: true,
+                    // },
+                    // telephone: {
+                    //     required: true,
+                    //     minlength: 14,
+                    // },
                     insurance_ID: {
                         required: true,
                     },
@@ -365,26 +466,26 @@
                     employment_status: {
                         required: true,
                     },
-                    emergency_name: {
-                        required: true,
-                    },
-                    emergency_phone: {
-                        required: true,
-                        minlength: 14,
-                    },
-                    emergency_email: {
-                        required: true,
-                        email: true,
-                    },
-                    relationship: {
-                        required: true,
-                    },
-                    emergency_address: {
-                        required: true,
-                    },
-                    primary_care_provider: {
-                        required: true,
-                    },
+                    // emergency_name: {
+                    //     required: true,
+                    // },
+                    // emergency_phone: {
+                    //     required: true,
+                    //     minlength: 14,
+                    // },
+                    // emergency_email: {
+                    //     required: true,
+                    //     email: true,
+                    // },
+                    // relationship: {
+                    //     required: true,
+                    // },
+                    // emergency_address: {
+                    //     required: true,
+                    // },
+                    // primary_care_provider: {
+                    //     required: true,
+                    // },
                     client_PIN: {
                         required: true,
                     },
@@ -396,19 +497,19 @@
                     BOD: {
                         required: "Please Enter Date of Birth",
                     },
-                    SSN: {
-                        required: "Please Enter SSN",
-                    },
-                    email: {
-                        required: "Please enter a email address",
-                        email: "Please enter a vaild email address"
-                    },
-                    telephone: {
-                        minlength: "Please enter a valid phone number",
-                        required: "Please enter a valid phone number",
-                    },
+                    // SSN: {
+                    //     required: "Please Enter SSN",
+                    // },
+                    // email: {
+                    //     required: "Please enter a email address",
+                    //     email: "Please enter a vaild email address"
+                    // },
+                    // telephone: {
+                    //     minlength: "Please enter a valid phone number",
+                    //     required: "Please enter a valid phone number",
+                    // },
                     insurance_ID: {
-                        required: "Please Enter insurance ID",
+                        required: "Please Select payor name",
                     },
                     country: {
                         required: "Please Enter  Country",
@@ -437,25 +538,25 @@
                     employment_status: {
                         required: "Please enter employment Status",
                     },
-                    emergency_name: {
-                        required: "Please enter emergency name",
-                    },
-                    emergency_phone: {
-                        required: "Please enter emergency phone",
-                    },
-                    emergency_email: {
-                        required: "Please enter a emergency email address",
-                        email: "Please enter a vaild email address",
-                    },
-                    relationship: {
-                        required: "Please enter relationship",
-                    },
-                    emergency_address: {
-                        required: "Please enter emergency address",
-                    },
-                    primary_care_provider: {
-                        required: "Please enter primary care provider",
-                    },
+                    // emergency_name: {
+                    //     required: "Please enter emergency name",
+                    // },
+                    // emergency_phone: {
+                    //     required: "Please enter emergency phone",
+                    // },
+                    // emergency_email: {
+                    //     required: "Please enter a emergency email address",
+                    //     email: "Please enter a vaild email address",
+                    // },
+                    // relationship: {
+                    //     required: "Please enter relationship",
+                    // },
+                    // emergency_address: {
+                    //     required: "Please enter emergency address",
+                    // },
+                    // primary_care_provider: {
+                    //     required: "Please enter primary care provider",
+                    // },
                     client_PIN: {
                         required: "Please enter client PIN",
                     },

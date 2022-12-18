@@ -43,13 +43,13 @@
                                             placeholder="Search Client">
                                     </div>
                                 </div>
-                                <div class="row  col-8 justify-content-end">
+                                {{-- <div class="row  col-8 justify-content-end">
                                     <div class='col-lg-3 col-md-4 col-sm-3'>
                                         <a href="{{ route('client-add') }}" class="btn btn-success" d>
                                             <i class="fa fa-plus-square"></i>&nbsp;{{ $add }}</a>
                                     </div>
 
-                                </div>
+                                </div> --}}
                             </div>
                             <br>
                             <br>
@@ -99,7 +99,7 @@
                                                         {{-- <th>SSN</th> --}}
                                                         <th>Admitted by</th>
                                                         <th>Admitted date</th>
-                                                        {{-- <th>Discharged date</th> --}}
+                                                        <th>Discharged date</th>
                                                         <th class="noprint d-print-none" style="">Actions</th>
                                                     </tr>
 
@@ -119,7 +119,7 @@
                                                             {{-- <td>{{ $client->SSN }}</td> --}}
                                                             <td>{{ $client->first_name }}</td>
                                                             <td>{{ $client->created_at }}</td>
-                                                            {{-- <td>{{ $client->updated_at }}</td> --}}
+                                                            <td>{{ $client->discharged_at }}</td>
 
                                                             <td class="noprint d-print-none">
                                                                 <div class="dropdown">
@@ -132,47 +132,47 @@
                                                                     <div class="dropdown-menu"
                                                                         aria-labelledby="dropdownMenuButton">
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('client-view', [$client->id]) }}"><i
+                                                                            href="{{ route('dis-client-view', [$client->id]) }}"><i
                                                                                 class="fa fa-eye fa-fw"></i>
-                                                                            View for mor info</a>
-                                                                        <a class="dropdown-item"
+                                                                            View</a>
+                                                                        {{-- <a class="dropdown-item"
                                                                             href="{{ route('client-edit', [$client->id]) }}"><i
-                                                                                class="fa fa-edit fa-fw"></i>Edit</a>
+                                                                                class="fa fa-edit fa-fw"></i>Edit</a> --}}
 
                                                                         <a class="dropdown-item"
-                                                                            href='{{ route('medication-list', ['id' => $client->company_id, 'client_id' => $client->id, 'name' => $client->client_name]) }}'><i
+                                                                            href='{{ route('dis-medication-list', ['id' => $client->company_id, 'client_id' => $client->id, 'name' => $client->client_name]) }}'><i
                                                                                 class="fa fa-plus fa-fw"></i>Assign
                                                                             Medical
                                                                         </a>
 
                                                                         <a class="dropdown-item"
-                                                                            href='{{ route('apply-medication-view', ['id' => $client->company_id, 'client' => $client->id, 'name' => $client->client_name]) }}'><i
+                                                                            href='{{ route('dis-apply-medication-view', ['id' => $client->company_id, 'client' => $client->id, 'name' => $client->client_name]) }}'><i
                                                                                 class="fa fa-history fa-fw"></i>Echat
                                                                         </a>
 
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('document-list', ['id' => $client->id, 'name' => $client->client_name]) }}"><i
+                                                                            href="{{ route('dis-document-list', ['id' => $client->id, 'name' => $client->client_name]) }}"><i
                                                                                 class="fa fa-paperclip fa-fw"></i>Attachments</a>
 
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('group-note-list', ['id' => $client->company_id, 'client' => $client->id, 'name' => $client->client_name]) }}"><i
+                                                                            href="{{ route('dis-group-note-list', ['id' => $client->company_id, 'client' => $client->id, 'name' => $client->client_name]) }}"><i
                                                                                 class="fa fa-file fa-fw"></i>Group Therapy
                                                                             Notes</a>
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('individual', ['id' => $client->company_id, 'client' => $client->id, 'name' => $client->client_name]) }}"><i
+                                                                            href="{{ route('dis-individual', ['id' => $client->company_id, 'client' => $client->id, 'name' => $client->client_name]) }}"><i
                                                                                 class="fa fa-file fa-fw"></i>Individual
                                                                             Therapy
                                                                             Notes</a>
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('progress', ['id' => $client->company_id, 'client' => $client->id, 'name' => $client->client_name]) }}"><i
+                                                                            href="{{ route('dis-progress', ['id' => $client->company_id, 'client' => $client->id, 'name' => $client->client_name]) }}"><i
                                                                                 class="fa fa-file fa-fw"></i>Progress
                                                                             Notes</a>
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('invoice', ['id' => $client->id]) }}"><i
+                                                                            href="{{ route('dis-invoice', ['id' => $client->id]) }}"><i
                                                                                 class="fa fa-file fa-fw"></i>Generate
                                                                             Invoice</a>
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('discharging', [ 'id' => $client->id, 'name' => $client->client_name]) }}"><i
+                                                                            href="{{ route('invoice', ['id' => $client->id]) }}"><i
                                                                                 class="fa fa-close fa-fw"></i>Discharge</a>
                                                                     </div>
 
@@ -221,7 +221,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

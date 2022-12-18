@@ -22,8 +22,19 @@ class DocumentController extends Controller
         $data['data']=$comp;
         $data['name']=$request->name;
         $data['client_id']= $request->id;
-        $data['documents'] = Document::join('clients','clients.id','documents.client_id')->select('clients.client_name','documents.*')->where('documents.client_id',$request->id)->get();
+        $data['documents'] = Document::join('clients','clients.id','documents.client_id')->select('clients.client_name','documents.*')->where('documents.client_id',$request->id)->where('documents.discharged',0)->get();
         return view('manage-document.index',$data);
+    }
+    public function indexDis(Request $request)
+    {
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
+        $data['title'] = "Manage Document";
+        $data['add']= "Add Document to ".$request->name;
+        $data['data']=$comp;
+        $data['name']=$request->name;
+        $data['client_id']= $request->id;
+        $data['documents'] = Document::join('clients','clients.id','documents.client_id')->select('clients.client_name','documents.*')->where('documents.client_id',$request->id)->where('documents.discharged',1)->get();
+        return view('manage-archive.document',$data);
     }
 
     /**

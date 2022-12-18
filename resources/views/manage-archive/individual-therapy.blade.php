@@ -37,7 +37,7 @@
                                     <div class="search">
                                         <i class="fa fa-search"></i>
                                         <input type="text" class="form-control" id="myInput"
-                                            placeholder="Search Group note">
+                                            placeholder="Search individual Therapy Note">
                                     </div>
                                 </div>
                                 <div class="row  col-8 justify-content-end">
@@ -119,8 +119,8 @@
                                                                 </th>
                                                                 <th class="min-w-125px hidde-responsive-j6">Topic
                                                                 </th>
-                                                                <th>Group note</th>
-                                                                <th>Mood</th>
+                                                                <th>Individual Session Note</th>
+                                                                <th>Mental Status Examination</th>
                                                                 {{-- <th>Email</th> --}}
                                                                 <th>Effect</th>
                                                                 <th>Level Of Participation</th>
@@ -139,7 +139,7 @@
                                                                     <td>
                                                                         {{ $client->topic }}
                                                                     </td>
-                                                                    <td>{{ $client->group_note }}</td>
+                                                                    <td>{{ $client->individual_therapy }}</td>
                                                                     <td>{{ preg_replace('/[^A-Za-z0-9\-\(,) ]/', ' ', $client->mood) }}
                                                                     </td>
                                                                     {{-- <td>{{ $client->email }}</td> --}}
@@ -165,9 +165,9 @@
                                                                             <div class="dropdown-menu"
                                                                                 aria-labelledby="dropdownMenuButton">
                                                                                 <a class="dropdown-item"
-                                                                                    href="{{ route('view-group-note-list', ['id' => $client->id, 'name' => $client->client_name, 'birth' => $client->BOD, 'created' => $client->created_at]) }}"><i
+                                                                                    href="{{ route('view-individual-note-list', ['id' => $client->id, 'name' => $client->client_name, 'birth' => $client->BOD, 'created' => $client->created_at]) }}"><i
                                                                                         class="fa fa-eye fa-fw"></i>
-                                                                                    View Notes</a>
+                                                                                    View Note</a>
 
 
                                                                             </div>
@@ -190,7 +190,7 @@
                     @else
                         <div class="d-flex justify-content-center">
                             <b>
-                                <h3>No group note found</h3>
+                                <h3>No Individual Therapy Notes found</h3>
                             </b>
                         </div>
     @endif
@@ -248,7 +248,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <h5 class="modal-title" id="exampleModalLabel">GROUP SESSION NOTES</h5>
+                        <h5 class="modal-title text-uppercase" id="exampleModalLabel">Individual Session Note</h5>
                         <hr />
                         <div class="form-row">
                             <div class="col-md-8 mb-3">
@@ -263,16 +263,16 @@
                         <div class="form-row">
                             <div class="col-md-8 mb-3">
                                 <div class="form-group">
-                                    <label for="category_name">Group note<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="group_note" name="group_note" rows="6"></textarea>
-                                    <small class="text-danger">{{ $errors->first('group_note') }}</small>
+                                    <label for="category_name">Individual Note<span class="text-danger">*</span></label>
+                                    <textarea class="form-control" id="group_note" name="individual_therapy" rows="6"></textarea>
+                                    <small class="text-danger">{{ $errors->first('individual_therapy') }}</small>
                                 </div>
                             </div>
 
                         </div>
                         <input type="hidden" id="client_id" name="client_id" value="{{ $clientID }}">
                         {{-- Demograph --}}
-                        <h5 class="modal-title" id="exampleModalLabel">MOOD</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Mental Status Examination</h5>
                         <hr />
                         <div class="form-row">
                             <div class="col-md- mb-3">
@@ -481,7 +481,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -621,7 +621,7 @@
                     topic: {
                         required: true,
                     },
-                    group_notes: {
+                    individual_therapy: {
                         required: true,
                     },
 
@@ -631,7 +631,7 @@
                     topic: {
                         required: "Please topic required",
                     },
-                    group_notes: {
+                    individual_therapy: {
                         required: "Please Group note required",
                     },
 
@@ -664,7 +664,7 @@
                     var topic = $('#topic').val();
                     form_data.append('topic', topic);
                     var group = $('#group_note').val();
-                    form_data.append('group_note', group);
+                    form_data.append('individual_therapy', group);
                     // $("#send_btn").click(function() {
                     var selectedLanguage3 = new Array();
                     $('input[name="mood[]"]:checked').each(function() {
@@ -700,7 +700,7 @@
                     });
 
                     $.ajax({
-                        url: "{{ route('save-group-note') }}",
+                        url: "{{ route('save-individual-note') }}",
                         type: "POST",
                         dataType: "json",
                         data: form_data,
@@ -713,7 +713,7 @@
                         },
                         success: function(result) {
                             window.location.href =
-                                '{{ route('group-note-list', ['id' => $data->comp_id, 'client' => $clientID, 'name' => $client->client_name]) }}';
+                                '{{ route('individual', ['id' => $data->comp_id, 'client' => $clientID, 'name' => $client->client_name]) }}';
                             // $('#send_btn').html(" Submit");
                         },
                         error: function(error) {

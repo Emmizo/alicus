@@ -55,7 +55,7 @@
                                 <input class="btn btn-primary d-print-none" type='button' id='print-data' value='Print'>
                             </div>
                             <div class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
-                                <h4><u>List of medical taken by <b>{{ $name }}</u></b></h4>
+                                <h4>List of medical taken by <b>{{ $name }}></b></h4>
                             </div>
                             <section class="mt-5">
                                 <div class="container2" id="printData">
@@ -244,7 +244,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

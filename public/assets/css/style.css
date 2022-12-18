@@ -384,8 +384,8 @@ ul li {
 .certificate-table {
 	background-color: #fff;
 }
-table.certificate-table.certificate-size{
-	width: 50%!important;
+table.certificate-table{
+	width: 99.5%!important;
 }
 .certificate-table th {
 	background-color: #ebebeb;
@@ -1278,7 +1278,9 @@ table.table-bordered th{
 			#print-invoice{
 				page-break-after: always;
 			}
-			
+			.print-all{
+				page-break-after: always;
+			}
 			.print{
 				display:block;
 			  }

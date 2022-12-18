@@ -17,7 +17,13 @@
                     </li>
                 @endif
                 @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
-                    <li><a href="{{ route('all-invoices') }}" class="nav_logo"><i class="fa fa-file"
+                    <li><a href="{{ route('insurance') }}" class="nav_logo"><i class="fa fa-file"
+                                aria-hidden="true"></i>
+                            <span class="nav_logo-name">Manage Payors</span> </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
+                    <li><a href="{{ route('all-invoices') }}" class="nav_logo"><i class="fa fa-money"
                                 aria-hidden="true"></i>
                             <span class="nav_logo-name">Manage Invoice</span> </a>
                     </li>
@@ -43,6 +49,12 @@
                     <li><a href="{{ route('role-list') }}" class="nav_logo"><i class="fa fa-assistive-listening-systems"
                                 aria-hidden="true"></i>
                             <span class="nav_logo-name">Manage Roles</span> </a>
+                    </li>
+                @endif
+                @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
+                    <li><a href="{{ route('client-discharged') }}" class="nav_logo"><i class="fa fa-archive"
+                                aria-hidden="true"></i>
+                            <span class="nav_logo-name">Manage Archive</span> </a>
                     </li>
                 @endif
                 @if (Auth::user()->role == 1 && Auth::user()->company_id != null)

@@ -7,7 +7,7 @@
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('client-list') }}">Manager Clients</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('client-discharged') }}">Manager Clients</a></li>
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
