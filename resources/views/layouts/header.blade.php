@@ -1,7 +1,7 @@
 {{-- Here new dash set up --}}
 
 <head>
-    <title>{{ config('app.name') }}</title>
+    {{-- <title>{{ config('app.name') }}</title> --}}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/admin-logo.ico') }}" />
@@ -27,3 +27,8 @@
     <!-- Select2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 </head>
+<script>
+    $(document).ready(function() {
+        document.title = '{{ $data->company_name ?? config('app.name') }}';
+    });
+</script>

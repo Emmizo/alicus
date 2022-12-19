@@ -252,7 +252,11 @@ class InvoiceController extends Controller
         $data['to'] = $to;
         $data['insurancess'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
         $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->where('id',$request->search)->get();
-        $data['paid']=Invoice::join('clients','clients.id','invoices.client_id')->where('clients.company_id',$comp->comp_id)->where('clients.insurance_ID', 'like', '%' . request('search') . '%')->sum('invoices.payment');
+        $data['paid']=Invoice::join('clients','clients.id','invoices.client_id')->where('clients.company_id',$comp->comp_id)->where('clients.insurance_ID', 'like', '%' . request('search') . '%')
+        ->when(isset($to), function($q) use($from, $to){
+            $q->whereBetween('invoices.created_at', [$from, $to]);
+        })
+        ->sum('invoices.payment');
         $invoice=Invoice::join('clients','clients.id','invoices.client_id')
         ->select('clients.id as clientId','clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.payment','invoices.due_payment',\DB::raw("SUM(invoices.payment) as total_paid"))
         
