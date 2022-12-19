@@ -361,7 +361,7 @@
                                                     <label for="category_name">Payor Code<span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" class="form-control" id="insurance_code"
-                                                        name="insurance_code">
+                                                        name="insurance_code" value="{{ $client->insurance_code }}">
                                                     <small
                                                         class="text-danger">{{ $errors->first('insurance_code') }}</small>
                                                 </div>

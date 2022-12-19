@@ -19,9 +19,6 @@
 
         <div class="mt-5">
 
-
-
-
             <div class="card-body ">
                 <div class=" col-lg-12 col-md-4 col-sm-3 d-print-none">
                     {{-- <div class="search">
@@ -56,7 +53,7 @@
 
                 <fieldset class="border p-2 mt-3">
                     <legend class="float-none w-auto">Invoice</legend>
-                    <div id="print-invoice" class="mb-5">
+                    <div id="print-invoice33" class="mb-5">
                         <div class="col-12 container font-weight-bold row">
 
                             <div class="col-md-6 ">
@@ -183,7 +180,7 @@
 
                 var divToPrint = document.getElementById("printData");
 
-                newWin = window.print('#print-invoice');
+                newWin = window.print();
 
                 newWin.close();
 

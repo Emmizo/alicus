@@ -1301,8 +1301,10 @@ table.table-bordered th{
 			  div{
 				page-break-inside: avoid!important;
 			  }
-			  thread{display:table-header-group;margin-top: 1cm;}
-			  tfoot{display:table-footer-group}
+			  table { page-break-inside:auto }
+    tr    { page-break-inside:avoid; page-break-after:auto }
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
 			  
         }
 		

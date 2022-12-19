@@ -139,7 +139,7 @@
 
                 var divToPrint = document.getElementById("printData");
 
-                newWin = window.print('#print-invoice');
+                newWin = window.print();
 
                 newWin.close();
 
