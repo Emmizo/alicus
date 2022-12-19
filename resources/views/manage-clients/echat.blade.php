@@ -163,12 +163,11 @@
                                                                                     <td>{{ $client->comment }}
                                                                                     </td>
                                                                                     {{-- <td>{{ $client->SSN }}</td> --}}
-                                                                                    <td><img src='{{ $client->client_pin }}'
-                                                                                            height="40" />
+                                                                                    <td>{{ $client->client_name }}
                                                                                     </td>
 
-                                                                                    <td><img src='{{ $client->staff_signature }}'
-                                                                                            height="40" />
+                                                                                    <td>
+                                                                                        {{ $client->first_name . ' ' . $client->last_name }}
                                                                                     </td>
                                                                                 </tr>
 
@@ -216,7 +215,7 @@
                                                 <form role="form" id="echat-medical"
                                                     action="{{ route('echat-medicals') }}" name="add-category"
                                                     method="POST" enctype="multipart/form-data">
-                                                    @csrf
+                                                    {{-- @csrf --}}
                                                     <div class="mt-4">
                                                         <div class="form-row">
                                                             <div class="col-md-12 mb-3">
@@ -246,27 +245,26 @@
 
                                                                     </div>
                                                                     </hr>
-
+                                                                    <input type="hidden" name="clientID"
+                                                                        value="{{ $medications[0]->client_id ?? '' }}"
+                                                                        id="idss">
                                                                     @foreach ($medications as $key => $med)
                                                                         <div class="form-row">
                                                                             <div class="col-md-2 ">
                                                                                 <div class="form-group">
                                                                                     <label
                                                                                         class="">{{ $med->medication_name }}
-                                                                                        <input type="checkbox"
+                                                                                        <input type="hidden"
                                                                                             name="medical_id[]"
                                                                                             value="{{ $med->id }}"
-                                                                                            checked>
-                                                                                        <span class="checkmark"></span>
+                                                                                            id="medical<?= $key ?>">
+
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 {{ $med->dose_units }}</div>
-                                                                            {{-- <div class="col-md-1">
-                                                                                {{ $med->dose_quantity }}</div> --}}
-                                                                            {{-- <input type="hidden" name="client_id" id="client_id"
-                                                                    value="{{ $client }}"> --}}
+
                                                                             <div class="col-md-2 ">
                                                                                 <div class="form-group">
 
@@ -323,27 +321,8 @@
                                                                                 <label for="category_name">Client
                                                                                     Signature<span
                                                                                         class="text-danger">*</span></label>
-                                                                                <canvas id="signature" class="signature"
-                                                                                    height="90"
-                                                                                    style="border: 1px solid #ddd;"></canvas>
-                                                                                <br>
 
-                                                                                <div class="col-md-12 row">
-                                                                                    <div class="col-md-3">
-                                                                                        <input type="button"
-                                                                                            value="Clear"
-                                                                                            id="clear-signature"></input>
-                                                                                    </div>
-                                                                                    <div class="col-md-3">
-                                                                                        <input type="button"
-                                                                                            value="Confirm"
-                                                                                            id="confirm"></input>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <img src='' id='sign_prev'
-                                                                                    style='display: block;' />
-                                                                                <input type="hidden" class="form-control"
+                                                                                <input type="text" class="form-control"
                                                                                     id="client_pin" name="client_pin">
                                                                                 <small
                                                                                     class="text-danger">{{ $errors->first('client_pin') }}</small>
@@ -394,7 +373,7 @@
         <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
         <script type="text/javascript">
             /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
             function myFunction() {
                 document.getElementById("myDropdown").classList.toggle("show");
             }
@@ -458,63 +437,67 @@
                     unhighlight: function(element, errorClass, validClass) {
                         $(element).removeClass('is-invalid');
                     },
-                    // submitHandler: function(form, e) {
-                    //     e.preventDefault();
-                    //     console.log('Form submitted');
+                    submitHandler: function(form, e) {
+                        e.preventDefault();
+                        console.log('Form submitted');
 
-                    //     var form_data = new FormData();
+                        var form_data = new FormData();
 
+                        $('#echat-medical input').each(function(i, e) {
+                            var getID = $(this).attr('id');
+                            var name = $(this).attr('name');
+                            form_data.append(name, $("#" + getID).val());
+                        });
+                        $('#echat-medical select').each(function() {
+                            var getID = $(this).attr('id');
+                            var name = $(this).attr('name');
 
-                    //     var client = $("#client_pin").val();
-                    //     form_data.append("client_pin", client);
-                    //     var staff = $('#staff_id').val();
-                    //     form_data.append("staff_id", staff);
-                    //     var action = $('#action').val();
-                    //     form_data.append("action", action);
-                    //     var qty = $('#qty').val();
-                    //     form_data.append("qty", qty);
-                    //     var comment = $('#comments').val();
-                    //     form_data.append("comment", comment);
-                    //     var chk = $("input[type='checkbox']:checked").each(function() {
+                            form_data.append(name, $("#" + getID).val());
+                        });
+                        $('#echat-medical textarea').each(function() {
+                            var getID = $(this).attr('id');
+                            var name = $(this).attr('name');
 
-                    //         form_data.append('medical_id[]', this.value)
-                    //     });
+                            form_data.append(name, $("#" + getID).val());
+                        });
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
 
-                    //     // $(".addChk").click(function() {
-                    //     //     var selectedLanguage = new Array();
-                    //     //     $('input[name="medical_id"]:checked').each(function() {
-                    //     //         selectedLanguage.push(this.value);
-                    //     //     });
-                    //     //     alert("Number of selected Languages: " + selectedLanguage);
-                    //     // });
-                    //     $.ajaxSetup({
-                    //         headers: {
-                    //             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                    //         }
-                    //     });
-
-                    //     $.ajax({
-                    //         url: "{{ route('echat-medicals') }}",
-                    //         type: "POST",
-                    //         dataType: "json",
-                    //         data: form_data,
-                    //         cache: false,
-                    //         contentType: false,
-                    //         processData: false,
-                    //         beforeSend: function() {
-                    //             $('#send_btn').html(
-                    //                 "<i class='fa fa-spin fa-spinner'></i> Submit");
-                    //         },
-                    //         success: function(result) {
-                    //             // window.location.href = "{{ route('client-list') }}";
-                    //             // $('#send_btn').html(" Submit");
-                    //         },
-                    //         error: function(error) {
-                    //             console.log(error);
-                    //         }
-                    //     });
-                    //     return false;
-                    // }
+                        $.ajax({
+                            url: "{{ route('echat-medicals') }}",
+                            type: "POST",
+                            dataType: "json",
+                            data: form_data,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            beforeSend: function() {
+                                $('#send_btn').html(
+                                    "<i class='fa fa-spin fa-spinner'></i> Submit");
+                            },
+                            success: function(result) {
+                                console.log(result.status);
+                                if (result.status == 201) {
+                                    window.location.href = "{{ route('client-list') }}";
+                                } else if (result.status == 401) {
+                                    var msg = result.message != null ?
+                                        'You add wrong pin realy one is ' + result.data : "";
+                                    $(`<span id="client_pin-error" class="error invalid-feedback">` +
+                                        msg +
+                                        `</span>`).insertAfter($('#client_pin'));
+                                    $('#client_pin').attr('class',
+                                        'form-control text-box is-invalid');
+                                }
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                        return false;
+                    }
                 });
             });
 
@@ -561,55 +544,24 @@
             function resetForm() {
                 document.getElementById("add-user").reset();
             }
-            $(document).ready(function() {
+            // $(document).ready(function() {
 
-                $('#echat-medical').validate();
-                $('input[type="text"]').each(function() {
-                    $(this).rules('add', {
-                        required: true
-                    });
+            //     $('#echat-medical').validate();
+            //     $('input[type="text"]').each(function() {
+            //         $(this).rules('add', {
+            //             required: true
+            //         });
 
-                });
-                $('select').each(function() {
-                    $(this).rules('add', {
-                        required: true
-                    });
+            //     });
+            //     $('select').each(function() {
+            //         $(this).rules('add', {
+            //             required: true
+            //         });
 
-                });
+            //     });
 
-            });
-            jQuery(document).ready(function($) {
+            // });
 
-                var canvas = document.getElementById("signature");
-                var signaturePad = new SignaturePad(canvas);
-                $('#confirm').click(function() {
-                    var data = signaturePad.toDataURL('image/png');
-                    $('#client_pin').val(data);
-
-                    $("#sign_prev").show();
-                    $("#sign_prev").attr("src", data);
-                    // Open image in the browser
-                    //window.open(data);
-                });
-                $('#clear-signature').on('click', function() {
-                    signaturePad.clear();
-                });
-                var canvas = document.getElementById("signature1");
-                var signaturePad1 = new SignaturePad(canvas);
-                $('#confirm1').click(function() {
-                    var data = signaturePad1.toDataURL('image/png');
-                    $('#staff_signature').val(data);
-
-                    $("#sign_prev1").show();
-                    $("#sign_prev1").attr("src", data);
-                    // Open image in the browser
-                    //window.open(data);
-                });
-                $('#clear-signature1').on('click', function() {
-                    signaturePad1.clear();
-                });
-
-            });
             $(document).ready(function() {
                 document.title = '{{ $data->company_name }}';
 

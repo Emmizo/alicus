@@ -328,7 +328,8 @@ class ClientController extends Controller
         $data['company_id']= $request->id;
         $data['echats']=Echat::join('medications','medications.id','echat.medical_applied_id')
         ->join('clients','medications.client_id','clients.id')
-        ->select('medications.medication_name','medications.dose_units','medications.dose_quantity','medications.frequency','echat.*')
+        ->join('users','users.id','echat.staff_id')
+        ->select('users.first_name','users.last_name','medications.medication_name','medications.dose_units','medications.dose_quantity','medications.frequency','echat.*','clients.client_name')
         ->where('medications.client_id',$request->client)->where('medications.discharged',0)->get();
         $data['medications'] = Medication::join('clients','clients.id','medications.client_id')
         ->select('medications.*')->where('medications.client_id',$request->client)->where('medications.discharged',0)->get();
@@ -402,7 +403,13 @@ class ClientController extends Controller
                 $data1 ['message'] =$validator->errors()->first();
                 return response()->json($data1); 
             }
+            $id= $request->clientID;
+            $chk= Client::where('id',$id)->where('client_PIN',$request->client_pin)->get();
+            $real=Client::where('id',$id)->first();
+            // return $chk;
+            if($chk->count()>0){
             $medical=$request->medical_id;
+
             foreach($medical as $key =>$med){
             $add= New Echat();
                 $add->medical_applied_id= $med;
@@ -420,8 +427,11 @@ class ClientController extends Controller
         $update= Client::where('clients.id',$clientId)->update(['status'=>0]);
         $request->session()
             ->flash('success', 'chat recorded for '.$request->name);
-            
-            return redirect(route('client-list'));
+            return response()->json(['status' => 201,'message' => "updated"]);
+    }else{
+        return response()->json(['status' => 401,'message' => "Authorized",'data'=>$real->client_PIN]);
+    }
+            // return redirect(route('client-list'));
 
     }
     /**
