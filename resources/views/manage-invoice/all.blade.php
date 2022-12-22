@@ -70,7 +70,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2 justify-content-end">
-                                    <img class="logo-img2" src='{{ URL::asset($data->company_logo ?? '') }}'
+                                    <img class="logo-img2"
+                                        src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
                                         alt="{{ $data->company_name }}">
                                 </div>
                             </div>

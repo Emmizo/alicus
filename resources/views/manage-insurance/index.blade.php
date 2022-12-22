@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-5">
+            <div class="row mt-5">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
@@ -238,7 +238,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -434,6 +434,8 @@
                     form_data.append('percentage', percentage);
                     var address = $('#address').val();
                     form_data.append('address', address);
+                    var comp = $('#comp_id').val();
+                    form_data.append('company_id', comp);
 
                     $.ajaxSetup({
                         headers: {
@@ -473,11 +475,11 @@
 
                             } else if (result.status == 401) {
                                 var msg = result.message != null ?
-                                    "Please select this Insurance already available" : "";
-                                $(`<span id="insurance-error2" class="error invalid-feedback">` +
+                                    "Please this Insurance already available" : "";
+                                $(`<span id="insurance_name-error" class="error invalid-feedback">` +
                                     msg +
-                                    `</span>`).insertAfter($('#insurance'));
-                                $('#insurance').attr('class',
+                                    `</span>`).insertAfter($('#insurance_name'));
+                                $('#insurance_name').attr('class',
                                     'form-control text-box is-invalid');
                             }
 

@@ -172,7 +172,7 @@ class UserController extends Controller
      */
     public function add(Request $request)
     {
-        $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
         $data['roles'] = Role::all();
         $data['company'] = Company::where('status',1)->get();
         $data['title'] = "Manage Users - Add";

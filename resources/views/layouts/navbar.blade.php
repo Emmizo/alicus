@@ -5,7 +5,7 @@
                 alt="" class="logo-img"></a> </div>
     <div class="center-digital">
         <h2 style="font-size: 15px;"><b>WELCOME TO</b><br>
-            ({{ Auth::user()->role == 1 && Auth::user()->company_id == null ? 'ALCUS MIS' : $data->company_name ?? '' }})
+            ({{ Auth::user()->role == 1 && Auth::user()->company_id == null ? 'ALICUS MIS' : $data->company_name ?? '' }})
         </h2>
     </div>
     @can('Setting')

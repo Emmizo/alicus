@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-4">
+            <div class="row mt-5">
                 <div class="col-sm-12 justify-content-center dashboard m-5">
                     <h1> Check your daily report over here
                     </h1>

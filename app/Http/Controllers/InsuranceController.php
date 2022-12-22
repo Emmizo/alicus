@@ -43,7 +43,7 @@ class InsuranceController extends Controller
     public function store(Request $request)
     {
         $validator = \Validator::make($request->all(), [
-            'insurance_name' => 'required|unique:insurances,insurance_name,'.\Auth::user()->company_id,
+            'insurance_name' => 'required',
         ]);
         
         if ($validator->fails()) {
@@ -52,7 +52,10 @@ class InsuranceController extends Controller
             $data ['message'] = $validator->errors()->first();
             return response()->json($data);  
         }
-        
+        $chk= Insurance::where('company_id',$request->company_id)->where('insurance_name',$request->insurance_name)->count();
+        if($chk>0){
+            return response()->json(['status' => 401,'message' => "This insurance already applied in this company"]);
+        }else{
         $datas=Insurance::create([
           'insurance_company'=>$request->insurance_company,
           'insurance_name'=>$request->insurance_name,
@@ -61,6 +64,7 @@ class InsuranceController extends Controller
           'percentage'=>$request->percentage,
           'company_id'=>\Auth::user()->company_id,
         ]);
+    }
         // $datas['insurances'] = Insurance::orderBy('created_at','DESC')->where('company_id',\Auth::user()->company_id)->get();
         return response()->json(['status' => 200,'message' => "Other insurance add"]);
     }

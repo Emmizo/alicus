@@ -30,7 +30,7 @@
                             </ul>
                         </div><br />
                     @endif
-                    <form role="form" id="add-user" action="{{ route('manage-user-save') }}" name="add-category"
+                    <form role="form" id="add-user" action="{{ route('manage-user-saveAdmin') }}" name="add-category"
                         method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">

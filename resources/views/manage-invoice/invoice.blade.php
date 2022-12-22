@@ -19,7 +19,7 @@
     <section>
         <hr />
         <div class="col-md-12 justify-content-start">
-            <img class="logo-img2" src='{{ URL::asset($data->company_logo ?? '') }}' alt="{{ $data->company_name }}">
+            <img class="logo-img2" src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}' alt="{{ $data->company_name }}">
         </div>
         <hr />
         <div class="mt-5">
