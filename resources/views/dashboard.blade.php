@@ -86,18 +86,17 @@
 
                                 <div class="inner">
                                     <h3 class="d-flex justify-content-center">
-                                        {{ $medications }}
+                                        {{ $invoice }}
                                     </h3>
                                     <p>
-                                        Manage Medications
+                                        Invoices
                                     </p>
                                 </div>
 
                                 <div class="icon">
                                     <i class="ion ion-bag"></i>
                                 </div>
-                                <a href="{{ route('medication-list', ['id' => $data->comp_id, 'name' => $data->company_name]) }}"
-                                    class="small-box-footer">
+                                <a href="{{ route('all-invoices') }}" class="small-box-footer">
                                     More info <i class="fa fa-arrow-circle-right"></i>
                                 </a>
                             </div>

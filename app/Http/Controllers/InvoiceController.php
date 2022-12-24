@@ -221,7 +221,9 @@ class InvoiceController extends Controller
         $data['data']=$comp;
         $data['invoices']=Invoice::join('clients','clients.id','invoices.client_id')
         ->select('clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
-        ->where('invoices.client_id',$id)->get();
+        ->where('invoices.client_id',$id)
+        ->where('clients.discharged',0)
+        ->get();
         $data['id']=$id;
         return view('manage-invoice.all',$data);
     }
@@ -232,7 +234,9 @@ class InvoiceController extends Controller
         $data['data']=$comp;
         $data['invoices']=Invoice::join('clients','clients.id','invoices.client_id')
         ->select('clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
-        ->where('invoices.client_id',$id)->get();
+        ->where('invoices.client_id',$id)
+        ->where('clients.discharged',1)
+        ->get();
         $data['id']=$id;
         return view('manage-archive.all-invoice',$data);
     }

@@ -17,99 +17,104 @@
 
     </section>
     <section>
-        <hr />
-        <div class="col-md-12 justify-content-start">
-            <img class="logo-img2" src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}' alt="{{ $data->company_name }}">
-        </div>
-        <hr />
+
         <div class="mt-5">
 
 
 
-
-            <div class="card-body">
-                @foreach ($invoices as $key => $invoice)
-                    <div class="col-12 container font-weight-bold row">
-                        <div class="col-md-6 fs-6">
-                            <div class="col-md-12 row">
-                                <div class="col-md-5 mb-3">
-                                    Client Name:
+            <fieldset class="border p-2 mt-3">
+                <legend class="float-none w-auto">Invoice</legend>
+                <div class="card-body">
+                    @foreach ($invoices as $key => $invoice)
+                        <div class="col-12 container font-weight-bold row">
+                            <div class="col-md-6 fs-6">
+                                <div class="col-md-12 row">
+                                    <div class="col-md-5 mb-3">
+                                        Client Name:
+                                    </div>
+                                    <div class="col-md-7 ">
+                                        <b>{{ $invoice->client_name ?? '' }}</b>
+                                    </div>
                                 </div>
-                                <div class="col-md-7 ">
-                                    <b>{{ $invoice->client_name ?? '' }}</b>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-5 mb-3">
+                                        Date of Birth:
+                                    </div>
+                                    <div class="col-md-7 ">
+                                        <b>{{ $invoice->BOD ?? '' }}</b>
+                                    </div>
+                                </div>
+                                <div class="col-md-12  row">
+                                    <div class="col-md-5 mb-3">
+                                        Admitted Date:
+                                    </div>
+                                    <div class="col-md-7">
+                                        <b>{{ $invoice->admitted ?? '' }}</b>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-12 row">
-                                <div class="col-md-5 mb-3">
-                                    Date of Birth:
+                            <div class="col-md-4 fs-6">
+                                <div class="col-md-12 row">
+                                    <div class="col-md-3 mb-3 ">Company:</div>
+                                    <div class="col-md-8 mb-3 ">{{ $data->company_name ?? '' }}</div>
                                 </div>
-                                <div class="col-md-7 ">
-                                    <b>{{ $invoice->BOD ?? '' }}</b>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-3 mb-3 ">Phone:</div>
+                                    <div class="col-md-8 mb-3 ">{{ $data->phone ?? '' }}</div>
+                                </div>
+                                <div class="col-md-12 row">
+                                    <div class="col-md-3 mb-3  ">Email:</div>
+                                    <div class="col-md-8 mb-3 ">{{ $data->email ?? '' }}</div>
                                 </div>
                             </div>
-                            <div class="col-md-12  row">
-                                <div class="col-md-5 mb-3">
-                                    Admitted Date:
-                                </div>
-                                <div class="col-md-7">
-                                    <b>{{ $invoice->admitted ?? '' }}</b>
+                            <div class="col-md-2">
+                                <div class="col-md-12 ">
+                                    <img class="logo-img2 float-right"
+                                        src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
+                                        alt="{{ $data->company_name ?? '' }}">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 fs-6">
-                            <div class="col-md-12 row">
-                                <div class="col-md-3 mb-3 ">Company:</div>
-                                <div class="col-md-8 mb-3 ">{{ $data->company_name }}</div>
-                            </div>
-                            <div class="col-md-12 row">
-                                <div class="col-md-3 mb-3 ">Phone:</div>
-                                <div class="col-md-8 mb-3 ">{{ $data->phone }}</div>
-                            </div>
-                            <div class="col-md-12 row">
-                                <div class="col-md-3 mb-3  ">Email:</div>
-                                <div class="col-md-8 mb-3 ">{{ $data->email }}</div>
-                            </div>
+
+                        <div class='d-flex justify-content-center mt-4'>
+                            {{-- <h3><u>Invoice</u></h3> --}}
                         </div>
-                    </div>
 
-                    <div class='d-flex justify-content-center'>
-                        <h3><u>Invoice</u></h3>
-                    </div>
-
-                    <table border="1" class="table table-bordered certificate-table" width="500">
-                        <tbody>
-                            <tr>
-                                <th>Start date</th>
-                                <td>{{ $invoice->start_date }}</td>
-                            </tr>
-                            <tr>
-                                <th>Billing date</th>
-                                <td>{{ $invoice->billing_date }}</td>
-                            </tr>
-                            <tr>
-                                <th>No of Day</th>
-                                <td>{{ $invoice->no_of_day }}</td>
-                            </tr>
-                            <tr>
-                                <th>Price per day</th>
-                                <td>{{ $invoice->price_per_day }}</td>
-                            </tr>
-                            <tr>
-                                <th>Total Price</th>
-                                <td>{{ $invoice->tot }}</td>
-                            </tr>
-                            <tr>
-                                <th>Payment</th>
-                                <td>{{ $invoice->payment }}</td>
-                            </tr>
-                            <tr>
-                                <th>Due Payment</th>
-                                <td class="text-red">{{ $invoice->due_payment }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                @endforeach
-            </div>
+                        <table border="1" class="table table-bordered certificate-table">
+                            <tbody>
+                                <tr>
+                                    <th>Start date</th>
+                                    <td>{{ $invoice->start_date }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Billing date</th>
+                                    <td>{{ $invoice->billing_date }}</td>
+                                </tr>
+                                <tr>
+                                    <th>No of Day</th>
+                                    <td>{{ $invoice->no_of_day }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Price per day</th>
+                                    <td>{{ $invoice->price_per_day }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total Price</th>
+                                    <td>{{ $invoice->tot }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Payment</th>
+                                    <td>{{ $invoice->payment }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Due Payment</th>
+                                    <td class="text-red">{{ $invoice->due_payment }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    @endforeach
+                </div>
+            </fieldset>
             <div class="form-row">
                 <div class="col-md-4 d-print-none">
                     <input class="btn btn-primary" type='button' id='print-data' value='Print'>

@@ -75,7 +75,7 @@
                                                         Date of Birth:
                                                     </div>
                                                     <div class="col-md-7 mb-3">
-                                                        <b>{{ $client->BOD }}</b>
+                                                        <b>{{ $client->BOD ?? '' }}</b>
                                                     </div>
                                                 </div>
                                             </div>
@@ -85,7 +85,7 @@
                                                         Admitted Date:
                                                     </div>
                                                     <div class="col-md-7">
-                                                        <b>{{ $client->created_at }}</b>
+                                                        <b>{{ $client->created_at ?? '' }}</b>
                                                     </div>
                                                 </div>
                                             </div>
@@ -93,15 +93,15 @@
                                         <div class="col-md-6 fs-6 font-weight-bold print">
                                             <div class="col-md-12 row">
                                                 <div class="col-md-5 mb-3">Company:</div>
-                                                <div class="col-md-7 mb-3">{{ $data->company_name }}</div>
+                                                <div class="col-md-7 mb-3">{{ $data->company_name ?? '' }}</div>
                                             </div>
                                             <div class="col-md-12 row">
                                                 <div class="col-md-5 mb-3">Phone:</div>
-                                                <div class="col-md-7 mb-3">{{ $data->phone }}</div>
+                                                <div class="col-md-7 mb-3">{{ $data->phone ?? '' }}</div>
                                             </div>
                                             <div class="col-md-12 row">
                                                 <div class="col-md-5 mb-3">Email:</div>
-                                                <div class="col-md-7 mb-3">{{ $data->email }}</div>
+                                                <div class="col-md-7 mb-3">{{ $data->email ?? '' }}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -481,7 +481,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

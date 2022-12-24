@@ -31,6 +31,7 @@ class ClientController extends Controller
         $data['insurances'] = \DB::table('insurances')->where('insurances.company_id',$comp->comp_id)->get();
         $data['clients'] = Client::join('companies','clients.company_id','companies.id')->join('users','users.id','clients.created_by')->select('clients.*','users.first_name','users.last_name')->where('clients.company_id',$comp->comp_id)
         ->where('clients.discharged',0)
+        ->orderBy('clients.updated_at','DESC')
         ->get(); 
         return view('manage-clients.index',$data);
         //

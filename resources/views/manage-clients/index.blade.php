@@ -61,20 +61,20 @@
                                 <div class="col-md-6 fs-6 font-weight-bold print">
                                     <div class="col-md-12 row">
                                         <div class="col-md-6 mb-3">Company:</div>
-                                        <div class="col-md-6 mb-3">{{ $data->company_name }}</div>
+                                        <div class="col-md-6 mb-3">{{ $data->company_name ?? '' }}</div>
                                     </div>
                                     <div class="col-md-12 row">
                                         <div class="col-md-6 mb-3">Phone:</div>
-                                        <div class="col-md-6 mb-3">{{ $data->phone }}</div>
+                                        <div class="col-md-6 mb-3">{{ $data->phone ?? '' }}</div>
                                     </div>
                                     <div class="col-md-12 row">
                                         <div class="col-md-6 mb-3">Email:</div>
-                                        <div class="col-md-6 mb-3">{{ $data->email }}</div>
+                                        <div class="col-md-6 mb-3">{{ $data->email ?? '' }}</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
-                                <h4> <b>{{ $data->company_name }}</b> company clients list</h4>
+                                <h4> <b>{{ $data->company_name ?? '' }}</b> company clients list</h4>
                             </div>
                             <section class="mt-5">
                                 <div class="container2">
@@ -172,7 +172,7 @@
                                                                                 class="fa fa-file fa-fw"></i>Generate
                                                                             Invoice</a>
                                                                         <a class="dropdown-item"
-                                                                            href="{{ route('discharging', [ 'id' => $client->id, 'name' => $client->client_name]) }}"><i
+                                                                            href="{{ route('discharging', ['id' => $client->id, 'name' => $client->client_name]) }}"><i
                                                                                 class="fa fa-close fa-fw"></i>Discharge</a>
                                                                     </div>
 
@@ -221,7 +221,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -359,7 +359,7 @@
             document.getElementById("add-user").reset();
         }
         $(document).ready(function() {
-            document.title = '{{ $data->company_name }}';
+            document.title = '{{ $data->company_name ?? '' }}';
 
             function printData() {
                 var divToPrint = document.getElementById("printData");

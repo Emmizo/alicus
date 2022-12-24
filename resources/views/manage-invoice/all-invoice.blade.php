@@ -31,7 +31,7 @@
                         <div class="search col-md-12 row">
                             <div class="col-md-3">
                                 <select class="form-control col-md-12" type="text" name="search" required>
-                                    <option>--Select insurance--</option>
+                                    <option>--Select Payor--</option>
                                     @foreach ($insurancess as $insurance)
                                         <option value="{{ $insurance->id }}">{{ $insurance->insurance_name }}</option>
                                     @endforeach
@@ -59,21 +59,21 @@
                             <div class="col-md-6 ">
                                 <div class="col-md-12 fs-6 row">
                                     <div class="col-md-3 mb-3 ">Company:</div>
-                                    <div class="col-md-8 mb-3 ">{{ $data->company_name }}</div>
+                                    <div class="col-md-8 mb-3 ">{{ $data->company_name ?? '' }}</div>
                                 </div>
                                 <div class="col-md-12 row">
                                     <div class="col-md-3 mb-3 ">Phone:</div>
-                                    <div class="col-md-8 mb-3 ">{{ $data->phone }}</div>
+                                    <div class="col-md-8 mb-3 ">{{ $data->phone ?? '' }}</div>
                                 </div>
                                 <div class="col-md-12 row">
                                     <div class="col-md-3 mb-3  ">Email:</div>
-                                    <div class="col-md-8 mb-3 ">{{ $data->email }}</div>
+                                    <div class="col-md-8 mb-3 ">{{ $data->email ?? '' }}</div>
                                 </div>
                             </div>
                             <div class="col-md-6 ">
                                 <img class="logo-img2 float-md-right"
                                     src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
-                                    alt="{{ $data->company_name }}">
+                                    alt="{{ $data->company_name ?? '' }}">
                             </div>
                         </div>
                         @if ($insurances->count() > 0)
@@ -86,7 +86,7 @@
                                         <td colspan="2"><b>{{ $insurances[0]->insurance_company ?? '' }}</b></td>
                                     </tr>
                                     <tr>
-                                        <td>Insurance name</td>
+                                        <td>Payor name</td>
                                         <td>{{ $insurances[0]->insurance_name ?? '' }}</td>
                                     </tr>
                                     <tr>

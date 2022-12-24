@@ -55,7 +55,7 @@
                                 <input class="btn btn-primary d-print-none" type='button' id='print-data' value='Print'>
                             </div>
                             <div class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
-                                <h4>List of medical taken by <b>{{ $name }}></b></h4>
+                                <h4>List of medical taken by <b>{{ $name??'' }}></b></h4>
                             </div>
                             <section class="mt-5">
                                 <div class="container2" id="printData">

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Company;
 use App\Models\Client;
 use App\Models\GroupNote;
+use App\Models\Invoice;
 
 class DashboardController extends Controller
 {
@@ -36,11 +37,15 @@ class DashboardController extends Controller
         ->groupBy(\DB::raw("Month(clients.created_at)"),'month_name')
         ->where('clients.company_id',$comp->comp_id??'')
         ->pluck('count', 'month_name');
+        $invoice=Invoice::join('clients','clients.id','invoices.client_id')
+        ->select('clients.id as clientId','clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.payment','invoices.due_payment')
+        ->where('clients.company_id',$comp->comp_id)
+        ->count();
 
         $labels = $chart->keys();
         $dataChart = $chart->values();
 
-        return view('dashboard',compact('labels', 'dataChart','medications','clients','users','company_users','data','companies'));
+        return view('dashboard',compact('labels', 'dataChart','medications','clients','users','company_users','data','companies','invoice'));
         //
     }
 /**

@@ -34,7 +34,7 @@
                     Date of Birth:
                 </div>
                 <div class="col-md-6 mb-3">
-                    <b>{{ $birth }}</b>
+                    <b>{{ $birth ?? '' }}</b>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                     Admitted Date:
                 </div>
                 <div class="col-md-6">
-                    <b>{{ $created }}</b>
+                    <b>{{ $created ?? '' }}</b>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            document.title = '{{ $data->company_name }}';
+            document.title = '{{ $data->company_name ?? '' }}';
 
             function printData() {
                 var divToPrint = document.getElementById("printData");

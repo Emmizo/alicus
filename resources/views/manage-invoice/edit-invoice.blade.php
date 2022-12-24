@@ -18,11 +18,12 @@
     </section>
     <section>
         <hr />
-        <div class="col-md-12 justify-content-start">
-            <img class="logo-img2" src='{{ URL::asset($data->company_logo ?? '') }}' alt="{{ $data->company_name }}">
+        <div class="col-md-12">
+            <img class="logo-img2 float-right" src='{{ URL::asset($data->company_logo ?? '') }}'
+                alt="{{ $data->company_name }}">
         </div>
-        <hr />
-        <div class="mt-5">
+
+        <div class="mt-5 container">
             @foreach ($invoices as $key => $invoice)
                 <form role="form" id="update-invoice" action="{{ route('company-update') }}" name="add-category"
                     method="POST" enctype="multipart/form-data">
