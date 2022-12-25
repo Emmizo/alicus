@@ -76,10 +76,10 @@ class RoleController extends Controller {
 		if ($request->ajax()) {
 			$user=\Auth::user();
 			$data=Role::
-			// where('roles.name','Employee')
-			join('users','users.role','roles.id')
+			
+			join('companies','roles.company_id','companies.id')
 			->select('roles.id', 'roles.name','roles.created_at','roles.updated_at','roles.status')
-			->where('users.company_id',\Auth::user()->company_id)
+			->where('roles.company_id',\Auth::user()->company_id)
 			->get();
 			return datatables()->of($data)
 				->addColumn('action', function ($role) use($user) {
@@ -186,6 +186,7 @@ class RoleController extends Controller {
 			}
 
 			$role->name = $request->name;
+			$role->company_id = \Auth::user()->company_id;
 			$role->save();
 			if ($request->Permissions) {
 				$permissions = Permission::whereIn('id', $request->Permissions)->get();
@@ -327,7 +328,7 @@ class RoleController extends Controller {
 	public function saveClient(Request $request) {
        
 		try {
-			$role = Role::create(['name' => $request->name]);
+			$role = Role::create(['name' => $request->name,'company_id',\Auth::user()->company_id]);
 			if ($request->Permissions) {
 				$permissions = Permission::whereIn('id', $request->Permissions)->get();
 				$role->syncPermissions($permissions);
