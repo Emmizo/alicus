@@ -56,7 +56,7 @@
                             </div>
                         </div><!-- ./col -->
                     @endif
-                    @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
+                    @can('manage-client')
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-warning">
@@ -78,8 +78,8 @@
                                 </a>
                             </div>
                         </div><!-- ./col -->
-                    @endif
-                    @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
+                    @endcan
+                    @can('manage-client')
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-danger">
@@ -101,8 +101,8 @@
                                 </a>
                             </div>
                         </div><!-- ./col -->
-                    @endif
-                    @if (Auth::user()->role == 1 && Auth::user()->company_id == null)
+                    @endcan
+                    @can('manage-company')
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-blue">
@@ -124,11 +124,11 @@
                                 </a>
                             </div>
                         </div><!-- ./col -->
-                    @endif
+                    @endcan
                     <div class="col-md-10">
-                        @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
+                        @can('manage-client')
                             <canvas id="myChart" height="100px"></canvas>
-                        @endif
+                        @endcan
                     </div>
                 </div>
 

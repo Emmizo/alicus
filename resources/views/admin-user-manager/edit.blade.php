@@ -87,6 +87,7 @@
                                                 <select class="form-control" name="company_id" id="company_id">
                                                     <option value="">Company</option>
                                                     @foreach ($company as $key => $company)
+                                                        
                                                         <?php $selected = $company->id == $info->company_id ? 'selected' : ''; ?>
                                                         <option value="{{ $company->id }}"<?= $selected ?>>
                                                             {{ $company->company_name }}</option>

@@ -10,29 +10,8 @@
                     </h1>
                 </div>
                 <div class="row d-flex justify-content-center">
-                    @if (Auth::user()->role == 1 && Auth::user()->company_id == null)
-                        <div class="col-lg-3 col-xs-6">
-                            <!-- small box -->
-                            <div class="small-box bg-blue">
 
-                                <div class="inner">
-                                    <h3 class="d-flex justify-content-center">
-                                        9
-                                    </h3>
-                                    <p>
-                                        Group notes
-                                    </p>
-                                </div>
-
-                                <div class="icon">
-                                    <i class="ion ion-bag"></i>
-                                </div>
-                                <a href="{{ route('manage-userAdmin') }}" class="small-box-footer">
-                                    More info <i class="fa fa-arrow-circle-right"></i>
-                                </a>
-                            </div>
-                        </div><!-- ./col -->
-                    @else
+                    @can('manage-report')
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-blue">
@@ -54,8 +33,8 @@
                                 </a>
                             </div>
                         </div><!-- ./col -->
-                    @endif
-                    @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
+                    @endcan
+                    @can('manage-report')
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-warning">
@@ -77,8 +56,8 @@
                                 </a>
                             </div>
                         </div><!-- ./col -->
-                    @endif
-                    @if (Auth::user()->role == 1 && Auth::user()->company_id != null)
+                    @endcan
+                    @can('manage-report')
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->
                             <div class="small-box bg-danger">
@@ -101,7 +80,7 @@
                                 </a>
                             </div>
                         </div><!-- ./col -->
-                    @endif
+                    @endcan
                     @if (Auth::user()->role == 1 && Auth::user()->company_id == null)
                         <div class="col-lg-3 col-xs-6">
                             <!-- small box -->

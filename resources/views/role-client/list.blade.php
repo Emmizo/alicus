@@ -20,8 +20,8 @@
     </style>
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mt-5">
+        <div class="container-fluid mt-5">
+            <div class="row ">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
@@ -30,8 +30,8 @@
                     </ol>
                 </div>
                 <!-- <div class="col-sm-6">
-                                                            <h1>{{ $title }}</h1>
-                                                        </div> -->
+                                                                                    <h1>{{ $title }}</h1>
+                                                                                </div> -->
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -43,8 +43,8 @@
                     <!-- /.card-header -->
                     <div class="card-body table-responsive">
                         <div class="col-sm-3" style="margin-bottom: 10px;">
-                            <!-- <a href="{{ route('role-add') }}" class="btn btn-block btn-outline-dark">Add Role</a> -->
-                            <a href="{{ route('role-add') }}" class="btn btn-success">
+                            <!-- <a href="{{ route('role-add-client') }}" class="btn btn-block btn-outline-dark">Add Role</a> -->
+                            <a href="{{ route('role-add-client') }}" class="btn btn-success">
                                 <i class="fa fa-plus"></i>&nbsp;Add Role</a>
                         </div>
                         <table id="role-list" class="table table-bordered">
@@ -111,7 +111,7 @@
             "searching": true,
             "bInfo": true,
             "aaSorting": [],
-            "ajax": "{{ route('role-datatable') }}",
+            "ajax": "{{ route('role-datatable-client') }}",
             "fnDrawCallback": function() {
                 $('.toggle-class').bootstrapToggle();
             },

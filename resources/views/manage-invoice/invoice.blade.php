@@ -27,32 +27,7 @@
                 <div class="card-body">
                     @foreach ($invoices as $key => $invoice)
                         <div class="col-12 container font-weight-bold row">
-                            <div class="col-md-6 fs-6">
-                                <div class="col-md-12 row">
-                                    <div class="col-md-5 mb-3">
-                                        Client Name:
-                                    </div>
-                                    <div class="col-md-7 ">
-                                        <b>{{ $invoice->client_name ?? '' }}</b>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 row">
-                                    <div class="col-md-5 mb-3">
-                                        Date of Birth:
-                                    </div>
-                                    <div class="col-md-7 ">
-                                        <b>{{ $invoice->BOD ?? '' }}</b>
-                                    </div>
-                                </div>
-                                <div class="col-md-12  row">
-                                    <div class="col-md-5 mb-3">
-                                        Admitted Date:
-                                    </div>
-                                    <div class="col-md-7">
-                                        <b>{{ $invoice->admitted ?? '' }}</b>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="col-md-4 fs-6">
                                 <div class="col-md-12 row">
                                     <div class="col-md-3 mb-3 ">Company:</div>
@@ -67,7 +42,7 @@
                                     <div class="col-md-8 mb-3 ">{{ $data->email ?? '' }}</div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-6">
                                 <div class="col-md-12 ">
                                     <img class="logo-img2 float-right"
                                         src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
@@ -75,6 +50,30 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4 mt-3 mb-3">
+                            <table border="1" class="table table-bordered certificate-table">
+                                <tr>
+                                    <th colspan="2">BILL TO</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><b>{{ $invoice->client_name ?? '' }}</b></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of birth</td>
+                                    <td>{{ $invoice->BOD ?? '' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Admitted</td>
+                                    <td>{{ $invoice->admitted ?? '' }}</td>
+                                </tr>
+                                <tr>
+
+                                    <td colspan="2">{{ $invoice->address ?? '' }}</td>
+                                </tr>
+
+                            </table>
+                        </div>
+
 
                         <div class='d-flex justify-content-center mt-4'>
                             {{-- <h3><u>Invoice</u></h3> --}}
@@ -133,7 +132,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            document.title = '{{ $data->company_name }}';
+            document.title = '{{ $data->company_name ?? '' }}';
 
             function printData() {
 

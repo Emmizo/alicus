@@ -12,8 +12,8 @@
                     </ol>
                 </div>
                 <!-- <div class="col-sm-6">
-                <h1>{{ $title }}</h1>
-            </div> -->
+                    <h1>{{ $title }}</h1>
+                </div> -->
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -26,7 +26,7 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form id="edit-role-form" action="{{ route('role-update') }}" method="POST">
+                    <form id="edit-role-form" action="{{ route('role-update-client') }}" method="POST">
                         <input type="hidden" name="role_id" value="{{ $info->id }}">
 
                         @csrf

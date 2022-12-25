@@ -39,7 +39,7 @@ class DashboardController extends Controller
         ->pluck('count', 'month_name');
         $invoice=Invoice::join('clients','clients.id','invoices.client_id')
         ->select('clients.id as clientId','clients.client_name','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.start_date','invoices.billing_date','invoices.no_of_day','invoices.price_per_day','invoices.tot','invoices.payment','invoices.due_payment')
-        ->where('clients.company_id',$comp->comp_id)
+        ->where('clients.company_id',$comp->comp_id??'')
         ->count();
 
         $labels = $chart->keys();

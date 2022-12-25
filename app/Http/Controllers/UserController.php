@@ -173,7 +173,8 @@ class UserController extends Controller
     public function add(Request $request)
     {
         $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
-        $data['roles'] = Role::all();
+        $data['roles'] = Role::where('roles.name','Employee')->
+        select('id', 'name','created_at','updated_at','status')->get();;
         $data['company'] = Company::where('status',1)->get();
         $data['title'] = "Manage Users - Add";
         $data['brVal'] = "Manage Users";
@@ -189,7 +190,8 @@ class UserController extends Controller
     public function addAdmin(Request $request)
     {
        
-        $data['roles'] = Role::all();
+        $data['roles'] = Role::where('roles.name','Admin')->orWhere('roles.name','Client')->
+        select('id', 'name','created_at','updated_at','status')->get();
         $data['company'] = Company::where('status',1)->get();
         $data['title'] = "Manage Users - Add";
         $data['brVal'] = "Manage Users";
@@ -465,7 +467,7 @@ class UserController extends Controller
         $info['email'] = $request->email;
         $info['status'] = $request->status;
         $info['phone_number'] = $request->phone_number;
-        $info['company_id'] = $request->company_id;
+        $info['company_id'] =Auth::user()->company_id;
         $info['is_delete'] = 0;
         $info['role'] = $request->role;
         $info['id'] = $request->id;

@@ -58,21 +58,21 @@
                                 <div class="col-md-5 ">
                                     <div class="col-md-12 fs-6 row">
                                         <div class="col-md-3 mb-3 ">Company:</div>
-                                        <div class="col-md-8 mb-3 ">{{ $data->company_name }}</div>
+                                        <div class="col-md-8 mb-3 ">{{ $data->company_name ?? '' }}</div>
                                     </div>
                                     <div class="col-md-12 row">
                                         <div class="col-md-3 mb-3 ">Phone:</div>
-                                        <div class="col-md-8 mb-3 ">{{ $data->phone }}</div>
+                                        <div class="col-md-8 mb-3 ">{{ $data->phone ?? '' }}</div>
                                     </div>
                                     <div class="col-md-12 row">
                                         <div class="col-md-3 mb-3  ">Email:</div>
-                                        <div class="col-md-8 mb-3 ">{{ $data->email }}</div>
+                                        <div class="col-md-8 mb-3 ">{{ $data->email ?? '' }}</div>
                                     </div>
                                 </div>
                                 <div class="col-md-2 justify-content-end">
                                     <img class="logo-img2"
                                         src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
-                                        alt="{{ $data->company_name }}">
+                                        alt="{{ $data->company_name ?? '' }}">
                                 </div>
                             </div>
 
@@ -134,7 +134,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            document.title = '{{ $data->company_name }}';
+            document.title = '{{ $data->company_name ?? '' }}';
 
             function printData() {
 

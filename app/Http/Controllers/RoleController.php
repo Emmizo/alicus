@@ -30,6 +30,12 @@ class RoleController extends Controller {
 		$data=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
 		return view('role.list', compact('title','data'));
 	}
+	public function indexClient() {
+        
+		$title = "Roles List";
+		$data=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+		return view('role-client.list', compact('title','data'));
+	}
 
 	/**
 	 * This controller method is used to get non admin roles
@@ -42,7 +48,9 @@ class RoleController extends Controller {
 
 		if ($request->ajax()) {
 			$user=\Auth::user();
-			return datatables()->of(Role::select('id', 'name','created_at','updated_at','status'))
+			$data=Role::where('roles.name','Admin')->orWhere('roles.name','Client')->
+			select('id', 'name','created_at','updated_at','status')->get();
+			return datatables()->of($data)
 				->addColumn('action', function ($role) use($user) {
 
 					$updateBtn='<a href="' . route('role-edit', ['id' => $role->id]) . '" class="text-dark" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></a>&nbsp;';
@@ -52,6 +60,37 @@ class RoleController extends Controller {
 				->editColumn('status', function($role) use ($user){
 					$status = ($role->status == 1) ? 'checked' : '';
 					return '<input class="toggle-class" type="checkbox" data-id="'.$role->id.'" '.$status.'  data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-url="'.route('role-status') .'">';
+				})
+				->addColumn('permissions', function ($role) {
+					$row = str_replace('","', ',<br/>', $role->getPermissionNames());
+					$row = str_replace('"', ' ', $row);
+					return $row;
+				})
+				->rawColumns(['action', 'permissions','status'])
+				->make(true);
+		}
+
+	}
+	public function getDatatableClient(Request $request) {
+
+		if ($request->ajax()) {
+			$user=\Auth::user();
+			$data=Role::
+			// where('roles.name','Employee')
+			join('users','users.role','roles.id')
+			->select('roles.id', 'roles.name','roles.created_at','roles.updated_at','roles.status')
+			->where('users.company_id',\Auth::user()->company_id)
+			->get();
+			return datatables()->of($data)
+				->addColumn('action', function ($role) use($user) {
+
+					$updateBtn='<a href="' . route('role-edit-client', ['id' => $role->id]) . '" class="text-dark" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></a>&nbsp;';
+
+					return ($user->role==1 && $user->delete_feature==1)?$updateBtn.'<span title="Delete" class="delete-role text-danger pointer" data-role-id="' . $role->id . '"><i class="fa fa-trash" aria-hidden="true"></i></span>':$updateBtn;
+				})
+				->editColumn('status', function($role) use ($user){
+					$status = ($role->status == 1) ? 'checked' : '';
+					return '<input class="toggle-class" type="checkbox" data-id="'.$role->id.'" '.$status.'  data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-url="'.route('role-status-client') .'">';
 				})
 				->addColumn('permissions', function ($role) {
 					$row = str_replace('","', ',<br/>', $role->getPermissionNames());
@@ -82,6 +121,18 @@ class RoleController extends Controller {
 		}
 		$permissions = Permission::get();
 		return view('role.edit', compact('title', 'info', 'permissions','data') );
+	}
+	public function editClient(Request $request) {
+    
+		$title = 'Edit Role';
+		$data=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+		$info = Role::find($request->id);
+		if (!$info) {
+			abort(404);
+			exit;
+		}
+		$permissions = Permission::whereNotIn('name',['manage-company'])->get();
+		return view('role-client.edit', compact('title', 'info', 'permissions','data') );
 	}
 
 	/**
@@ -121,6 +172,36 @@ class RoleController extends Controller {
 		$request->session()->flash('success', 'Role Updated Successfully');
 		return redirect(route('role-list'));
 	}
+	public function updateClient(Request $request) {
+        
+		try {
+			$role = Role::find($request->role_id);
+			if (!$role) {
+				abort(404);
+				exit;
+			}
+			$newRole = Role::where('name', $request->name)->where('id', '!=', $role->id)->get();
+			if (count($newRole) > 0) {
+				throw new \Exception($request->name . " already exist");
+			}
+
+			$role->name = $request->name;
+			$role->save();
+			if ($request->Permissions) {
+				$permissions = Permission::whereIn('id', $request->Permissions)->get();
+				$role->syncPermissions($permissions);
+			} else {
+				foreach ($role->permissions as $key => $value) {
+					$role->revokePermissionTo($value);
+				}
+			}
+		} catch (\Exception $e) {
+			$error['name'] = [$e->getMessage()];
+			throw \Illuminate\Validation\ValidationException::withMessages($error);
+		}
+		$request->session()->flash('success', 'Role Updated Successfully');
+		return redirect(route('role-list-client'));
+	}
 
 	/**
      * This function is used to delete role
@@ -130,6 +211,24 @@ class RoleController extends Controller {
      * @author Techaffinity:Kwizera
      */
 	public function delete(Request $request) {
+        
+		$role = Role::find($request->role_id);
+		$users = User::role($role->name)->get();
+
+		if (count($users) == 0) {
+			foreach ($role->permissions as $key => $value) {
+				$role->revokePermissionTo($value);
+			}
+			$role->delete();
+			$data['status'] = 'success';
+			$data['message'] = 'Role Deleted';
+		} else {
+			$data['status'] = 'error';
+			$data['message'] = 'Role assigned to users';
+		}
+		return $data;
+	}
+	public function deleteClient(Request $request) {
         
 		$role = Role::find($request->role_id);
 		$users = User::role($role->name)->get();
@@ -164,6 +263,16 @@ class RoleController extends Controller {
         return response()
                     ->json(['status' => 200, 'message' => "Status changed"]);
     }
+	public function statusClient(Request $request)
+    {
+        $id = $request->id;
+        $status = $request->status;
+        $role = Role::find($id);
+        $role->status = $status;
+        $role->save();
+        return response()
+                    ->json(['status' => 200, 'message' => "Status changed"]);
+    }
 
 	/**
      * This function is used to add role
@@ -179,7 +288,20 @@ class RoleController extends Controller {
 		$permissions = Permission::get();
 		return view('role.add', compact('title', 'permissions','data'));
 	}
-
+/**
+     * This function is used to add role
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
+     * @author Techaffinity:Kwizera
+     */
+	public function addClient(Request $request) {
+       
+		$title = 'Add Role';
+		$data=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+		$permissions = Permission::whereNotIn('name',['manage-company'])->get();
+		return view('role-client.add', compact('title', 'permissions','data'));
+	}
 	/**
 	 * This controller method is used to save role
 	 *
@@ -201,5 +323,20 @@ class RoleController extends Controller {
 		}
 		$request->session()->flash('success', 'Role Added Successfully');
 		return redirect(route('role-list'));
+	}
+	public function saveClient(Request $request) {
+       
+		try {
+			$role = Role::create(['name' => $request->name]);
+			if ($request->Permissions) {
+				$permissions = Permission::whereIn('id', $request->Permissions)->get();
+				$role->syncPermissions($permissions);
+			}
+		} catch (\Exception $e) {
+			$error['name'] = [$e->getMessage()];
+			throw \Illuminate\Validation\ValidationException::withMessages($error);
+		}
+		$request->session()->flash('success', 'Role Added Successfully');
+		return redirect(route('role-list-client'));
 	}
 }
