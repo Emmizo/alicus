@@ -7,13 +7,13 @@
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('role-list') }}">Manage Role</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('role-list-client') }}">Manage Role</a></li>
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
                 <!-- <div class="col-sm-6">
-                <h1>{{ $title }}</h1>
-            </div> -->
+                                        <h1>{{ $title }}</h1>
+                                    </div> -->
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -29,7 +29,7 @@
                         @endif @if (session()->has('error'))
                             <div class="alert alert-danger"> {!! session('error') !!} </div>
                         @endif
-                        <form id="add-role-form" action="{{ route('role-save') }}" method="POST">
+                        <form id="add-role-form" action="{{ route('role-save-client') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="row">

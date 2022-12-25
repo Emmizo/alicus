@@ -1,22 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-<section class="content-header">
-    <div class="container-fluid">
-      <div class="row mt-5">
-        <div class="col-sm-12">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('role-list') }}">Manage Role</a></li>
-                <li class="breadcrumb-item active">{{ $title }}</li>
-            </ol>
-        </div>
-        <!-- <div class="col-sm-6">
-            <h1>{{ $title }}</h1>
-        </div> -->
-      </div>
-    </div><!-- /.container-fluid -->
-  </section>
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mt-5">
+                <div class="col-sm-12">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('role-list') }}">Manage Role</a></li>
+                        <li class="breadcrumb-item active">{{ $title }}</li>
+                    </ol>
+                </div>
+                <!-- <div class="col-sm-6">
+                    <h1>{{ $title }}</h1>
+                </div> -->
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
     <div class="container-fluid">
         <div class="row mt-4">
             <div class="col-6">
@@ -67,8 +67,9 @@
                             <div class="card-footer ">
                                 <div class="">
                                     <button type="submit" class="btn btn-dark btn-lg">Save</button>
-                                    <a href="{{ route('role-list') }}" class="btn border border-dark btn-lg btn-cancel">Cancel</a>
-                                   
+                                    <a href="{{ route('role-list') }}"
+                                        class="btn border border-dark btn-lg btn-cancel">Cancel</a>
+
                                 </div>
                             </div>
                         </form>
@@ -110,6 +111,7 @@
 
             }
         });
+
         function resetForm() {
             document.getElementById("add-role-form").reset();
             $('#Permissions').bootstrapDualListbox('destroy');

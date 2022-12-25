@@ -7,13 +7,13 @@
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="{{ route('role-list') }}">Manage Role</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('role-list-client') }}">Manage Role</a></li>
                         <li class="breadcrumb-item active">{{ $title }}</li>
                     </ol>
                 </div>
                 <!-- <div class="col-sm-6">
-                    <h1>{{ $title }}</h1>
-                </div> -->
+                            <h1>{{ $title }}</h1>
+                        </div> -->
             </div>
         </div><!-- /.container-fluid -->
     </section>
