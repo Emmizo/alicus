@@ -173,7 +173,7 @@ class UserController extends Controller
     public function add(Request $request)
     {
         $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
-        $data['roles'] = Role::where('roles.name','Employee')->
+        $data['roles'] = Role::whereNotIn('roles.name',['Admin','Client'])->
         select('id', 'name','created_at','updated_at','status')->get();;
         $data['company'] = Company::where('status',1)->get();
         $data['title'] = "Manage Users - Add";
@@ -219,7 +219,7 @@ class UserController extends Controller
         }
         $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
         $data['company'] = Company::where('status',1)->get();
-        $data['roles'] = Role::all();
+        $data['roles'] = Role::whereNotIn('name',['Admin','Client'])->get();
         $data['title'] = "Manage Users - Edit";
         $data['brVal'] = "Manage Users";
         return view('manage-users.edit', $data);
@@ -246,7 +246,7 @@ class UserController extends Controller
         }
         $data['company'] = Company::where('status',1)->get();
         $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
-        $data['roles'] = Role::all();
+        $data['roles'] = Role::whereNotIn('name',['Employee'])->get();
         $data['title'] = "Manage Users - Edit";
         $data['brVal'] = "Manage Users";
         return view('admin-user-manager.edit', $data);
