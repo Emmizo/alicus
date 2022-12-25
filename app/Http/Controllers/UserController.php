@@ -131,7 +131,7 @@ class UserController extends Controller
 
         return datatables()->of($user)
                         ->addColumn('action', function($user) use($userAuth){
-                            $action = '<div class="action-btn"><a class="btn-dark" title="Edit" href="'.route('manage-user-edit', $user->id) .'"><i class="fa fa-edit"></i></a>';
+                            $action = '<div class="action-btn"><a class="btn-dark" title="Edit" href="'.route('manage-user-editAdmin', $user->id) .'"><i class="fa fa-edit"></i></a>';
 
                 
                             if($userAuth->role==1 && $userAuth->delete_feature==1)
@@ -140,7 +140,7 @@ class UserController extends Controller
                                {
                                 // $action = '';
                                 // &nbsp;<a class="reset-pass" data-id2="'.$user->first_name.' '.$user->last_name.'" data-id="'.$user->email.'"  href="#" data-bs-toggle="modal" data-bs-target="#reset"><span>Reset</span></a>
-                                $action .='&nbsp;<span title="Delete" style="cursor:pointer" class=" delete-user btn-dark" data-id="'.$user->id.'" data-url="'.route('manage-user-delete', $user->id) .'"><i class="fa fa-trash"></i></span></div>';
+                                $action .='&nbsp;<span title="Delete" style="cursor:pointer" class=" delete-user btn-dark" data-id="'.$user->id.'" data-url="'.route('manage-user-deleteAdmin', $user->id) .'"><i class="fa fa-trash"></i></span></div>';
 
                               } 
                             }
@@ -517,6 +517,7 @@ class UserController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         }
+    
         $info['first_name'] = $request->first_name;
         $info['last_name'] = $request->last_name;
         

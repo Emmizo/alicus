@@ -28,7 +28,7 @@
                         @endif
 
 
-                        <form role="form" id="update-employee33" action="{{ route('manage-user-update') }}"
+                        <form role="form" id="update-employee33" action="{{ route('manage-user-updateAdmin') }}"
                             name="add-user" name="update-employee" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-body">
@@ -87,7 +87,6 @@
                                                 <select class="form-control" name="company_id" id="company_id">
                                                     <option value="">Company</option>
                                                     @foreach ($company as $key => $company)
-                                                        
                                                         <?php $selected = $company->id == $info->company_id ? 'selected' : ''; ?>
                                                         <option value="{{ $company->id }}"<?= $selected ?>>
                                                             {{ $company->company_name }}</option>
