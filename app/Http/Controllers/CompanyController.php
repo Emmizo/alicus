@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Company;
 use Validator;
+use App\Models\User;
 
 class CompanyController extends Controller
 {
@@ -20,6 +21,18 @@ class CompanyController extends Controller
         $data['addText'] = "Add User";
         return view('manage-company.index',$data);
     }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexTrash()
+    {
+        //
+        $data['title'] = "Companies Deleted";
+        $data['addText'] = "Add User";
+        return view('trash.index',$data);
+    }
 /**
      * Show the form for creating a new resource.
      *
@@ -29,17 +42,40 @@ class CompanyController extends Controller
     {
         //
         if ($request->ajax()) {
-			$company=Company::select('id','first_name','last_name','company_name','company_logo','email','phone','created_at','updated_at','status');
+			$company=Company::select('id','first_name','last_name','company_name','company_logo','email','phone','created_at','updated_at','status')->where('is_deleted',0);
 			return datatables()->of($company)
 				->addColumn('action', function ($company) {
 
 					$updateBtn='<a href="' . route('company-edit', ['id' => $company->id]) . '" class="text-dark" title="Edit"><i class="fa fa-edit" aria-hidden="true"></i></a>&nbsp;';
 
-					return (\Auth::user()->role==1 )?$updateBtn.'<span title="Delete" class="delete-role text-danger pointer" data-role-id="' . $company->id . '"><i class="fa fa-trash" aria-hidden="true"></i></span>':$updateBtn;
+					return (\Auth::user()->role==1 )?$updateBtn.'<a href ="#"> <span title="Delete" class="delete-company text-danger pointer" data-role-id="' . $company->id . '" data-url="'.route('company-delete',['id'=>$company->id]).'"><i class="fa fa-trash" aria-hidden="true"></i></span></a>':$updateBtn;
 				})
 				->editColumn('status', function ($company){
 					$status = ($company->status == 1) ? 'checked' : '';
-					return '<input class="toggle-class" type="checkbox" data-id="'.$company->id.'" '.$status.'  data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-url="'.route('role-status') .'">';
+					return '<input class="toggle-class" type="checkbox" data-id="'.$company->id.'" '.$status.'  data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-url="'.route('company-status') .'">';
+				})
+				->addColumn('fullname',function ($company){
+                    return $company->first_name.' '.$company->last_name;
+                })
+				->rawColumns(['action', 'status','fullname'])
+				->make(true);
+		}
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDatatableDeleted(Request $request)
+    {
+        //
+        if ($request->ajax()) {
+			$company=Company::select('id','first_name','last_name','company_name','company_logo','email','phone','created_at','updated_at','status')->where('is_deleted',1);
+			return datatables()->of($company)
+				
+				->editColumn('status', function ($company){
+					$status = ($company->is_deleted == 1) ? 'checked' : '';
+					return '<input class="toggle-class" type="checkbox" data-id="'.$company->id.'" '.$status.'  data-toggle="toggle" data-on="Restore" data-off="Restore" data-onstyle="success" data-offstyle="danger" data-url="'.route('company-restore') .'">';
 				})
 				->addColumn('fullname',function ($company){
                     return $company->first_name.' '.$company->last_name;
@@ -139,11 +175,62 @@ class CompanyController extends Controller
      */
     public function status(Request $request)
     {
-        $id = $request->id;
+        $ids = $request->id;
         $status = $request->status;
-        $plant = Company::find($id);
+        // return $status;
+        $plant = Company::find($ids);
         $plant->status=$status;
         $plant->save();
+        $chk = User::where('company_id',$ids)->get();
+        // return $chk->count();
+        if($chk->count() >0 && $status == 0){
+            $block = User::where('company_id',$ids)->update(['is_delete'=>1]);
+            return response()
+                    ->json(['status' => 200, 'message' => "Status changed"]);
+        }else{
+            $unblock = User::where('company_id',$ids)->update(['is_delete'=>0]);
+            return response()
+                    ->json(['status' => 200, 'message' => "Status changed"]);
+        }
+        return response()
+                    ->json(['status' => 200, 'message' => "Status changed"]);
+    }
+    /**
+     * This function is used to return update form
+     *
+     * @param Request $request
+     * @return \Illuminate\View\View|\Illuminate\Routing\Redirector
+     * @author Techaffinity:Kwizera
+     */
+    public function delete(Request $request)
+    {
+        $ids = $request->id;
+        $status = 1;
+        $plant = Company::find($ids);
+        $plant->is_deleted=$status;
+        $plant->save();
+        $chk = User::where('company_id',$ids)->get();
+        if($chk->count() >0){
+            $block = User::where('company_id',$ids)->update(['is_delete'=>1]);
+            return response()
+                    ->json(['status' => 200, 'message' => "Status changed"]);
+        }
+        return response()
+                    ->json(['status' => 200, 'message' => "Status changed"]);
+    }
+    public function restore(Request $request)
+    {
+        $ids = $request->id;
+        $status = 0;
+        $plant = Company::find($ids);
+        $plant->is_deleted=$status;
+        $plant->save();
+        $chk = User::where('company_id',$ids)->get();
+        if($chk->count() >0){
+            $block = User::where('company_id',$ids)->update(['is_delete'=>0]);
+            return response()
+                    ->json(['status' => 200, 'message' => "Status changed"]);
+        }
         return response()
                     ->json(['status' => 200, 'message' => "Status changed"]);
     }

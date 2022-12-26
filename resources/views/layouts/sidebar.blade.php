@@ -28,31 +28,30 @@
                 @endcan
                 @can('manage-company')
                     @if (Auth::user()->role == 1 && Auth::user()->company_id == null)
-                        <li><a href="{{ route('manage-userAdmin') }}" class="nav_logo"><i
-                                    class="fa fa-assistive-listening-systems" aria-hidden="true"></i>
+                        <li><a href="{{ route('manage-userAdmin') }}" class="nav_logo"><i class="fa fa-users"
+                                    aria-hidden="true"></i>
                                 <span class="nav_logo-name">Manage Users</span> </a>
                         </li>
                     @endif
                 @endcan
 
                 @can('manage-users-client')
-                    <li><a href="{{ route('manage-user') }}" class="nav_logo"><i class="fa fa-assistive-listening-systems"
-                                aria-hidden="true"></i>
+                    <li><a href="{{ route('manage-user') }}" class="nav_logo"><i class="fa fa-users" aria-hidden="true"></i>
                             <span class="nav_logo-name">Manage Users</span> </a>
                     </li>
                     @endif
 
                     @can('manage-company')
                         @if (Auth::user()->role == 1 && Auth::user()->company_id == null)
-                            <li><a href="{{ route('role-list') }}" class="nav_logo"><i class="fa fa-assistive-listening-systems"
+                            <li><a href="{{ route('role-list') }}" class="nav_logo"><i class="fa fa-cogs"
                                         aria-hidden="true"></i>
                                     <span class="nav_logo-name">Manage Roles</span> </a>
                             </li>
                         @endif
                     @endcan
                     @can('manage-roles-client')
-                        <li><a href="{{ route('role-list-client') }}" class="nav_logo"><i
-                                    class="fa fa-assistive-listening-systems" aria-hidden="true"></i>
+                        <li><a href="{{ route('role-list-client') }}" class="nav_logo"><i class="fa fa-cogs"
+                                    aria-hidden="true"></i>
                                 <span class="nav_logo-name">Manage Roles</span> </a>
                         </li>
                     @endcan
@@ -60,6 +59,12 @@
                         <li><a href="{{ route('client-discharged') }}" class="nav_logo"><i class="fa fa-archive"
                                     aria-hidden="true"></i>
                                 <span class="nav_logo-name">Manage Archive</span> </a>
+                        </li>
+                    @endcan
+                    @can('manage-company')
+                        <li><a href="{{ route('company-list-trash') }}" class="nav_logo"><i style="color:red"
+                                    class="fa fa-recycle" aria-hidden="true"></i>
+                                <span class="nav_logo-name">Recycle bin</span> </a>
                         </li>
                     @endcan
                     @can('manage-report')

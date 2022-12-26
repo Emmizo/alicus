@@ -26,45 +26,23 @@
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <div class="row">
-                                <div class="col-md-8">
+                                {{-- <div class="col-md-8 m-5">
 
-                                    <a href="{{ route('manage-user-addAdmin') }}" class="btn btn-success">
-                                        <i class="fa fa-plus"></i>&nbsp;Add User</a>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="row">
-                                        <div class="col-sm-6" style="text-align: right;margin-top: 5px;">Role Filter:</div>
-                                        <div class="col-sm-6">
-                                            <form method="get" class="" role="form">
-                                                <div class="form-group">
-                                                    <select class="form-control form-control-sm" name="r"
-                                                        id="r" onchange="this.form.submit();">
-                                                        <option value="">---All---</option>
-                                                        @foreach ($roles as $key => $val)
-                                                            <option value="{{ $val['id'] }}"
-                                                                {{ $role == $val['id'] ? 'selected' : '' }}>
-                                                                {{ $val['name'] }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                                    <a href="{{ route('company-add') }}" class="btn btn-success">
+                                        <i class="fa fa-plus"></i>&nbsp;Create Company</a>
+                                </div> --}}
+
                                 <table id="manage-users" class="table table-bordered">
                                     <thead>
                                         <tr class="table-row">
                                             <th>id</th>
-                                            <th>FIRST NAME</th>
-                                            <th>LAST NAME</th>
-                                            <th>Company name</th>
-                                            <th>EMAIL</th>
-                                            <th>ROLE</th>
-
+                                            <th>Owner</th>
+                                            <th>COMPANY NAME </th>
+                                            <th>PHONE</th>
+                                            <th>Email</th>
                                             <th>CREATED</th>
                                             <th>MODIFIED</th>
-                                            <th>STATUS</th>
+
                                             <th>ACTION</th>
 
                                         </tr>
@@ -143,7 +121,7 @@
                         [0, "desc"]
                     ],
 
-                    "ajax": "{{ route('getUserListAjaxAdmin', ['role' => $role]) }}",
+                    "ajax": "{{ route('company-datatable-trash') }}",
                     "fnDrawCallback": function() {
                         $('.toggle-class').bootstrapToggle();
                     },
@@ -152,24 +130,21 @@
                             name: 'id'
                         },
                         {
-                            data: 'first_name',
-                            name: 'first_name'
+                            data: "fullname",
+                            name: "fullname"
                         },
                         {
-                            data: 'last_name',
-                            name: 'last_name'
+                            data: 'company_name',
+                            name: 'company_name'
                         },
                         {
-                            data: 'company',
-                            name: 'company'
+                            data: "phone",
+                            name: "phone"
                         },
+
                         {
                             data: 'email',
-                            name: 'email'
-                        },
-                        {
-                            data: 'role',
-                            name: 'role'
+                            name: "email"
                         },
 
 
@@ -193,11 +168,11 @@
                             data: 'status',
                             name: 'status'
                         },
-                        {
-                            data: 'action',
-                            name: 'action',
-                            sortable: false
-                        },
+                        // {
+                        //     data: 'action',
+                        //     name: 'action',
+                        //     sortable: false
+                        // },
                     ],
                     'columnDefs': [{
                             responsivePriority: 1,
@@ -217,7 +192,7 @@
                     ]
                 });
 
-                $(document).on('click', '.delete-user', function() {
+                $(document).on('click', '.delete-company', function() {
                     var id = $(this).attr('data-id');
                     var del_url = $(this).attr('data-url');
                     swal({
@@ -238,7 +213,7 @@
                                 }
                             });
                             $.ajax({
-                                type: "DELETE",
+                                type: "POST",
                                 dataType: 'json',
                                 url: del_url,
                                 success: function(data) {
@@ -263,10 +238,10 @@
                 var status_url = $(this).attr('data-url');
                 if ($(this).is(":checked")) {
                     var status = 1;
-                    var statusname = "Activate";
+                    var statusname = "Restore";
                 } else {
                     var status = 0;
-                    var statusname = "De-activate";
+                    var statusname = "Trash them";
                 }
                 swal({
                     title: 'Are you sure want to ' + statusname + '?',

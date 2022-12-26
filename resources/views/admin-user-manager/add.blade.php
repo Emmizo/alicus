@@ -80,7 +80,8 @@
                                         <div class="form-group">
                                             <label for="role">Company<span class="text-danger">*</span></label>
                                             <select class="form-control" name="company_id" id="role2">
-                                                <option value="">Company</option>
+                                                <option value="">Select Company</option>
+                                                <option value="">Alicus(Mine)</option>
                                                 @foreach ($company as $key => $company)
                                                     <option value="{{ $company->id }}">
                                                         {{ $company->company_name }}</option>

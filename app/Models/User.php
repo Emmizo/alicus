@@ -86,9 +86,10 @@ class User extends Authenticatable
                                  
                                  'employee_id'=>isset($info['employee_id'])?$info['employee_id']:'',
                                  
-                                 'company_id'=>isset($info['company_id'])?$info['company_id']:'',
+                                 'company_id'=>isset($info['company_id'])?$info['company_id']:null,
                                  'created_by'=>isset($info['created_by'])?$info['created_by']:'',
                                  'role'=>$info['role'],
+                                 'delete_feature'=>isset($info['delete_feature'])?$info['delete_feature']:'',
                                  'status'=>$info['status'],
                                  'password'=>isset($info['encryptpassword'])?$info['encryptpassword']:Hash::make(rand(54542,55464)),
                                  'created_at'=>date('Y-m-d H:i:s'),
@@ -102,7 +103,8 @@ class User extends Authenticatable
             'email'=>$info['email'],
             'phone_number'=>isset($info['phone_number'])?$info['phone_number']:'',
             'profile_picture'=>isset($info['profile_pic'])?$info['profile_pic']:'',
-            'company_id'=>isset($info['company_id'])?$info['company_id']:'',
+            'company_id'=>isset($info['company_id'])?$info['company_id']:null,
+            'delete_feature'=>isset($info['delete_feature'])?$info['delete_feature']:'',
             // 'created_by'=>isset($info['created_by'])?$info['created_by']:'',
             'role'=>$info['role'],
             'status'=>$info['status'],

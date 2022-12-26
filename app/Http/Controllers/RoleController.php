@@ -48,7 +48,7 @@ class RoleController extends Controller {
 
 		if ($request->ajax()) {
 			$user=\Auth::user();
-			$data=Role::where('roles.name','Admin')->orWhere('roles.name','Client')->
+			$data=Role::where('roles.created_by_admin',1)->
 			select('id', 'name','created_at','updated_at','status')->get();
 			return datatables()->of($data)
 				->addColumn('action', function ($role) use($user) {
@@ -75,11 +75,10 @@ class RoleController extends Controller {
 
 		if ($request->ajax()) {
 			$user=\Auth::user();
-			$data=Role::
-			
-			join('companies','roles.company_id','companies.id')
+			$data=Role::join('companies','roles.company_id','companies.id')
 			->select('roles.id', 'roles.name','roles.created_at','roles.updated_at','roles.status')
 			->where('roles.company_id',\Auth::user()->company_id)
+			->where('roles.created_by_client',1)
 			->get();
 			return datatables()->of($data)
 				->addColumn('action', function ($role) use($user) {
@@ -150,12 +149,13 @@ class RoleController extends Controller {
 				abort(404);
 				exit;
 			}
-			$newRole = Role::where('name', $request->name)->where('id', '!=', $role->id)->get();
+			$newRole = Role::where('name', $request->name)->where('company_id',null)->where('id', '!=', $role->id)->get();
 			if (count($newRole) > 0) {
 				throw new \Exception($request->name . " already exist");
 			}
 
 			$role->name = $request->name;
+			$role->created_by_admin=1;
 			$role->save();
 			if ($request->Permissions) {
 				$permissions = Permission::whereIn('id', $request->Permissions)->get();
@@ -180,13 +180,14 @@ class RoleController extends Controller {
 				abort(404);
 				exit;
 			}
-			$newRole = Role::where('name', $request->name)->where('id', '!=', $role->id)->get();
+			$newRole = Role::where('name', $request->name)->where('company_id',\Auth::user()->company_id)->where('id', '!=', $role->id)->get();
 			if (count($newRole) > 0) {
 				throw new \Exception($request->name . " already exist");
 			}
 
 			$role->name = $request->name;
 			$role->company_id = \Auth::user()->company_id;
+			$role->created_by_client = 1;
 			$role->save();
 			if ($request->Permissions) {
 				$permissions = Permission::whereIn('id', $request->Permissions)->get();
@@ -313,7 +314,8 @@ class RoleController extends Controller {
 	public function save(Request $request) {
        
 		try {
-			$role = Role::create(['name' => $request->name]);
+			
+			$role = Role::create(['name' => $request->name.'-'.$request->company_name,'created_by_admin'=>1]);
 			if ($request->Permissions) {
 				$permissions = Permission::whereIn('id', $request->Permissions)->get();
 				$role->syncPermissions($permissions);
@@ -328,7 +330,7 @@ class RoleController extends Controller {
 	public function saveClient(Request $request) {
        
 		try {
-			$role = Role::create(['name' => $request->name,'company_id',\Auth::user()->company_id]);
+			$role = Role::create(['name' => $request->name.'-'.$request->company_name,'company_id'=>\Auth::user()->company_id,'created_by_client'=>1]);
 			if ($request->Permissions) {
 				$permissions = Permission::whereIn('id', $request->Permissions)->get();
 				$role->syncPermissions($permissions);

@@ -192,7 +192,7 @@
                     ]
                 });
 
-                $(document).on('click', '.delete-user', function() {
+                $(document).on('click', '.delete-company', function() {
                     var id = $(this).attr('data-id');
                     var del_url = $(this).attr('data-url');
                     swal({
@@ -213,7 +213,7 @@
                                 }
                             });
                             $.ajax({
-                                type: "DELETE",
+                                type: "POST",
                                 dataType: 'json',
                                 url: del_url,
                                 success: function(data) {

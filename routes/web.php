@@ -37,7 +37,7 @@ Route::group(['prefix' => '/users', 'middleware' => ['auth','nocache'],'namespac
     Route::post('/change-password', 'PasswordController@storeNewPassword')->name('change-password-post');
 });
 #manage-users
-Route::group(['prefix' => '/users', 'middleware' => ['auth','nocache'],'namespace' => 'App\Http\Controllers'], function () {
+Route::group(['prefix' => '/users', 'middleware' => ['auth','nocache','can:manage-users-client'],'namespace' => 'App\Http\Controllers'], function () {
     Route::get('/users', 'UserController@index')->name('manage-user');
     Route::get('/get-user-list-ajax', 'UserController@getUserListAjax')->name('getUserListAjax');
     Route::get('/add', 'UserController@add')->name('manage-user-add');
@@ -78,7 +78,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 });
 #Manage Roles
-Route::group(['prefix' => '/manage-role', 'middleware' => ['auth','nocache'], 'namespace' => 'App\Http\Controllers', 'page-group' => '/manage-role'], function () {
+Route::group(['prefix' => '/manage-role', 'middleware' => ['auth','nocache','can:manage-company'], 'namespace' => 'App\Http\Controllers', 'page-group' => '/manage-role'], function () {
     Route::get('/list', 'RoleController@index')->name('role-list');
     Route::get('/datatable', 'RoleController@getDatatable')->name('role-datatable');
     Route::get('/add', 'RoleController@add')->name('role-add');
@@ -89,7 +89,7 @@ Route::group(['prefix' => '/manage-role', 'middleware' => ['auth','nocache'], 'n
     Route::post('/delete', 'RoleController@delete')->name('role-delete');
 });
 #Manage Roles
-Route::group(['prefix' => '/manage-role-client', 'middleware' => ['auth','nocache'], 'namespace' => 'App\Http\Controllers', 'page-group' => '/manage-role'], function () {
+Route::group(['prefix' => '/manage-role-client', 'middleware' => ['auth','nocache','can:manage-roles-client'], 'namespace' => 'App\Http\Controllers', 'page-group' => '/manage-role'], function () {
     Route::get('/list-client', 'RoleController@indexClient')->name('role-list-client');
     Route::get('/datatable-client', 'RoleController@getDatatableClient')->name('role-datatable-client');
     Route::get('/add-client', 'RoleController@addClient')->name('role-add-client');
@@ -103,12 +103,15 @@ Route::group(['prefix' => '/manage-role-client', 'middleware' => ['auth','nocach
 Route::group(['prefix' => '/manage-company','middleware'=> ['auth','nocache','can:manage-company'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-company'],function(){
     Route::get('/list-company', 'CompanyController@index')->name('company-list');
     Route::get('/datatable-company', 'CompanyController@getDatatable')->name('company-datatable');
+    Route::get('/list-company-trash', 'CompanyController@indexTrash')->name('company-list-trash');
+    Route::get('/datatable-company-trash', 'CompanyController@getDatatableDeleted')->name('company-datatable-trash');
     Route::get('/add-company', 'CompanyController@add')->name('company-add');
     Route::any('/save-company', 'CompanyController@store')->name('company-save');
     Route::get('/edit-company/{id}', 'CompanyController@edit')->name('company-edit');
     Route::post('/update-company', 'CompanyController@update')->name('company-update');
     Route::post('/status-company', 'CompanyController@status')->name('company-status');
     Route::post('/delete-company', 'CompanyController@delete')->name('company-delete');
+    Route::post('/restore-company', 'CompanyController@restore')->name('company-restore');
 });
 #Manage Client 
 Route::group(['prefix' => '/manage-client','middleware'=> ['auth','nocache','can:manage-client'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
@@ -165,7 +168,7 @@ Route::group(['prefix' => '/manage-group-note','middleware'=> ['auth','nocache',
 
 #Manage group note
 
-Route::group(['prefix' => '/manage-report','middleware'=> ['auth','nocache','can:manage-client'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
+Route::group(['prefix' => '/manage-report','middleware'=> ['auth','nocache','can:manage-report'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
     Route::get('/list-report', 'ReportController@index')->name('report-today-list');
     Route::any('/today-report-client', 'ReportController@clientDaily')->name('today-client');
     Route::get('/today-report-client-ajax', 'ReportController@dailyAjax')->name('today-client-ajax');
@@ -178,7 +181,7 @@ Route::group(['prefix' => '/manage-report','middleware'=> ['auth','nocache','can
 
 #Invoice
 
-Route::group(['prefix' => '/invoice','middleware'=> ['auth','nocache','can:manage-client'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
+Route::group(['prefix' => '/invoice','middleware'=> ['auth','nocache','can:manage-invoice'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
     Route::get('/invoice/{id}', 'InvoiceController@index')->name('invoice');
     Route::get('/all-invoice/{id}', 'InvoiceController@all')->name('all-invoice');
     Route::post('/create-invoice','InvoiceController@store')->name('add-invoice');
@@ -190,7 +193,7 @@ Route::group(['prefix' => '/invoice','middleware'=> ['auth','nocache','can:manag
 });
 
 #insurance routes
-Route::group(['prefix' => '/insurance','middleware'=> ['auth','nocache','can:manage-client'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
+Route::group(['prefix' => '/insurance','middleware'=> ['auth','nocache','can:manage-payor'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
 Route::post('save-insurance','InsuranceController@store')->name('save-insurance');
 Route::get('insurances','InsuranceController@index')->name('insurance');
 Route::get('edit-insurances/{id}','InsuranceController@edit')->name('edit-insurance');
@@ -198,20 +201,20 @@ Route::any('update-insurance','InsuranceController@update')->name('update-insura
 });
 
 #individual therapy notes
-Route::group(['prefix' => '/individual','middleware'=> ['auth','nocache'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
+Route::group(['prefix' => '/individual','middleware'=> ['auth','nocache','can:manage-client'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
     Route::get('individual/{id}/{client}/{name}','IndividualController@index')->name('individual');
     Route::post('save-individual-note','IndividualController@store')->name('save-individual-note');
     Route::get('/view-individual-note-list/{id}/{name}/{birth}/{created}','IndividualController@show')->name('view-individual-note-list');
 });
 #progress notes
-Route::group(['prefix' => '/progress','middleware'=> ['auth','nocache'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
+Route::group(['prefix' => '/progress','middleware'=> ['auth','nocache','can:manage-client'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
     Route::get('progress/{id}/{client}/{name}','ProgressController@index')->name('progress');
 
     Route::post('save-progress-note','ProgressController@store')->name('save-progress-note');
     Route::get('/view-progress-note-list/{id}/{name}/{birth}/{created}','ProgressController@show')->name('view-progress-note-list');
 });
 #discharged
-Route::group(['prefix' => '/discharged','middleware'=> ['auth','nocache'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
+Route::group(['prefix' => '/discharged','middleware'=> ['auth','nocache','can:manage-client'],'namespace' => 'App\Http\Controllers','page-group'=> '/manage-Client'],function(){
     Route::get('/discharged-client', 'ClientController@discharged')->name('client-discharged');
     Route::get('discharging/{id}/{name}', 'ClientController@discharging')->name('discharging');
     Route::get('/dis-apply-view-medication/{id}/{client}/{name}', 'ClientController@applyViewDis')->name('dis-apply-medication-view');
@@ -227,4 +230,5 @@ Route::group(['prefix' => '/discharged','middleware'=> ['auth','nocache'],'names
     Route::get('redischarging/{id}', 'ClientController@undo')->name('redischarging');
     
 });
+
 

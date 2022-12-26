@@ -12,8 +12,8 @@
                     </ol>
                 </div>
                 <!-- <div class="col-sm-6">
-                                        <h1>{{ $title }}</h1>
-                                    </div> -->
+                                            <h1>{{ $title }}</h1>
+                                        </div> -->
             </div>
         </div><!-- /.container-fluid -->
     </section>
@@ -43,6 +43,7 @@
                                     </div>
 
                                 </div>
+                                <input type="hidden" name="company_name" value="{{ $data->company_name }}">
 
                                 <div class="row">
                                     <div class="col-sm-12">

@@ -84,16 +84,16 @@ class UserController extends Controller
 
         return datatables()->of($user)
                         ->addColumn('action', function($user) use($userAuth){
-                            $action = '<div class="action-btn"><a class="btn-dark" title="Edit" href="'.route('manage-user-edit', $user->id) .'"><i class="fa fa-edit"></i></a>';
+                            $action = '<div class="action-btn"><a class="btn-primary" title="Edit" href="'.route('manage-user-edit', $user->id) .'"><i class="fa fa-edit"></i></a>';
 
                 
-                            if($userAuth->role==1 && $userAuth->delete_feature==1)
+                            if($userAuth->role==2 && $userAuth->delete_feature==1)
                             {
-                                if($user->role!=1)
+                                if($user->role!=2)
                                {
                                 // $action = '';
                                 // &nbsp;<a class="reset-pass" data-id2="'.$user->first_name.' '.$user->last_name.'" data-id="'.$user->email.'"  href="#" data-bs-toggle="modal" data-bs-target="#reset"><span>Reset</span></a>
-                                $action .='&nbsp;<span title="Delete" style="cursor:pointer" class=" delete-user btn-dark" data-id="'.$user->id.'" data-url="'.route('manage-user-delete', $user->id) .'"><i class="fa fa-trash"></i></span></div>';
+                                $action .='&nbsp;<span title="Delete" style="cursor:pointer" class=" delete-user btn-primary" data-id="'.$user->id.'" data-url="'.route('manage-user-delete', $user->id) .'"><i class="fa fa-trash"></i></span></div>';
 
                               } 
                             }
@@ -122,30 +122,30 @@ class UserController extends Controller
         $role = $request->role;
          $userAuth=\Auth::user();
         
-         $user = User::leftjoin('companies','companies.id','users.company_id')->select('users.*')
+         $user = User::leftJoin('companies','companies.id','users.company_id')
+         ->join('roles','roles.id','users.role')
+         ->select('users.*','companies.company_name')
             ->where(function ($query) use ($request) {
                 return $request->role!="" ?
                     $query->where('users.role', $request->role) : '';
             })
+            ->whereNotIn('roles.name',['Employee'])
             ->where('users.is_delete',0)->get();
 
         return datatables()->of($user)
                         ->addColumn('action', function($user) use($userAuth){
-                            $action = '<div class="action-btn"><a class="btn-dark" title="Edit" href="'.route('manage-user-editAdmin', $user->id) .'"><i class="fa fa-edit"></i></a>';
+                            $action = '<div class="action-btn"><a class="btn-primary" title="Edit" href="'.route('manage-user-editAdmin', $user->id) .'"><i class="fa fa-edit"></i></a>';
 
-                
                             if($userAuth->role==1 && $userAuth->delete_feature==1)
                             {
                                 if($user->role!=1)
                                {
                                 // $action = '';
                                 // &nbsp;<a class="reset-pass" data-id2="'.$user->first_name.' '.$user->last_name.'" data-id="'.$user->email.'"  href="#" data-bs-toggle="modal" data-bs-target="#reset"><span>Reset</span></a>
-                                $action .='&nbsp;<span title="Delete" style="cursor:pointer" class=" delete-user btn-dark" data-id="'.$user->id.'" data-url="'.route('manage-user-deleteAdmin', $user->id) .'"><i class="fa fa-trash"></i></span></div>';
+                                $action .='&nbsp;<span title="Delete" style="cursor:pointer" class=" delete-user btn-primary" data-id="'.$user->id.'" data-url="'.route('manage-user-deleteAdmin', $user->id) .'"><i class="fa fa-trash"></i></span></div>';
 
                               } 
                             }
-
-                            
                             return $action;
                         })
                         
@@ -160,7 +160,11 @@ class UserController extends Controller
                             $status = ($user->status == 1) ? 'checked' : '';
                             return '<input class="toggle-class" type="checkbox" data-id="'.$user->id.'" '.$status.'  data-toggle="toggle" data-on="Active" data-off="Inactive" data-onstyle="success" data-offstyle="danger" data-url="'.route('manage-user-status') .'">';
                         })
-                        ->rawColumns(['action', 'status'])
+                        ->editColumn('company', function($user){
+                            $comp = ($user->company_id != null) ? $user->company_name : 'Owner System';
+                            return $comp;
+                        })
+                        ->rawColumns(['action', 'status','company'])
                         ->make(true);
     }
     /**
@@ -173,7 +177,7 @@ class UserController extends Controller
     public function add(Request $request)
     {
         $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
-        $data['roles'] = Role::whereNotIn('roles.name',['Admin','Client'])->
+        $data['roles'] = Role::where('created_by_client',1)->where('company_id',\Auth::user()->company_id)->
         select('id', 'name','created_at','updated_at','status')->get();;
         $data['company'] = Company::where('status',1)->get();
         $data['title'] = "Manage Users - Add";
@@ -190,7 +194,7 @@ class UserController extends Controller
     public function addAdmin(Request $request)
     {
        
-        $data['roles'] = Role::where('roles.name','Admin')->orWhere('roles.name','Client')->
+        $data['roles'] = Role::where('created_by_admin',1)->
         select('id', 'name','created_at','updated_at','status')->get();
         $data['company'] = Company::where('status',1)->get();
         $data['title'] = "Manage Users - Add";
@@ -219,7 +223,7 @@ class UserController extends Controller
         }
         $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
         $data['company'] = Company::where('status',1)->get();
-        $data['roles'] = Role::whereNotIn('name',['Admin','Client'])->get();
+        $data['roles'] = Role::where('created_by_client',1)->where('company_id',\Auth::user()->company_id)->get();
         $data['title'] = "Manage Users - Edit";
         $data['brVal'] = "Manage Users";
         return view('manage-users.edit', $data);
@@ -246,7 +250,7 @@ class UserController extends Controller
         }
         $data['company'] = Company::where('status',1)->get();
         $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
-        $data['roles'] = Role::whereNotIn('name',['Employee'])->get();
+        $data['roles'] = Role::where('created_by_admin',1)->get();
         $data['title'] = "Manage Users - Edit";
         $data['brVal'] = "Manage Users";
         return view('admin-user-manager.edit', $data);
@@ -283,6 +287,11 @@ class UserController extends Controller
          $info['created_by'] = \Auth::user()->id;
          $info['role'] = $request->role;
          $info['profile_pic'] = null;
+         if($request->role==2 ){
+            $info['delete_feature']= 1;
+         }else{
+            $info['delete_feature']= 0;
+         }
 
          $checkUser= User::where('email',$info['email'])->first();
             
@@ -304,7 +313,11 @@ class UserController extends Controller
             $info['password'] = $password;
             $info['employee_id'] = $count;
             $info['role'] = $request->role;
-
+            if($request->role==2 ){
+                $info['delete_feature']= 1;
+             }else{
+                $info['delete_feature']= 0;
+             }
             if (isset($request->role)) {
                 $checkUser->assignRole($request->role);
             }
@@ -374,11 +387,16 @@ class UserController extends Controller
          $info['phone_number'] = $request->phone_number;
          $info['email'] = $request->email;
          
-         $info['company_id'] = $request->company_id;
+         $info['company_id'] = $request->company_id?$request->company_id:null;
          $info['employee_id'] = $count;
          $info['created_by'] = \Auth::user()->id;
          $info['role'] = $request->role;
          $info['profile_pic'] = null;
+         if($request->role==2 ){
+            $info['delete_feature']= 1;
+         }else{
+            $info['delete_feature']= 0;
+         }
 
          $checkUser= User::where('email',$info['email'])->first();
             
@@ -400,7 +418,11 @@ class UserController extends Controller
             $info['password'] = $password;
             $info['employee_id'] = $count;
             $info['role'] = $request->role;
-
+            if($request->role==2 ){
+                $info['delete_feature']= 1;
+             }else{
+                $info['delete_feature']= 0;
+             }
             if (isset($request->role)) {
                 $checkUser->assignRole($request->role);
             }
@@ -473,6 +495,11 @@ class UserController extends Controller
         $info['id'] = $request->id;
         $image_name = $request->hidden_image;
         $info['profile_pic'] = $image_name;
+        if($request->role==2){
+            $info['delete_feature']= 1;
+         }else{
+            $info['delete_feature']= 0;
+         }
         if($request->profile_pic) {
             $directory = public_path().'/users_pic';
             if (!is_dir($directory)) {
@@ -530,6 +557,11 @@ class UserController extends Controller
         $info['id'] = $request->id;
         $image_name = $request->hidden_image;
         $info['profile_pic'] = $image_name;
+        if($request->role==2 ){
+            $info['delete_feature']= 1;
+         }else{
+            $info['delete_feature']= 0;
+         }
         if($request->profile_pic) {
             $directory = public_path().'/users_pic';
             if (!is_dir($directory)) {
