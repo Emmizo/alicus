@@ -74,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
-                                <h4> <b>{{ $data->company_name ?? '' }}</b> company clients list</h4>
+                                <h4> <b>{{ $data->company_name ?? '' }}</b> clients list</h4>
                             </div>
                             <section class="mt-5">
                                 <div class="container2">
@@ -147,7 +147,7 @@
 
                                                                         <a class="dropdown-item"
                                                                             href='{{ route('apply-medication-view', ['id' => $client->company_id, 'client' => $client->id, 'name' => $client->client_name]) }}'><i
-                                                                                class="fa fa-history fa-fw"></i>Echat
+                                                                                class="fa fa-history fa-fw"></i>E-chat
                                                                         </a>
 
                                                                         <a class="dropdown-item"
@@ -221,7 +221,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

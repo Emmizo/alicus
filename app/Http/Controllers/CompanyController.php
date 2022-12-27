@@ -111,7 +111,7 @@ class CompanyController extends Controller
             'last_name' => 'required',
             'company_name' => 'required|unique:companies,company_name',
             'phone' => 'required',
-            // 'company_logo' => 'required|mimes:jpeg,png,jpg|max:5120',
+            
         ]);
         if ($validator->fails()) {
             return redirect(route('company-add'))
@@ -134,6 +134,7 @@ class CompanyController extends Controller
                 'phone' => $request->phone,
                 'email' => $request->email,
                 'company_logo'=> $imageName,
+                'created_at'=>date('Y-m-d H:i:s'),
                ]);
             }else{
                 $comp =Company::create([
@@ -142,7 +143,7 @@ class CompanyController extends Controller
                     'company_name' => $request->company_name,
                     'phone' => $request->phone,
                     'email' => $request->email,
-                    // 'company_logo'=> $imageName,
+                    'created_at' =>date('Y-m-d H:i:s'),
                    ]);
             }
                
@@ -288,6 +289,7 @@ class CompanyController extends Controller
                 $comp->company_name = $request->company_name;
                 $comp->phone = $request->phone;
                 $comp->email = $request->email;
+                $comp->updated_at = date('Y-m-d H:i:s');
                 // $comp->company_logo= $imageName;
                 $comp->save();
                $request->session()

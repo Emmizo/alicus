@@ -109,7 +109,7 @@ class ClientController extends Controller
         'company_id'=>$request->comp_id,
         'insurance_code' =>$request->insurance_code,
         'created_by'=>\Auth::user()->id,
-        'created_at'=>$newDateTime,
+        'created_at'=>date('Y-m-d H:i:s'),
         ]);
         $request->session()
         ->flash('success', "New patient added");
@@ -287,6 +287,7 @@ class ClientController extends Controller
             'client_PIN'=>$request->client_PIN,
             'insurance_code' =>$request->insurance_code,
             'created_by'=>\Auth::user()->id,
+            'updated_at'=>date('Y-m-d H:i:s'),
             ]);
             $request->session()
             ->flash('success', "New patient added");
@@ -474,7 +475,7 @@ class ClientController extends Controller
  public function undo($id){
     $currentDateTime = Carbon::now();
     $newDateTime = Carbon::now()->addDay();
-    $client = Client::where('id',$id)->update(['discharged'=>0,'created_at'=>$newDateTime]);
+    $client = Client::where('id',$id)->update(['discharged'=>0,'created_at'=>date('Y-m-d H:i:s')]);
     return redirect(route('client-list'));
  }
 }

@@ -20,28 +20,28 @@
         <div class="mt-5">
             <div class="col-12 container font-weight-bold row">
                 <div class="col-md-6 fs-6">
-                    <div class="col-md-12 row">
-                        <div class="col-md-5 mb-3">
+                    <div class="col-md-12 row mb-3">
+                        <div class="col-md-3 ">
                             Client Name:
                         </div>
                         <div class="col-md-7 ">
-                            <b>{{ $invoicess[0]->client_name ?? '' }}</b>
+                            <b>{{ $client->client_name ?? '' }}</b>
                         </div>
                     </div>
-                    <div class="col-md-12 row">
-                        <div class="col-md-5 mb-3">
+                    <div class="col-md-12 mb-3 row">
+                        <div class="col-md-3 ">
                             Date of Birth:
                         </div>
                         <div class="col-md-7 ">
-                            <b>{{ $invoicess[0]->BOD ?? '' }}</b>
+                            <b>{{ $client->BOD ?? '' }}</b>
                         </div>
                     </div>
-                    <div class="col-md-12  row">
-                        <div class="col-md-5 mb-3">
+                    <div class="col-md-12 mb-3 row">
+                        <div class="col-md-3 ">
                             Admitted Date:
                         </div>
                         <div class="col-md-7">
-                            <b>{{ $invoicess[0]->admitted ?? '' }}</b>
+                            <b>{{ $client->created_at ?? '' }}</b>
                         </div>
                     </div>
                 </div>
@@ -68,8 +68,9 @@
             </div>
         </div>
         <div class='d-flex justify-content-center'>
-            <h3><u>Invoice</u></h3>
+            <h3>Invoice</h3>
         </div>
+
         @if ($invoices == 0)
             <form role="form" id="create-invoice" action="{{ route('company-save') }}" name="add-category"
                 method="POST" enctype="multipart/form-data">
@@ -287,7 +288,7 @@
                             },
                             success: function(result) {
                                 window.location.href =
-                                    "{{ route('invoice', ['id' => $invoicess[0]->clientId]) }}";
+                                    "{{ route('invoice', ['id' => $clientId]) }}";
                                 $('#send_btn').html(" Submit");
                             },
                             error: function(error) {

@@ -79,6 +79,7 @@ class ProgressController extends Controller
         $add->progress_note= $request->progress_note;
         $add->level_participation= json_encode($request->level_participation);
         $add->staff_id= \Auth::user()->id;
+        $add->created_at = date('Y-m-d H:i:s');
         $add->save();
 
         $request->session()

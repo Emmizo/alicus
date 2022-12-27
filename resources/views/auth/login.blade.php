@@ -25,7 +25,7 @@
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="login">
-                            <h1>My MIS!</h1>
+                            <h1>MY MIS!</h1>
                             <p class="f-16">Management Information System</p>
                             @if (session()->has('success'))
                                 <div class="alert alert-success alert-dismissible fade show" role="alert">

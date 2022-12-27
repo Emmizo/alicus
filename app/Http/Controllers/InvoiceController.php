@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Invoice;
+use App\Models\Client;
 class InvoiceController extends Controller
 {
     /**
@@ -16,22 +17,24 @@ class InvoiceController extends Controller
     {
         $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
         $data['title'] = "Manage Invoice";
-        // $data['birth']= $request->birth;
+        $data['birth']= $request->birth;
         
-        
+        $data['client']=Client::where('id',$request->id)->first();
         $data['data']=$comp;
         $data['name']=$request->name;
         // $data['clientId']= $request->id;
         // $data['invoicess']=Invoice::where('client_id',$request->id)->orderBy('created_at','DESC')->get();
         $invoice=Invoice::rightjoin('clients','clients.id','invoices.client_id')
         ->select('clients.client_name','clients.id as clientId','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
-        ->where('clients.id',$request->id)->get();
+        ->where('clients.id',$request->id)
+        ->where('invoices.discharged',0)
+        ->get();
         $data['invoicess']= $invoice;
         $data['clientId']=$request->id;
-        $createDate = new \DateTime($invoice[0]->created_at);
-        $strip = $createDate->format('Y-m-d');
-        $data['started']= $strip;
-        $data['invoices']=Invoice::where('client_id',$request->id)->count();
+        // $createDate = new \DateTime($invoice[0]->created_at);
+        // $strip = $createDate->format('Y-m-d');
+        $data['started']= '';
+        $data['invoices']=Invoice::where('client_id',$request->id)->where('discharged',0)->count();
         return view('manage-invoice.index',$data);
         //
     }
@@ -101,6 +104,7 @@ class InvoiceController extends Controller
             'tot'=> $request->tot,
             'payment'=>$request->payment,
             'due_payment'=>$request->due_payment,
+            'created_at' => date('Y-m-d H:i:s'),
         ]);
         return response()->json(['status' => 201,'message' => "new  added"]);
     }
@@ -204,6 +208,7 @@ class InvoiceController extends Controller
             'tot'=> $request->tot,
             'payment'=>$request->payment,
             'due_payment'=>$request->due_payment,
+            'created_at' => date('Y-m-d H:i:s'),
         ]);
         return response()->json(['status' => 201,'message' => "new  added"]);
     }

@@ -12,7 +12,7 @@
                 @endif
                 @can('manage-client')
                     <li><a href="{{ route('client-list') }}" class="nav_logo"><i class="fa fa-users" aria-hidden="true"></i>
-                            <span class="nav_logo-name">My Client</span> </a>
+                            <span class="nav_logo-name">My Clients</span> </a>
                     </li>
                 @endcan
                 @can('manage-payor')

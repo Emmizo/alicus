@@ -81,6 +81,7 @@ class MedicationController extends Controller
         'date_start'=> $request->date_start,
         'created_by'=>\Auth::user()->id,
         'client_id'=>$request->client_id,
+        'created_at' => date('Y-m-d H:i:s'),
        ]);
        $request->session()
         ->flash('success', "New Medical applied");
@@ -147,6 +148,7 @@ class MedicationController extends Controller
             'frequency'=> $request->frequency,
             'prescriber'=> $request->prescriber,
             'date_start'=> $request->date_start,
+            'updated_at' => date('Y-m-d H:i:s'),
 
            ]);
            $request->session()

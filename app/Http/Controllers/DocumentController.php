@@ -78,6 +78,7 @@ class DocumentController extends Controller
             $file->doc_name = $imageName;
             $file->client_id= $request->client_id;
             $file->created_by = \Auth::user()->id;
+            $file->created_at = date('Y-m-d H:i:s');
             $file->save();
             $request->session()
         ->flash('success', "New patient added");

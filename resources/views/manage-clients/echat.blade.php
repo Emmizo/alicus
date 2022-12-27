@@ -120,7 +120,7 @@
                                                             <div id="myDIV">
                                                                 <div
                                                                     class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
-                                                                    <h4><u>Report of how medicine taken</u></h4>
+                                                                    <h4>Medication Administration Record</h4>
                                                                 </div>
                                                                 @if ($echats->count() > 0)
                                                                     <table class="table table-bordered certificate-table"
@@ -134,9 +134,10 @@
                                                                                 <th class="min-w-125px hidde-responsive-j6">
                                                                                     Medication
                                                                                 </th>
-                                                                                <th>Dose Quantity</th>
+
                                                                                 <th>Dose Unit</th>
                                                                                 <th>Frequency</th>
+                                                                                <th>Dose Qty</th>
                                                                                 <th>action</th>
 
                                                                                 <th>recorded at</th>
@@ -156,9 +157,11 @@
                                                                                     <td>
                                                                                         {{ $client->medication_name }}
                                                                                     </td>
-                                                                                    <td>{{ $client->dose_quantity }}</td>
                                                                                     <td>{{ $client->dose_units }}</td>
+
+
                                                                                     <td>{{ $client->frequency }}</td>
+                                                                                    <td>{{ $client->dose_quantity }}</td>
                                                                                     <td>{{ $client->action }}
                                                                                     </td>
 
@@ -210,7 +213,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <h5 class="modal-title" id="exampleModalLabel">ECHAT FOR {{ $name }}</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">E-CHAT FOR {{ $name }}</h5>
                                 <hr />
                                 <section class="mt-5">
                                     @if ($medications->count() > 0)
@@ -295,6 +298,9 @@
                                                                                         <option value="refused">
                                                                                             Refused
                                                                                         </option>
+                                                                                        <option value="Missed">
+                                                                                            Missed
+                                                                                        </option>
                                                                                         <option value="Taken">
                                                                                             Taken
                                                                                         </option>
@@ -378,7 +384,7 @@
         <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
         <script type="text/javascript">
             /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
             function myFunction() {
                 document.getElementById("myDropdown").classList.toggle("show");
             }

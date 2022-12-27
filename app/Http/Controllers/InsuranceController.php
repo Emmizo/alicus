@@ -63,6 +63,7 @@ class InsuranceController extends Controller
           'address'=>$request->address,
           'percentage'=>$request->percentage,
           'company_id'=>\Auth::user()->company_id,
+          'created_at' => date('Y-m-d H:i:s'),
         ]);
     }
         // $datas['insurances'] = Insurance::orderBy('created_at','DESC')->where('company_id',\Auth::user()->company_id)->get();
@@ -128,6 +129,7 @@ class InsuranceController extends Controller
           'phone'=>$request->phone,
           'address'=>$request->address,
           'percentage'=>$request->percentage,
+          'updated_at' => date('Y-m-d H:i:s'),
         ]);
         return response()->json(['status' => 200,'message' => "insurance updated"]);
     // }

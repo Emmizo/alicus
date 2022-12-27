@@ -84,6 +84,7 @@ class IndividualController extends Controller
         $add->level_participation= json_encode($request->level_participation);
         $add->staff_id= \Auth::user()->id;
         $add->comments= $request->comments;
+        $add->created_at = date('Y-m-d H:i:s');
         $add->save();
 
         $request->session()
