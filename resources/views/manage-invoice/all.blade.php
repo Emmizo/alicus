@@ -96,19 +96,19 @@
                                     </tr>
                                     <tr>
                                         <th>Price per day</th>
-                                        <td>{{ $invoice->price_per_day }}</td>
+                                        <td>{{ $invoice->price_per_day }}$</td>
                                     </tr>
                                     <tr>
                                         <th>Total Price</th>
-                                        <td>{{ $invoice->tot }}</td>
+                                        <td>{{ $invoice->tot }}$</td>
                                     </tr>
                                     <tr>
                                         <th>Payment</th>
-                                        <td>{{ $invoice->payment }}</td>
+                                        <td>{{ $invoice->payment }}$</td>
                                     </tr>
                                     <tr>
                                         <th>Due Payment</th>
-                                        <td class="text-red">{{ $invoice->due_payment }}</td>
+                                        <td class="text-red">{{ $invoice->due_payment }}$</td>
                                     </tr>
                                 </tbody>
                             </table>

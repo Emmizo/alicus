@@ -103,7 +103,8 @@
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
                                 <label for="category_name">Price Per Day<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="price_per_day" name="price_per_day">
+                                <input type="text" class="form-control" id="price_per_day" name="price_per_day"
+                                    placeholder="$">
                                 <small class="text-danger">{{ $errors->first('price_per_day') }}</small>
                             </div>
                         </div>
@@ -112,14 +113,15 @@
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
                                 <label for="category_name">Total Price<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="tot" name="tot">
+                                <input type="text" class="form-control" id="tot" name="tot" placeholder="$">
                                 <small class="text-danger">{{ $errors->first('tot') }}</small>
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
                                 <label for="category_name">Payment<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="payment" name="payment">
+                                <input type="text" class="form-control" id="payment" name="payment"
+                                    placeholder="$">
                                 <small class="text-danger">{{ $errors->first('payment') }}</small>
                             </div>
                         </div>
@@ -128,7 +130,8 @@
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
                                 <label for="category_name">Due Payment<span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="due_payment" name="due_payment">
+                                <input type="text" class="form-control" id="due_payment" name="due_payment"
+                                    placeholder="$">
                                 <small class="text-danger">{{ $errors->first('due_payment') }}</small>
                             </div>
                         </div>
@@ -168,10 +171,10 @@
 
                             <td>{{ $invoice->no_of_day }}</td>
 
-                            <td>{{ $invoice->price_per_day }}</td>
-                            <th>{{ $invoice->payment }}</th>
-                            <td>{{ $invoice->tot }}</td>
-                            <td class="text-red">{{ $invoice->due_payment }}</td>
+                            <td>{{ $invoice->price_per_day }}$</td>
+                            <th>{{ $invoice->payment }}$</th>
+                            <td>{{ $invoice->tot }}$</td>
+                            <td class="text-red">{{ $invoice->due_payment }}$ </td>
                             <td>{{ $invoice->created_at }}</td>
                             <td>
                                 @if ($key == 0)
