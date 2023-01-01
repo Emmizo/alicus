@@ -179,10 +179,10 @@
                                     <input type="checkbox" id="moods" name="mood[]" value="Hopeless">
                                 @endif
                                 <label for="vehicle2"> Hopeless</label><br>
-                                @if (in_array('Quilty', $moods))
+                                @if (in_array('Guilty', $moods))
                                     <input type="checkbox" id="moods" name="mood[]" value="Guilty" checked>
                                 @else
-                                    <input type="checkbox" id="moods" name="mood[]" value="Guilty" checked>
+                                    <input type="checkbox" id="moods" name="mood[]" value="Guilty">
                                 @endif
                                 <label for="vehicle3"> Guilty</label><br>
                                 @if (in_array('Bored', $moods))
@@ -307,9 +307,9 @@
                                 <input type="checkbox" id="effect" name="effect[]" value="Fearful"
                                     <?= in_array('Fearful', $effect) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Fearful</label><br>
-                                <input type="checkbox" id="vehicle2" name="effect[]" value="Motivated"
+                                {{-- <input type="checkbox" id="vehicle2" name="effect[]" value="Motivated"
                                     <?= in_array('Motivated', $effect) ? 'checked' : '' ?>>
-                                <label for="vehicle2"> Motivated</label><br>
+                                <label for="vehicle2"> Motivated</label><br> --}}
 
 
                             </div>

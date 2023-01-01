@@ -264,7 +264,7 @@
                             <div class="col-md-8 mb-3">
                                 <div class="form-group">
                                     <label for="category_name">Individual Note<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="group_note" name="individual_therapy" rows="6"></textarea>
+                                    <textarea class=" form-control" id="group_note" name="individual_therapy" rows="6"></textarea>
                                     <small class="text-danger">{{ $errors->first('individual_therapy') }}</small>
                                 </div>
                             </div>
@@ -477,11 +477,11 @@
 @section('script')
     <!-- Bootstrap4 Duallistbox -->
     <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
-
+    {{-- <script src="//cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script> --}}
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -653,11 +653,7 @@
                     console.log('Form submitted');
 
                     var form_data = new FormData();
-                    // $('#adding-group input').each(function(i, e) {
-                    //     var getID = $(this).attr('id');
-                    //     var name = $(this).attr('name');
-                    //     form_data.append(name, $("#" + getID).val());
-                    // });
+
 
                     var client = $('#client_id').val();
                     form_data.append('client_id', client);
@@ -665,7 +661,7 @@
                     form_data.append('topic', topic);
                     var group = $('#group_note').val();
                     form_data.append('individual_therapy', group);
-                    // $("#send_btn").click(function() {
+
                     var selectedLanguage3 = new Array();
                     $('input[name="mood[]"]:checked').each(function() {
                         var mood = $(this).val();
@@ -673,9 +669,9 @@
                         console.log(mood)
 
                     });
-                    // console.log("Number of  Languages: " + mood);
-                    // });
-                    // $("#send_btn").click(function() {
+
+                    // var check = $('.ckeditor').ckeditor();
+                    // form_data.append('individual_therapy', check)
                     var selected = new Array();
                     $('input[name="effect[]"]:checked').each(function() {
                         var effect = $(this).val();
