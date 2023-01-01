@@ -95,7 +95,7 @@
                                                                     Admitted Date:
                                                                 </div>
                                                                 <div class="col-md-5">
-                                                                    <b>{{ $started ?? '' }}</b>
+                                                                    <b>{{ $admitted ?? '' }}</b>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -333,8 +333,8 @@
                                                                                         class="text-danger">*</span></label>
 
                                                                                 <input type="password"
-                                                                                    class="form-control" id="client_pin"
-                                                                                    name="client_pin">
+                                                                                    class="form-control ignore"
+                                                                                    id="client_pin" name="client_pin">
                                                                                 <small
                                                                                     class="text-danger">{{ $errors->first('client_pin') }}</small>
                                                                             </div>
@@ -384,7 +384,7 @@
         <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
         <script type="text/javascript">
             /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
             function myFunction() {
                 document.getElementById("myDropdown").classList.toggle("show");
             }
@@ -422,14 +422,14 @@
             $(document).ready(function() {
                 $('#echat-medical').validate({
                     rules: {
-                        'client_pin': {
+                        'client_pin3': {
                             required: true,
                         },
 
 
                     },
                     messages: {
-                        'client_pin': {
+                        'client_pin3': {
                             required: "Please client pin required",
                         },
 
@@ -492,7 +492,8 @@
                             success: function(result) {
                                 console.log(result.status);
                                 if (result.status == 201) {
-                                    window.location.href = "{{ route('client-list') }}";
+                                    window.location.reload();
+                                    // window.location.href = "{{ route('client-list') }}";
                                 } else if (result.status == 401) {
                                     var msg = result.message != null ?
                                         'You add wrong pin realy one is ' + result.data : "";
@@ -555,23 +556,19 @@
             function resetForm() {
                 document.getElementById("add-user").reset();
             }
-            // $(document).ready(function() {
 
-            //     $('#echat-medical').validate();
-            //     $('input[type="text"]').each(function() {
-            //         $(this).rules('add', {
-            //             required: true
-            //         });
+            function actions(keyVal) {
+                var missed = $('#action' + keyVal).val();
+                if (missed == "Missed") {
 
-            //     });
-            //     $('select').each(function() {
-            //         $(this).rules('add', {
-            //             required: true
-            //         });
+                    $("#echat-medical").validate({
+                        ignore: "#client_pin",
 
-            //     });
+                    });
+                    $('#client_pin').attr('class', 'form-control text-box  is-valid');
+                }
 
-            // });
+            }
 
             $(document).ready(function() {
                 document.title = '{{ $data->company_name }}';

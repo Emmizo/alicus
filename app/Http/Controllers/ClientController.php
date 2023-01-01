@@ -325,13 +325,16 @@ class ClientController extends Controller
         $data['title'] = "Manage Medication";
         $data['add']= "Medication Report";
         $data['data']=$comp;
+        $client= Client::where('id',$request->client)->first();
         $data['name']=$request->name;
+        $data['birth']=$client->BOD;
+        $data['admitted']=$client->created_at;
         $data['client']=$request->client;
         $data['company_id']= $request->id;
         $data['echats']=Echat::join('medications','medications.id','echat.medical_applied_id')
         ->join('clients','medications.client_id','clients.id')
         ->join('users','users.id','echat.staff_id')
-        ->select('users.first_name','users.last_name','medications.medication_name','medications.dose_units','medications.dose_quantity','medications.frequency','echat.*','clients.client_name')
+        ->select('users.first_name','users.last_name','medications.medication_name','medications.dose_units','medications.dose_quantity','medications.frequency','echat.*','clients.client_name','clients.BOD','clients.created_at')
         ->where('medications.client_id',$request->client)->where('medications.discharged',0)->get();
         $data['medications'] = Medication::join('clients','clients.id','medications.client_id')
         ->select('medications.*')->where('medications.client_id',$request->client)->where('medications.discharged',0)->get();
@@ -348,7 +351,7 @@ class ClientController extends Controller
         $data['company_id']= $request->id;
         $data['echats']=Echat::join('medications','medications.id','echat.medical_applied_id')
         ->join('clients','medications.client_id','clients.id')
-        ->select('medications.medication_name','medications.dose_units','medications.dose_quantity','medications.frequency','echat.*')
+        ->select('medications.medication_name','medications.dose_units','medications.dose_quantity','medications.frequency','echat.*','clients.client_name','clients.BOD','clients.created_at')
         ->where('medications.client_id',$request->client)->where('medications.discharged',1)->get();
         $data['medications'] = Medication::join('clients','clients.id','medications.client_id')
         ->select('medications.*')->where('medications.client_id',$request->client)->where('medications.discharged',1)->get();
@@ -395,7 +398,6 @@ class ClientController extends Controller
     public function echatStore(Request $request){
         $validator = \Validator::make($request->all(), [
             'medical_id'=>'required',
-            'client_pin'=>'required',
             'qty'=>'required',
             'action'=>'required',
             ]);
@@ -405,11 +407,15 @@ class ClientController extends Controller
                 $data1 ['message'] =$validator->errors()->first();
                 return response()->json($data1); 
             }
+            // return $request->action[0];
             $id= $request->clientID;
             $chk= Client::where('id',$id)->where('client_PIN',$request->client_pin)->get();
-            $real=Client::where('id',$id)->first();
-            // return $chk;
+            $real= Client::where('id',$id)->first();
+            
+            if($request->action[0]=="refused" || $request->action[0]=="Taken" ){
+            
             if($chk->count()>0){
+                
             $medical=$request->medical_id;
 
             foreach($medical as $key =>$med){
@@ -428,11 +434,38 @@ class ClientController extends Controller
         
         $update= Client::where('clients.id',$clientId)->update(['status'=>0]);
         $request->session()
-            ->flash('success', 'chat recorded for '.$request->name);
+            ->flash('success', 'chat recorded for '.$real->client_name);
             return response()->json(['status' => 201,'message' => "updated"]);
     }else{
+        
         return response()->json(['status' => 401,'message' => "Authorized",'data'=>$real->client_PIN]);
     }
+
+}else if($request->action[0]=="Missed" &&! $request->client_PIN){
+        $medical=$request->medical_id;
+
+        foreach($medical as $key =>$med){
+        $add= New Echat();
+            $add->medical_applied_id= $med;
+            $add->client_pin =$request->client_pin;
+            $add->staff_id=\Auth::user()->id;
+            $add->staff_signature=\Auth::user()->id;
+            $add->qty=$request->qty[$key];
+            $add->action = $request->action[$key];
+
+            $add->comment=isset($request->comment)?$request->comment[$key]:null;
+        $add->save();
+    }
+    $clientId=$request->client_id;
+    
+    $update= Client::where('clients.id',$clientId)->update(['status'=>0]);
+    // $request->session()
+        // ->flash('success', 'chat recorded for '.$real->client_name);
+        return response()->json(['status' => 201,'message' => "updated"]);
+    }
+    // else{
+    //     return response()->json(['status' => 401,'message' => "Authorized",'data'=>$real->client_PIN]);
+    // }
             // return redirect(route('client-list'));
 
     }
