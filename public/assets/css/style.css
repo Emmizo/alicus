@@ -1262,6 +1262,9 @@ table.table-bordered th{
   gap: 0.5em;
   padding-left: 18px;
   }
+  fieldset{
+	width: 95%,!important;
+}
   .print{
 	display:none;
   }
@@ -1275,6 +1278,9 @@ table.table-bordered th{
             .noprint {
                 display: none!important;
             }
+			fieldset{
+				width: 95%, !important;
+			}
 			#print-invoice{
 				page-break-after: always;
 			}

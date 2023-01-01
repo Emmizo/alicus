@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Document;
 use App\Models\User;
 use App\Helpers\Helper;
+use File;
 
 class DocumentController extends Controller
 {
@@ -22,7 +23,9 @@ class DocumentController extends Controller
         $data['data']=$comp;
         $data['name']=$request->name;
         $data['client_id']= $request->id;
-        $data['documents'] = Document::join('clients','clients.id','documents.client_id')->select('clients.client_name','documents.*')->where('documents.client_id',$request->id)->where('documents.discharged',0)->get();
+        $data['documents'] = Document::join('clients','clients.id','documents.client_id')
+        ->join('users','users.id','documents.created_by')
+        ->select('clients.client_name','documents.*','users.first_name')->where('documents.client_id',$request->id)->where('documents.discharged',0)->get();
         return view('manage-document.index',$data);
     }
     public function indexDis(Request $request)
@@ -127,12 +130,18 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
        $del= Document::find($id);
-       File::delete(public_path('/documents/' . $del->doc_name));
-       $del->delete();
        
-
+       $path =public_path('/documents/' . $del->doc_name);
+       $isExists = File::exists($path);
+       if($isExists){
+       File::delete($path);
+       $del->delete();
+       }else{
+        $del->delete();
+       }
+       return response()->json(['status' => 200,'message' => "Deleted"]);
     }
 }

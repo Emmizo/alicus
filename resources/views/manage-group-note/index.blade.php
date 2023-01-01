@@ -125,8 +125,8 @@
                                                                 <th>Effect</th>
                                                                 <th>Level Of Participation</th>
                                                                 {{-- <th>SSN</th> --}}
-                                                                <th>Admitted by</th>
-                                                                <th>Admitted date</th>
+                                                                <th>Electronically Signed by</th>
+                                                                <th>Finalized date</th>
 
                                                                 <th class="noprint">Actions</th>
                                                             </tr>

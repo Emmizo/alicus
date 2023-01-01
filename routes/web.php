@@ -133,6 +133,7 @@ Route::group(['prefix' => '/manage-client','middleware'=> ['auth','nocache','can
     Route::get('/datatable-Document', 'DocumentController@getDatatable')->name('document-datatable');
     Route::get('/add-document', 'documentController@add')->name('document-add');
     Route::post('/save-document', 'DocumentController@store')->name('document-save');
+    Route::delete('/delete-document/{id}', 'DocumentController@delete')->name('document-delete');
     Route::get('/edit-document/{id}', 'DocumentController@edit')->name('document-edit');
     
 });

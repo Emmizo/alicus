@@ -98,9 +98,11 @@
 
                                                             <td>
 
-                                                                <button type="button" class="btn btn-primary"
-                                                                    data-toggle="modal" data-target="#exampleModal">
-                                                                    <i class="fa fa-trash" />
+                                                                <button type="button"
+                                                                    class="btn btn-primary delete-category"
+                                                                    data-id="{{ $client->id }}"
+                                                                    data-url="{{ route('document-delete', $client->id) }}">
+                                                                    <i class="fa fa-trash"></i>
                                                                 </button>
 
                                                             </td>
@@ -223,7 +225,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -275,7 +277,7 @@
                                     type: "success",
                                     confirmButtonColor: '#E1261C',
                                 });
-                                $('#manage-components').DataTable().draw();
+                                window.location.reload();
                             }
                         },
                         error: function(data) {

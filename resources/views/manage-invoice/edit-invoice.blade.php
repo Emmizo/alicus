@@ -22,89 +22,91 @@
             <img class="logo-img2 float-right" src='{{ URL::asset($data->company_logo ?? '') }}'
                 alt="{{ $data->company_name }}">
         </div>
+        <fieldset class="border p-2 mt-3">
+            <legend class="float-none w-auto">Invoice</legend>
+            <div class="mt-5 container">
+                @foreach ($invoices as $key => $invoice)
+                    <form role="form" id="update-invoice" action="{{ route('company-update') }}" name="add-category"
+                        method="POST" enctype="multipart/form-data">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="category_name">Day started<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="start_date" name="start_date"
+                                            value="{{ $started }}">
+                                        <small class="text-danger">{{ $errors->first('start_date') }}</small>
+                                    </div>
+                                </div>
+                                <input type="hidden" id="clientId" name="client_id" value="{{ $invoice->clientId }}">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="category_name">Billing Date<span class="text-danger">*</span></label>
+                                        <input type="date" class="form-control" id="billing_date" name="billing_date"
+                                            value="{{ $invoice->billing_date }}">
+                                        <small class="text-danger">{{ $errors->first('billing_date') }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="category_name">Number of Day<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="no_of_day" name="no_of_day"
+                                            value="{{ $invoice->no_of_day }}">
+                                        <small class="text-danger">{{ $errors->first('no_of_day') }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="category_name">Price Per Day<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="price_per_day" name="price_per_day"
+                                            value="{{ $invoice->price_per_day }}">
+                                        <small class="text-danger">{{ $errors->first('price_per_day') }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="category_name">Total Price<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="tot" name="tot"
+                                            value="{{ $invoice->tot }}" <small
+                                            class="text-danger">{{ $errors->first('tot') }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="category_name">Payment<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="payment" name="payment"
+                                            value="{{ $invoice->payment }}">
+                                        <small class="text-danger">{{ $errors->first('payment') }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="category_name">Due Payment<span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="due_payment" name="due_payment"
+                                            value="{{ $invoice->due_payment }}">
+                                        <small class="text-danger">{{ $errors->first('due_payment') }}</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mt-4">
+                                    <div class="form-group">
 
-        <div class="mt-5 container">
-            @foreach ($invoices as $key => $invoice)
-                <form role="form" id="update-invoice" action="{{ route('company-update') }}" name="add-category"
-                    method="POST" enctype="multipart/form-data">
-                    <div class="card-body">
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <div class="form-group">
-                                    <label for="category_name">Day started<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="start_date" name="start_date"
-                                        value="{{ $started }}">
-                                    <small class="text-danger">{{ $errors->first('start_date') }}</small>
-                                </div>
-                            </div>
-                            <input type="hidden" id="clientId" name="client_id" value="{{ $invoice->clientId }}">
-                            <div class="col-md-4 mb-3">
-                                <div class="form-group">
-                                    <label for="category_name">Billing Date<span class="text-danger">*</span></label>
-                                    <input type="date" class="form-control" id="billing_date" name="billing_date"
-                                        value="{{ $invoice->billing_date }}">
-                                    <small class="text-danger">{{ $errors->first('billing_date') }}</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <div class="form-group">
-                                    <label for="category_name">Number of Day<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="no_of_day" name="no_of_day"
-                                        value="{{ $invoice->no_of_day }}">
-                                    <small class="text-danger">{{ $errors->first('no_of_day') }}</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="form-group">
-                                    <label for="category_name">Price Per Day<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="price_per_day" name="price_per_day"
-                                        value="{{ $invoice->price_per_day }}">
-                                    <small class="text-danger">{{ $errors->first('price_per_day') }}</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <div class="form-group">
-                                    <label for="category_name">Total Price<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="tot" name="tot"
-                                        value="{{ $invoice->tot }}" <small
-                                        class="text-danger">{{ $errors->first('tot') }}</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <div class="form-group">
-                                    <label for="category_name">Payment<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="payment" name="payment"
-                                        value="{{ $invoice->payment }}">
-                                    <small class="text-danger">{{ $errors->first('payment') }}</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col-md-4 mb-3">
-                                <div class="form-group">
-                                    <label for="category_name">Due Payment<span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="due_payment" name="due_payment"
-                                        value="{{ $invoice->due_payment }}">
-                                    <small class="text-danger">{{ $errors->first('due_payment') }}</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4 mt-4">
-                                <div class="form-group">
+                                        <button type="submit" class="btn btn-dark btn-lg" id="send_btn"> <i
+                                                class="fa fa-pencil"></i>&nbsp; Update</button>
 
-                                    <button type="submit" class="btn btn-dark btn-lg" id="send_btn"> <i
-                                            class="fa fa-pencil"></i>&nbsp; Update</button>
-
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </form>
-            @endforeach
-        </div>
+                    </form>
+                @endforeach
+            </div>
+        </fieldset>
     </section>
 @endsection
 @section('script')

@@ -43,7 +43,7 @@
 
 
 <footer class="main-footer print">
-    <strong>Staff {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }} on
+    <strong>Logged Into As {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }} on
         {{ date('Y-m-d H:i:s') }}</strong>
 
 
