@@ -71,130 +71,131 @@
                                                 </div>
                                                 <br>
                                                 <br>
-                                                <div id="printData">
-                                                    <div class="col-12 container row">
-                                                        <div class="col-md-6">
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">
-                                                                    Cleint Name:
-                                                                </div>
-                                                                <div class="col-md-4 ">
-                                                                    <b>{{ $name ?? '' }}</b>
-                                                                </div>
+                                                <div id="printData2>
+                                                    <div class="col-12
+                                                    container row">
+                                                    <div class="col-md-6">
+                                                        <div class="col-md-12 row">
+                                                            <div class="col-md-3 mb-3">
+                                                                Cleint Name:
                                                             </div>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">
-                                                                    Date of Birth:
-                                                                </div>
-                                                                <div class="col-md-3 ">
-                                                                    <b>{{ $birth ?? '' }}</b>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12  row">
-                                                                <div class="col-md-3 mb-3">
-                                                                    Admitted Date:
-                                                                </div>
-                                                                <div class="col-md-5">
-                                                                    <b>{{ $admitted ?? '' }}</b>
-                                                                </div>
+                                                            <div class="col-md-4 ">
+                                                                <b>{{ $name ?? '' }}</b>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 ">
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">Company:</div>
-                                                                <div class="col-md-3 mb-3">{{ $data->company_name ?? '' }}
-                                                                </div>
+                                                        <div class="col-md-12 row">
+                                                            <div class="col-md-3 mb-3">
+                                                                Date of Birth:
                                                             </div>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">Phone:</div>
-                                                                <div class="col-md-3 mb-3">{{ $data->phone ?? '' }}</div>
+                                                            <div class="col-md-3 ">
+                                                                <b>{{ $birth ?? '' }}</b>
                                                             </div>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">Email:</div>
-                                                                <div class="col-md-3 mb-3">{{ $data->email ?? '' }}</div>
+                                                        </div>
+                                                        <div class="col-md-12  row">
+                                                            <div class="col-md-3 mb-3">
+                                                                Admitted Date:
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <b>{{ $admitted ?? '' }}</b>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <section class="mt-5">
-                                                        <div class="container2">
-                                                            <div id="myDIV">
-                                                                <div
-                                                                    class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
-                                                                    <h4>Medication Administration Record</h4>
-                                                                </div>
-                                                                @if ($echats->count() > 0)
-                                                                    <table class="table table-bordered certificate-table"
-                                                                        border="1">
-                                                                        <thead>
-
-                                                                            <tr>
-                                                                                <th class="w-10px pe-2">
-                                                                                    No
-                                                                                </th>
-                                                                                <th class="min-w-125px hidde-responsive-j6">
-                                                                                    Medication
-                                                                                </th>
-
-                                                                                <th>Dose Unit</th>
-                                                                                <th>Frequency</th>
-                                                                                <th>Dose Qty</th>
-                                                                                <th>action</th>
-
-                                                                                <th>recorded at</th>
-                                                                                {{-- <th>SSN</th> --}}
-                                                                                <th>comment</th>
-                                                                                <th>client signature</th>
-                                                                                <th>Staff signature</th>
-
-                                                                                {{-- <th class="noprint">Actions</th> --}}
-                                                                            </tr>
-
-                                                                        </thead>
-                                                                        @foreach ($echats as $key => $client)
-                                                                            <tbody id="myTable">
-                                                                                <tr>
-                                                                                    <td>{{ $key + 1 }}</td>
-                                                                                    <td>
-                                                                                        {{ $client->medication_name }}
-                                                                                    </td>
-                                                                                    <td>{{ $client->dose_units }}</td>
-
-
-                                                                                    <td>{{ $client->frequency }}</td>
-                                                                                    <td>{{ $client->dose_quantity }}</td>
-                                                                                    <td>{{ $client->action }}
-                                                                                    </td>
-
-                                                                                    <td>{{ $client->recorded_at }}
-                                                                                    </td>
-                                                                                    <td>{{ $client->comment }}
-                                                                                    </td>
-                                                                                    {{-- <td>{{ $client->SSN }}</td> --}}
-                                                                                    <td>{{ $client->client_name }}
-                                                                                    </td>
-
-                                                                                    <td>
-                                                                                        {{ $client->first_name . ' ' . $client->last_name }}
-                                                                                    </td>
-                                                                                </tr>
-
-                                                                            </tbody>
-                                                                        @endforeach
-                                                                    </table>
-
+                                                    <div class="col-md-6 fs-6">
+                                                        <div class="col-md-12 row">
+                                                            <div class="col-md-3 mb-3">Company:</div>
+                                                            <div class="col-md-3 mb-3">{{ $data->company_name ?? '' }}
                                                             </div>
                                                         </div>
+                                                        <div class="col-md-12 row">
+                                                            <div class="col-md-3 mb-3">Phone:</div>
+                                                            <div class="col-md-3 mb-3">{{ $data->phone ?? '' }}</div>
+                                                        </div>
+                                                        <div class="col-md-12 row">
+                                                            <div class="col-md-3 mb-3">Email:</div>
+                                                            <div class="col-md-3 mb-3">{{ $data->email ?? '' }}</div>
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                                <section class="mt-5">
+                                                    <div class="container2">
+                                                        <div id="myDIV">
+                                                            <div
+                                                                class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
+                                                                <h4>Medication Administration Record</h4>
+                                                            </div>
+                                                            @if ($echats->count() > 0)
+                                                                <table class="table table-bordered certificate-table"
+                                                                    border="1">
+                                                                    <thead>
+
+                                                                        <tr>
+                                                                            <th class="w-10px pe-2">
+                                                                                No
+                                                                            </th>
+                                                                            <th class="min-w-125px hidde-responsive-j6">
+                                                                                Medication
+                                                                            </th>
+
+                                                                            <th>Dose Unit</th>
+                                                                            <th>Frequency</th>
+                                                                            <th>Dose Qty</th>
+                                                                            <th>action</th>
+
+                                                                            <th>recorded at</th>
+                                                                            {{-- <th>SSN</th> --}}
+                                                                            <th>comment</th>
+                                                                            <th>client signature</th>
+                                                                            <th>Staff signature</th>
+
+                                                                            {{-- <th class="noprint">Actions</th> --}}
+                                                                        </tr>
+
+                                                                    </thead>
+                                                                    @foreach ($echats as $key => $client)
+                                                                        <tbody id="myTable">
+                                                                            <tr>
+                                                                                <td>{{ $key + 1 }}</td>
+                                                                                <td>
+                                                                                    {{ $client->medication_name }}
+                                                                                </td>
+                                                                                <td>{{ $client->dose_units }}</td>
 
 
+                                                                                <td>{{ $client->frequency }}</td>
+                                                                                <td>{{ $client->dose_quantity }}</td>
+                                                                                <td>{{ $client->action }}
+                                                                                </td>
+
+                                                                                <td>{{ $client->recorded_at }}
+                                                                                </td>
+                                                                                <td>{{ $client->comment }}
+                                                                                </td>
+                                                                                {{-- <td>{{ $client->SSN }}</td> --}}
+                                                                                <td>{{ $client->client_name }}
+                                                                                </td>
+
+                                                                                <td>
+                                                                                    {{ $client->first_name . ' ' . $client->last_name }}
+                                                                                </td>
+                                                                            </tr>
+
+                                                                        </tbody>
+                                                                    @endforeach
+                                                                </table>
+
+                                                        </div>
+                                                    </div>
                                             </div>
+
+
                                         </div>
-                                    @else
-                                        <div class="d-flex justify-content-center">
-                                            <b>
-                                                <h3>No report found</h3>
-                                            </b>
-                                        </div>
+                                    </div>
+                                @else
+                                    <div class="d-flex justify-content-center">
+                                        <b>
+                                            <h3>No report found</h3>
+                                        </b>
+                                    </div>
                         @endif
                     </div>
                 </div>
@@ -384,7 +385,7 @@
         <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
         <script type="text/javascript">
             /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                toggle between hiding and showing the dropdown content */
             function myFunction() {
                 document.getElementById("myDropdown").classList.toggle("show");
             }
