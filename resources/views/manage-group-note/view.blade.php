@@ -100,7 +100,7 @@
                                 @if (in_array('Conflicted', $moods))
                                     <input type="checkbox" id="moods" name="mood[]" value="Conflicted" checked>
                                 @else
-                                    <input type="checkbox" id="moods" name="mood[]" value="Conflicted" checked>
+                                    <input type="checkbox" id="moods" name="mood[]" value="Conflicted">
                                 @endif
                                 <label for="vehicle2"> Conflicted</label><br>
                                 @if (in_array('Annoyed', $moods))
