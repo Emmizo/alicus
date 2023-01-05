@@ -134,7 +134,7 @@
                                                                 <tr>
                                                                     <td>{{ $key + 1 }}</td>
 
-                                                                    <td>{{ $client->progress_note }}</td>
+                                                                    <td>{!! $client->progress_note !!}</td>
 
                                                                     <td>{{ preg_replace('/[^A-Za-z0-9\-\(,) ]/', ' ', $client->level_participation) }}
                                                                     </td>
@@ -246,7 +246,7 @@
                             <div class="col-md-8 mb-3">
                                 <div class="form-group">
                                     <label for="category_name">Progress Note<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="group_note" name="progress_note" rows="6"></textarea>
+                                    <textarea class="tinymce-editor" id="group_note" name="progress_note" rows="6"></textarea>
                                     <small class="text-danger">{{ $errors->first('progress') }}</small>
                                 </div>
                             </div>
@@ -320,7 +320,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

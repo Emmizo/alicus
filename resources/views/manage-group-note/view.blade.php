@@ -71,9 +71,9 @@
                         </div>
                         <div class="form-row">
                             <div class="col-md-8 mb-3">
-                                <div class="form-group">
+                                <div class="view-tiny">
                                     <label for="category_name">Group note<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="group_note" name="group_note" rows="6" readonly>{{ $group->group_note }}</textarea>
+                                    <textarea class="tinymce-editor" id="group_note" name="group_note" rows="6" readonly>{!! $group->group_note !!}</textarea>
                                     <small class="text-danger">{{ $errors->first('group_note') }}</small>
                                 </div>
                             </div>
@@ -91,37 +91,37 @@
 
 
                             <div class="col-md- mb-3">
-                                @if (in_array('Appropriate', $moods))
+                                @if (in_array('Appropriate', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Appropriate" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Appropriate">
                                 @endif
                                 <label for="vehicle1"> Propriate</label><br>
-                                @if (in_array('Conflicted', $moods))
+                                @if (in_array('Conflicted', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Conflicted" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Conflicted">
                                 @endif
                                 <label for="vehicle2"> Conflicted</label><br>
-                                @if (in_array('Annoyed', $moods))
+                                @if (in_array('Annoyed', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Annoyed" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Annoyed">
                                 @endif
                                 <label for="vehicle3"> Annoyed</label><br>
-                                @if (in_array('Anxious', $moods))
+                                @if (in_array('Anxious', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Anxious" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Anxious">
                                 @endif
                                 <label for="vehicle1"> Anxious</label><br>
-                                @if (in_array('Restless', $moods))
+                                @if (in_array('Restless', $moods?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Restless" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Restless">
                                 @endif
                                 <label for="vehicle2"> Restless</label><br>
-                                @if (in_array('Energetic', $moods))
+                                @if (in_array('Energetic', $moods?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Energetic" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Energetic">
@@ -130,38 +130,38 @@
                             </div>
 
                             <div class="col-md- mb-3">
-                                @if (in_array('Inappropriate', $moods))
+                                @if (in_array('Inappropriate', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Inappropriate" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Inappropriate">
                                 @endif
                                 <label for="vehicle1"> Inappropriate</label><br>
-                                @if (in_array('Fearful', $moods))
+                                @if (in_array('Fearful', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Fearful" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Fearful">
                                 @endif
                                 <label for="vehicle2"> Fearful</label><br>
-                                @if (in_array('Depressed', $moods))
+                                @if (in_array('Depressed', $moods ?? []))
                                     <input type="checkbox" id="vehicle3" name="mood[]" value="Depressed" checked>
                                 @else
                                     <input type="checkbox" id="vehicle3" name="mood[]" value="Depressed">
                                 @endif
                                 <label for="vehicle3"> Depressed</label><br>
-                                @if (in_array('Envious', $moods))
+                                @if (in_array('Envious', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Envious" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Envious">
                                 @endif
 
                                 <label for="vehicle1"> Envious</label><br>
-                                @if (in_array('Hopeful', $moods))
+                                @if (in_array('Hopeful', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Hopeful" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Hopeful">
                                 @endif
                                 <label for="vehicle2"> Hopeful</label><br>
-                                @if (in_array('Excited', $moods))
+                                @if (in_array('Excited', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Excited" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Excited">
@@ -171,37 +171,37 @@
 
                             </div>
                             <div class="col-md- mb-3">
-                                @if (in_array('Neutral', $moods))
+                                @if (in_array('Neutral', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Neutral" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Neutral">
                                 @endif
                                 <label for="vehicle1"> Neutral</label><br>
-                                @if (in_array('Hopeless', $moods))
+                                @if (in_array('Hopeless', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Hopeless" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Hopeless">
                                 @endif
                                 <label for="vehicle2"> Hopeless</label><br>
-                                @if (in_array('Guilty', $moods))
+                                @if (in_array('Guilty', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Guilty" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Guilty">
                                 @endif
                                 <label for="vehicle3"> Guilty</label><br>
-                                @if (in_array('Bored', $moods))
+                                @if (in_array('Bored', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Bored" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Bored">
                                 @endif
                                 <label for="vehicle1"> Bored</label><br>
-                                @if (in_array('Optimistic', $moods))
+                                @if (in_array('Optimistic', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Optimistic" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Optimistic">
                                 @endif
                                 <label for="vehicle2"> Optimistic</label><br>
-                                @if (in_array('Uninterested', $moods))
+                                @if (in_array('Uninterested', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Uninterested" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Uninterested">
@@ -211,13 +211,13 @@
 
                             </div>
                             <div class="col-md- mb-3">
-                                @if (in_array('Cheerful', $moods))
+                                @if (in_array('Cheerful', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Cheerful" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Cheerful">
                                 @endif
                                 <label for="vehicle2"> Cheeful</label><br>
-                                @if (in_array('Helpless', $moods))
+                                @if (in_array('Helpless', $moods ?? []))
                                     <input type="checkbox" id="moods" name="mood[]" value="Helpless" checked>
                                 @else
                                     <input type="checkbox" id="moods" name="mood[]" value="Helpless">
@@ -225,7 +225,7 @@
                                 <label for="vehicle2"> Helpless</label><br>
 
                                 <input type="checkbox" id="moods" name="mood[]" value="Lonely"
-                                    <?= in_array('Lonely', $moods) ? 'checked' : '' ?>>
+                                    <?= in_array('Lonely', $moods ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle3"> Lonely</label><br>
 
                                 <input type="checkbox" id="moods" name="mood[]" value="Regretful"
@@ -233,11 +233,11 @@
                                 <label for="vehicle1"> Regretful</label><br>
 
                                 <input type="checkbox" id="moods" name="mood[]" value="Relaxed"
-                                    <?= in_array('Relaxed', $moods) ? 'checked' : '' ?>>
+                                    <?= in_array('Relaxed', $moods ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Relaxed</label><br>
 
                                 <input type="checkbox" id="moods" name="mood[]" value="Interested"
-                                    <?= in_array('Interested', $moods) ? 'checked' : '' ?>>
+                                    <?= in_array('Interested', $moods ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle3"> Interested</label><br><br>
 
 
@@ -245,19 +245,19 @@
 
                             <div class="col-md- mb-3">
                                 <input type="checkbox" id="mood" name="mood[]" value="Angry"
-                                    <?= in_array('Angry', $moods) ? 'checked' : '' ?>>
+                                    <?= in_array('Angry', $moods ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Angry</label><br>
                                 <input type="checkbox" id="moods" name="mood[]" value="Jealous"
-                                    <?= in_array('Jealous', $moods) ? 'checked' : '' ?>>
+                                    <?= in_array('Jealous', $moods ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Jealous</label><br>
                                 <input type="checkbox" id="moods" name="mood[]" value="Panicky"
-                                    <?= in_array('Panicky', $moods) ? 'checked' : '' ?>>
+                                    <?= in_array('Panicky', $moods ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle3"> Panicky</label><br>
                                 <input type="checkbox" id="moods" name="mood[]" value="Tensed"
-                                    <?= in_array('Tensed', $moods) ? 'checked' : '' ?>>
+                                    <?= in_array('Tensed', $moods ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle1"> Tensed</label><br>
                                 <input type="checkbox" id="moods" name="mood[]" value="Happy"
-                                    <?= in_array('Happy', $moods) ? 'checked' : '' ?>>
+                                    <?= in_array('Happy', $moods ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Happy</label><br>
 
 
@@ -274,10 +274,10 @@
                         <div class="form-row">
                             <div class="col-md- mb-3">
                                 <input type="checkbox" id="effects" name="effect[]" value="Motivated"
-                                    <?= in_array('Motivated', $effect) ? 'checked' : '' ?>>
+                                    <?= in_array('Motivated', $effect ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle1"> Motivated</label><br>
                                 <input type="checkbox" id="effect" name="effect[]" value="Restricted"
-                                    <?= in_array('Restricted', $effect) ? 'checked' : '' ?>>
+                                    <?= in_array('Restricted', $effect ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Restricted</label><br>
 
 
@@ -285,10 +285,10 @@
                             </div>
                             <div class="col-md- mb-3">
                                 <input type="checkbox" id="effect" name="effect[]" value="Angry"
-                                    <?= in_array('Angry', $effect) ? 'checked' : '' ?>>
+                                    <?= in_array('Angry', $effect ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle1"> Angry</label><br>
                                 <input type="checkbox" id="effect" name="effect[]" value="Inappropriate"
-                                    <?= in_array('Inappropriate', $effect) ? 'checked' : '' ?>>
+                                    <?= in_array('Inappropriate', $effect ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Inappropriate</label><br>
 
 
@@ -299,16 +299,16 @@
                                     <?= in_array('Anxious', $effect) ? 'checked' : '' ?>>
                                 <label for="vehicle1"> Anxious</label><br>
                                 <input type="checkbox" id="effect" name="effect[]" value="Sad"
-                                    <?= in_array('Sad', $effect) ? 'checked' : '' ?>>
+                                    <?= in_array('Sad', $effect ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Sad</label><br>
 
                             </div>
                             <div class="col-md- mb-3">
                                 <input type="checkbox" id="effect" name="effect[]" value="Appropriate"
-                                    <?= in_array('Appropriate', $effect) ? 'checked' : '' ?>>
+                                    <?= in_array('Appropriate', $effect ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Appropriate</label><br>
                                 <input type="checkbox" id="vehicle2" name="effect[]" value="Happy"
-                                    <?= in_array('Happy', $effect) ? 'checked' : '' ?>>
+                                    <?= in_array('Happy', $effect ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Happy</label><br>
 
 
@@ -316,10 +316,10 @@
                             </div>
                             <div class="col-md- mb-3">
                                 <input type="checkbox" id="effect" name="effect[]" value="Fearful"
-                                    <?= in_array('Fearful', $effect) ? 'checked' : '' ?>>
+                                    <?= in_array('Fearful', $effect ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Fearful</label><br>
                                 {{-- <input type="checkbox" id="vehicle2" name="effect[]" value="Motivated"
-                                    <?= in_array('Motivated', $effect) ? 'checked' : '' ?>>
+                                    <?= in_array('Motivated', $effect ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Motivated</label><br> --}}
 
 
@@ -336,7 +336,7 @@
                         <div class="form-row">
                             <div class="col-md- mb-3">
                                 <input type="checkbox" id="level_participation" name="level_participation[]"
-                                    value="High" <?= in_array('High', $level) ? 'checked' : '' ?>>
+                                    value="High" <?= in_array('High', $level ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle1"> High</label><br>
 
 
@@ -345,7 +345,7 @@
                             </div>
                             <div class="col-md- mb-3">
                                 <input type="checkbox" id="level_participation" name="level_participation[]"
-                                    value="Medium" <?= in_array('Medium', $level) ? 'checked' : '' ?>>
+                                    value="Medium" <?= in_array('Medium', $level ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle1"> Medium</label><br>
 
 
@@ -354,14 +354,14 @@
                             </div>
                             <div class="col-md- mb-3">
                                 <input type="checkbox" id="level_participation" name="level_participation[]"
-                                    value="Low" <?= in_array('Low', $level) ? 'checked' : '' ?>>
+                                    value="Low" <?= in_array('Low', $level ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle1"> Low</label><br>
 
 
                             </div>
                             <div class="col-md- mb-3">
                                 <input type="checkbox" id="level_participation" name="level_participation[]"
-                                    value="Neutral" <?= in_array('Neutral', $level) ? 'checked' : '' ?>>
+                                    value="Neutral" <?= in_array('Neutral', $level ?? []) ? 'checked' : '' ?>>
                                 <label for="vehicle2"> Neutral</label><br>
 
 
@@ -374,9 +374,9 @@
                         <hr />
                         <div class="form-row">
                             <div class="col-md-8 mb-3">
-                                <div class="form-group">
+                                <div class="view-tiny">
                                     <label for="category_name">Comment if any<span class="text-danger"></span></label>
-                                    <textarea class="form-control" id="comments" name="comments" rows="6" readonly>{{ $group->comments ? $group->comments : 'No comment' }}</textarea>
+                                    <textarea class="tinymce-editor" id="comments" name="comments" rows="6" readonly>{!! $group->comments ? $group->comments : 'No comment' !!}</textarea>
 
                                 </div>
                             </div>

@@ -139,7 +139,7 @@
                                                                     <td>
                                                                         {{ $client->topic }}
                                                                     </td>
-                                                                    <td>{{ $client->individual_therapy }}</td>
+                                                                    <td>{!! $client->individual_therapy !!}</td>
                                                                     <td>{{ preg_replace('/[^A-Za-z0-9\-\(,) ]/', ' ', $client->mood) }}
                                                                     </td>
                                                                     {{-- <td>{{ $client->email }}</td> --}}
@@ -164,7 +164,7 @@
 
                                                                             <div class="dropdown-menu"
                                                                                 aria-labelledby="dropdownMenuButton">
-                                                                                <a class="dropdown-item"
+                                                                                <a class="dropdown-item" id="button-one"
                                                                                     href="{{ route('view-individual-note-list', ['id' => $client->id, 'name' => $client->client_name, 'birth' => $client->BOD, 'created' => $client->created_at]) }}"><i
                                                                                         class="fa fa-eye fa-fw"></i>
                                                                                     View Note</a>
@@ -264,7 +264,7 @@
                             <div class="col-md-8 mb-3">
                                 <div class="form-group">
                                     <label for="category_name">Individual Note<span class="text-danger">*</span></label>
-                                    <textarea class=" form-control" id="group_note" name="individual_therapy" rows="6"></textarea>
+                                    <textarea class=" tinymce-editor" id="group_note" name="individual_therapy" rows="6"></textarea>
                                     <small class="text-danger">{{ $errors->first('individual_therapy') }}</small>
                                 </div>
                             </div>
@@ -451,7 +451,7 @@
                             <div class="col-md-8 mb-3">
                                 <div class="form-group">
                                     <label for="category_name">Comment if any<span class="text-danger"></span></label>
-                                    <textarea class="form-control" id="comments" name="comments" rows="6"></textarea>
+                                    <textarea class="tinymce-editor" id="comments" name="comments" rows="6"></textarea>
 
                                 </div>
                             </div>
@@ -481,7 +481,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

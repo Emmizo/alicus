@@ -38,9 +38,27 @@
     rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js">
 </script>
+<script src="https://cdn.tiny.cloud/1/0cya78rys8j9jo5fgmt3k11w4fu759xg62stkseodokqgttu/tinymce/6/tinymce.min.js"
+    referrerpolicy="origin"></script>
 
 
-
+<script type="text/javascript">
+    tinymce.init({
+        selector: 'textarea.tinymce-editor',
+        height: 200,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount', 'image'
+        ],
+        toolbar: 'undo redo | formatselect | ' +
+            'bold italic backcolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+        content_css: '//www.tiny.cloud/css/codepen.min.css'
+    });
+</script>
 
 <footer class="main-footer print">
     <strong>Logged Into As {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }} on

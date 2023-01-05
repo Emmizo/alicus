@@ -60,10 +60,10 @@
 
                         <div class="form-row">
                             <div class="col-md-8 mb-3">
-                                <div class="form-group">
+                                <div class="view-tiny ">
                                     <label for="category_name">Progress Note<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="group_note" name="progress_note" rows="6" readonly>{{ $group->progress_note }}</textarea>
-                                    <small class="text-danger">{{ $errors->first('progress') }}</small>
+                                    <textarea class="tinymce-editor" id="group_note" name="progress_note" rows="6" readonly>{!! $group->progress_note ?? '' !!}</textarea>
+
                                 </div>
                             </div>
 
@@ -74,46 +74,43 @@
                         <h5 class="modal-title" id="exampleModalLabel">Level of participation</h5>
                         <hr />
                         <div class="form-row">
-                            <?php $levels = json_decode($group->level_participation, true); ?>
-                            @foreach ($levels as $key => $level)
-                                <?php $high = $level == 'High' ? 'checked ' : ''; ?>
-                                <?php $medium = $level == 'Medium' ? 'checked' : ''; ?>
-                                <?php $low = $level == 'Low' ? 'checked' : ''; ?>
-                                <div class="col-md- mb-3">
-                                    <input type="checkbox" id="level_participation" name="level_participation[]"
-                                        value="High" <?= $high ?>>
-                                    <label for="vehicle1"> High</label><br>
+                            <?php $level = json_decode($group->level_participation, true); ?>
+
+                            <div class="col-md- mb-3">
+                                <input type="checkbox" id="level_participation" name="level_participation[]" value="High"
+                                    <?= in_array('High', $level ?? []) ? 'checked' : '' ?>>
+                                <label for="vehicle1"> High</label><br>
 
 
 
 
-                                </div>
-                                <div class="col-md- mb-3">
-                                    <input type="checkbox" id="level_participation" name="level_participation[]"
-                                        value="Medium" <?= $medium ?>>
-                                    <label for="vehicle1"> Medium</label><br>
+                            </div>
+                            <div class="col-md- mb-3">
+                                <input type="checkbox" id="level_participation" name="level_participation[]" value="Medium"
+                                    <?= in_array('Medium', $level ?? []) ? 'checked' : '' ?>>
+                                <label for="vehicle1"> Medium</label><br>
 
 
 
 
-                                </div>
-                                <div class="col-md- mb-3">
-                                    <input type="checkbox" id="level_participation" name="level_participation[]"
-                                        value="Low" <?= $low ?>>
-                                    <label for="vehicle1"> Low</label><br>
+                            </div>
+                            <div class="col-md- mb-3">
+                                <input type="checkbox" id="level_participation" name="level_participation[]" value="Low"
+                                    <?= in_array('Low', $level ?? []) ? 'checked' : '' ?>>
+                                <label for="vehicle1"> Low</label><br>
 
 
-                                </div>
-                                <div class="col-md- mb-3">
-                                    <input type="checkbox" id="level_participation" name="level_participation[]"
-                                        value="Neutral">
-                                    <label for="vehicle2"> Neutral</label><br>
+                            </div>
+                            <div class="col-md- mb-3">
+                                <input type="checkbox" id="level_participation" name="level_participation[]" value="Neutral"
+                                    <?= in_array('Neutral', $level ?? []) ? 'checked' : '' ?>>
+                                <label for="vehicle2"> Neutral</label><br>
 
 
 
 
-                                </div>
-                            @endforeach
+                            </div>
+                            {{-- @endforeach --}}
 
                         </div>
 

@@ -16,6 +16,24 @@
     <title>{{ isset($title) ? $title . ' - ' : '' }} {{ config('app.name', 'ALCUS') }}</title>
     <link rel="icon" href="{{ url('/') }}/images/admin-logo.ico" type="image/gif" sizes="16x16">
     @include('layouts.header')
+    <style>
+        .tox-statusbar__branding {
+            display: none !important;
+        }
+
+        .view-tiny .tox-editor-header {
+            display: none !important;
+            grid-template-columns: 1fr min-content;
+            z-index: -11;
+
+        }
+
+        .view-tiny .tox-editor-header .tox-edit-area #group_note_ifr {
+            background-color: grey !important;
+            pointer-events: none;
+        }
+    </style>
+
     @yield('style')
 </head>
 
