@@ -481,7 +481,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -736,13 +736,12 @@
             document.title = '{{ $data->company_name }}';
 
             function printData() {
-                var divToPrint = document.getElementById("printData");
+                var divToPrint = document.getElementById("printData22");
                 newWin = window.print();
 
                 newWin.close();
 
             }
-
 
             $('input#print-data').on('click', function() {
                 printData();

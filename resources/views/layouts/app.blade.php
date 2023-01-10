@@ -32,6 +32,24 @@
             background-color: grey !important;
             pointer-events: none;
         }
+
+        .group-content {
+
+            width: 90%;
+            height: auto;
+
+
+            display: flex;
+            align-items: flex-end;
+        }
+
+        @media print {
+
+
+            body {
+                height: 50vh !important;
+            }
+        }
     </style>
 
     @yield('style')

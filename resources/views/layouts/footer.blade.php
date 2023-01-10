@@ -72,7 +72,7 @@
     // });
     tinymce.init({
         selector: 'textarea.tinymce-editor',
-        height: 200,
+        height: 300,
         // menubar: false,
         plugins: 'anchor autolink charmap codesample emoticons link lists  searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
@@ -86,14 +86,14 @@
                 value: 'Email',
                 title: 'Email'
             },
-        ]
+        ],
+
     });
 </script>
 
 <footer class="main-footer print">
     <strong>Logged Into As {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }} on
         {{ date('Y-m-d H:i:s') }}</strong>
-
 
 </footer>
 <footer class="main-footer d-print-none">

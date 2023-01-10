@@ -1268,19 +1268,44 @@ table.table-bordered th{
   .print{
 	display:none;
   }
-  @page {
-	size:auto;
-	margin:0cm;
-	
-}
+  
 		 @media print  {
-
+			.form-row{
+				display: flex!important;
+				flex-direction: row!important;
+			}
+			.card-body:first-child {
+				page-break-after: avoid!important;
+    			page-break-inside: avoid!important;
+    			margin-bottom: 0px!important;
+			}
+			.card-body:last-child {
+				page-break-after: avoid!important;
+    			page-break-inside: avoid!important;
+    			margin-bottom: 0px!important;
+			}
+			@page {
+				margin: 0.1in 0.5in 0.1in 0.5in;
+    			size: letter portrait;
+				
+			}
             .noprint {
                 display: none!important;
             }
 			fieldset{
 				width: 95%, !important;
+				
 			}
+			fieldset:last-child {
+				page-break-after: auto;
+		   }
+			#printData:last-child {
+				page-break-after: auto;
+		   }
+		   #printData:first-child {
+			page-break-after: auto;
+	   }
+			
 			#print-invoice{
 				page-break-after: always;
 			}
@@ -1288,7 +1313,7 @@ table.table-bordered th{
 				page-break-after: always;
 			}
 			.print{
-				display:block;
+				display:block!important;
 			  }
 			  footer.print {
 				position: fixed;
@@ -1311,6 +1336,8 @@ table.table-bordered th{
     tr    { page-break-inside:avoid; page-break-after:auto }
     thead { display:table-header-group }
     tfoot { display:table-footer-group }
+	
+		  
 			  
         }
 		
