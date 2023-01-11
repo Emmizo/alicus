@@ -125,16 +125,16 @@ class ClientController extends Controller
      */
     public function show($id)
     {
-        $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
         $data['title']="More Information";
-        $data['clients'] = Client::join('companies','clients.company_id','companies.id')->select('clients.*')->where('clients.id',$id)->get(); 
+        $data['clients'] = Client::join('companies','clients.company_id','companies.id')->LeftJoin('insurances','insurances.id','clients.insurance_ID')->select('clients.*','insurances.insurance_name')->where('clients.id',$id)->get(); 
         return view('manage-clients.view', $data);
     }
     public function showDis($id)
     {
-        $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        $data['data']=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
         $data['title']="More Information";
-        $data['clients'] = Client::join('companies','clients.company_id','companies.id')->select('clients.*')->where('clients.id',$id)->get(); 
+        $data['clients'] = Client::join('companies','clients.company_id','companies.id')->LeftJoin('insurances','insurances.id','clients.insurance_ID')->select('clients.*','insurances.insurance_name')->where('clients.id',$id)->get(); 
         return view('manage-archive.view-client', $data);
     }
 
@@ -146,7 +146,7 @@ class ClientController extends Controller
      */
     public function edit($id)
     {
-        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone')->where('users.id',\Auth::user()->id)->first();
         $data['title']="Edit Facesheet";
         $data['clientID']=$id;
         $data['data']=$comp;
@@ -303,7 +303,7 @@ class ClientController extends Controller
      */
     public function view(Request $request)
     {
-        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo')->where('users.id',\Auth::user()->id)->first();
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
         $data['title'] = "Manage Medication";
         $data['add']= "Add Medical to ".$request->name;
         $data['data']=$comp;
@@ -476,7 +476,7 @@ class ClientController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function Discharged(Request $request){
-        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone')->where('users.id',\Auth::user()->id)->first();
+        $comp=User::join('companies','companies.id','users.company_id')->select('users.*','companies.id as comp_id','companies.company_name','companies.company_logo','companies.phone','companies.email')->where('users.id',\Auth::user()->id)->first();
         $data['title'] = "Manage Client";
         $data['add']= "Add Client";
         $data['data']=$comp;

@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row mt-5">
                 <div class="col-sm-12">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Home</a></li>
@@ -31,7 +31,7 @@
                         <br>
 
                         <!-- /.card-header -->
-                        <div class="card-body">
+                        <div class="card-body" id="card-body">
                             <div class="row col-12 noprint">
                                 <div class=" col-lg-3 col-md-4 col-sm-3">
                                     <div class="search">
@@ -56,55 +56,39 @@
                             <br>
                             <div id="printData">
                                 <div class="col-12 container">
-                                    <div class="col-md-12 row">
+                                    <table class=" table table-bordered certificate-table" border="1">
+                                        <tbody>
 
-                                        <div class="col-md-6 fs-6 font-weight-bold">
-                                            <div class="col-md-12 ">
-                                                <div class="col-md-12 row">
-                                                    <div class="col-md-5">
-                                                        Client Name:
+                                            <tr>
+                                                <td>Client Name: {{ $client->client_name ?? '' }}</td>
+
+                                                <td>Company: {{ $data->company_name ?? '' }}</td>
+                                                <td rowspan="3">
+                                                    <div class="col-md-12 ">
+                                                        <img class="logo-img2 float-md-right"
+                                                            src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
+                                                            alt="{{ $data->company_name ?? '' }}">
                                                     </div>
-                                                    <div class="col-md-6 mb-3">
-                                                        <b>{{ $client->client_name ?? '' }}</b>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-12 row">
-                                                    <div class="col-md-5 mb-3">
-                                                        Date of Birth:
-                                                    </div>
-                                                    <div class="col-md-7 mb-3">
-                                                        <b>{{ $client->BOD }}</b>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <div class="col-md-12 row">
-                                                    <div class="col-md-5 mb-3">
-                                                        Admitted Date:
-                                                    </div>
-                                                    <div class="col-md-7">
-                                                        <b>{{ $client->created_at }}</b>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 fs-6 font-weight-bold print">
-                                            <div class="col-md-12 row">
-                                                <div class="col-md-5 mb-3">Company:</div>
-                                                <div class="col-md-7 mb-3">{{ $data->company_name }}</div>
-                                            </div>
-                                            <div class="col-md-12 row">
-                                                <div class="col-md-5 mb-3">Phone:</div>
-                                                <div class="col-md-7 mb-3">{{ $data->phone }}</div>
-                                            </div>
-                                            <div class="col-md-12 row">
-                                                <div class="col-md-5 mb-3">Email:</div>
-                                                <div class="col-md-7 mb-3">{{ $data->email }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                </td>
+
+
+                                            </tr>
+                                            <tr>
+                                                <td>Date of Birth: {{ $client->BOD ?? '' }}</td>
+
+                                                <td>Phone: {{ $data->phone ?? '' }}</td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>Admitted Date: {{ $client->created_at ?? '' }}</td>
+
+                                                <td>Email: {{ $data->email ?? '' }}</td>
+
+                                            </tr>
+
+                                        </tbody>
+
+                                    </table>
                                     <section class="mt-5">
                                         <div class="container2">
                                             <div id="myDIV">
@@ -134,7 +118,7 @@
                                                                 <tr>
                                                                     <td>{{ $key + 1 }}</td>
 
-                                                                    <td>{{ $client->progress_note }}</td>
+                                                                    <td>{!! $client->progress_note !!}</td>
 
                                                                     <td>{{ preg_replace('/[^A-Za-z0-9\-\(,) ]/', ' ', $client->level_participation) }}
                                                                     </td>
@@ -246,7 +230,7 @@
                             <div class="col-md-8 mb-3">
                                 <div class="form-group">
                                     <label for="category_name">Progress Note<span class="text-danger">*</span></label>
-                                    <textarea class="form-control" id="group_note" name="progress_note" rows="6"></textarea>
+                                    <textarea class="tinymce-editor" id="group_note" name="progress_note" rows="6"></textarea>
                                     <small class="text-danger">{{ $errors->first('progress') }}</small>
                                 </div>
                             </div>
@@ -320,7 +304,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -552,11 +536,46 @@
             document.title = '{{ $data->company_name }}';
 
             function printData() {
-                var divToPrint = document.getElementById("printData");
-                newWin = window.print();
+                var contents = document.getElementById("card-body").innerHTML;
+                var frame1 = document.createElement('iframe');
+                frame1.name = "card-body";
+                frame1.style.position = "absolute";
+                frame1.style.top = "-1000000px";
+                document.body.appendChild(frame1);
+                var frameDoc = (frame1.contentWindow) ? frame1.contentWindow : (frame1.contentDocument.document) ?
+                    frame1.contentDocument.document : frame1.contentDocument;
+                frameDoc.document.open();
+                frameDoc.document.write('<html><head><title>{{ $data->company_name }}</title>');
 
-                newWin.close();
 
+                frameDoc.document.write(
+                    ' <link href = "{{ asset('/dist/css/adminlte.min.css') }}"rel = "stylesheet" / >'
+                );
+                frameDoc.document.write(
+                    '<link href = "{{ asset('assets/css/style.css') }}"rel = "stylesheet" / > '
+                );
+                frameDoc.document.write(
+                    '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'
+
+
+                );
+                // frameDoc.document.write(
+                //     '<img class="logo-img2 float-md-right" src="{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}" alt="{{ $data->company_name ?? '' }}">'
+                // );
+                frameDoc.document.write(
+                    '</head><body >'
+                );
+                frameDoc.document.write(contents);
+                frameDoc.document.write(
+                    ' </body></html>'
+                );
+                frameDoc.document.close();
+                setTimeout(function() {
+                    window.frames["card-body"].focus();
+                    window.frames["card-body"].print();
+                    document.body.removeChild(frame1);
+                }, 100);
+                return false;
             }
 
 

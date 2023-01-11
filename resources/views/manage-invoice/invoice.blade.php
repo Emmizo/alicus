@@ -17,16 +17,48 @@
 
     </section>
     <section>
+        <div class="form-row">
+            <div class="col-md-11 d-print-none">
+                <input class="btn btn-primary float-right" type='button' id='print-data' value='Print'>
+            </div>
+        </div>
 
-        <div class="mt-5">
-
+        <div class="mt-5" id="printData">
 
 
             <fieldset class="border p-2 mt-3">
                 <legend class="float-none w-auto">Invoice</legend>
                 <div class="card-body">
                     @foreach ($invoices as $key => $invoice)
-                        <div class="col-12 container font-weight-bold row">
+                        <table class="table table-bordered certificate-table" border="1" width="100">
+                            <tbody>
+
+                                <tr>
+
+                                    <td>Company: {{ $data->company_name ?? '' }}</td>
+                                    <td rowspan="3">
+                                        <div class="col-md-12 ">
+                                            <img class="logo-img2 float-md-right"
+                                                src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
+                                                alt="{{ $data->company_name ?? '' }}">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+
+                                    <td>Phone: {{ $data->phone ?? '' }}</td>
+
+                                </tr>
+                                <tr>
+
+                                    <td>Email: {{ $data->email ?? '' }}</td>
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        {{-- <div class="col-12 container font-weight-bold row">
 
                             <div class="col-md-4 fs-6">
                                 <div class="col-md-12 row">
@@ -49,7 +81,7 @@
                                         alt="{{ $data->company_name ?? '' }}">
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="col-md-4 mt-3 mb-3">
                             <table border="1" class="table table-bordered certificate-table">
                                 <tr>
@@ -114,12 +146,15 @@
                     @endforeach
                 </div>
             </fieldset>
-            <div class="form-row">
-                <div class="col-md-4 d-print-none">
-                    <input class="btn btn-primary" type='button' id='print-data' value='Print'>
-                </div>
-            </div>
 
+            <footer class=" print">
+                <strong>
+                    <div class="float-right">Logged Into As {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }}
+                        on
+                        {{ date('Y-m-d H:i:s') }}</div>
+                </strong>
+
+            </footer>
         </div>
 
 
@@ -135,13 +170,49 @@
             document.title = '{{ $data->company_name ?? '' }}';
 
             function printData() {
+                var contents = document.getElementById("printData").innerHTML;
+                var frame1 = document.createElement('iframe');
+                frame1.name = "printData";
+                frame1.style.position = "absolute";
+                frame1.style.top = "-1000000px";
+                document.body.appendChild(frame1);
+                var frameDoc = (frame1.contentWindow) ? frame1.contentWindow : (frame1.contentDocument.document) ?
+                    frame1.contentDocument.document : frame1.contentDocument;
+                frameDoc.document.open();
+                frameDoc.document.write('<html><head><title></title>');
 
-                var divToPrint = document.getElementById("printData");
 
-                newWin = window.print();
+                frameDoc.document.write(
+                    ' <link href = "{{ asset('/dist/css/adminlte.min.css') }}"rel = "stylesheet" / >'
+                );
+                frameDoc.document.write(
+                    '<link href = "{{ asset('assets/css/style.css') }}"rel = "stylesheet" / > '
+                );
+                frameDoc.document.write(
+                    '<link rel="stylesheet" type="text/css" href="{{ asset('custom/sweetalert2/css/sweetalert2.min.css') }}" />'
+                );
+                frameDoc.document.write(
+                    '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'
 
-                newWin.close();
 
+                );
+                // frameDoc.document.write(
+                //     '<img class="logo-img2 float-md-right" src="{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}" alt="{{ $data->company_name ?? '' }}">'
+                // );
+                frameDoc.document.write(
+                    '</head><body >'
+                );
+                frameDoc.document.write(contents);
+                frameDoc.document.write(
+                    ' </body></html>'
+                );
+                frameDoc.document.close();
+                setTimeout(function() {
+                    window.frames["printData"].focus();
+                    window.frames["printData"].print();
+                    document.body.removeChild(frame1);
+                }, 100);
+                return false;
             }
 
 

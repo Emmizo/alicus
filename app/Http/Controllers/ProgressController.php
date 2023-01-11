@@ -103,7 +103,7 @@ class ProgressController extends Controller
         $data['name']=$request->name;
         $data['birth'] = $request->birth;
         $data['created']=$request->created;
-        $data['groups'] = Progress::where('id',$request->id)->where('discharged',0)->get();
+        $data['groups'] = Progress::where('id',$request->id)->get();
         return view('progress-notes.view',$data);
     }
     public function showDis(Request $request)

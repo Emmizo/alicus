@@ -1,7 +1,7 @@
 {{-- Here new dash set up --}}
 
 <head>
-    {{-- <title>{{ config('app.name') }}</title> --}}
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/admin-logo.ico') }}" />

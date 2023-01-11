@@ -55,25 +55,25 @@
                                                                 placeholder="Search echat">
                                                         </div>
                                                     </div>
-                                                    {{-- <div class="row  col-md-12 justify-content-end">
-                                                        <div class='col-lg-3 col-md-8 col-sm-3'>
+                                                    <div class="row  col-md-12 justify-content-end">
+                                                        {{-- <div class='col-lg-3 col-md-8 col-sm-3'>
                                                             <a href="#" class="btn btn-success" data-toggle="modal"
                                                                 data-target="#add-client">
                                                                 <i
                                                                     class="fa fa-plus-square"></i>&nbsp;{{ $add }}</a>
-                                                        </div>
-                                                        <div class="col-lg-3 col-md-4 col-sm-3">
-                                                            <input class="btn btn-primary" type='button' id='print-data'
-                                                                value='Print'>
+                                                        </div> --}}
+                                                        <div class="col-lg-3 col-md-11 col-sm-3">
+                                                            <input class="btn btn-primary float-right" type='button'
+                                                                id='print-data' value='Print'>
                                                         </div>
 
-                                                    </div> --}}
+                                                    </div>
                                                 </div>
                                                 <br>
                                                 <br>
                                                 <div id="printData">
                                                     <div class="col-12 container row">
-                                                        <div class="col-md-6">
+                                                        {{-- <div class="col-md-6">
                                                             <div class="col-md-12 row">
                                                                 <div class="col-md-3 mb-3">
                                                                     Cleint Name:
@@ -95,31 +95,66 @@
                                                                     Admitted Date:
                                                                 </div>
                                                                 <div class="col-md-5">
-                                                                    <b>{{ $started ?? '' }}</b>
+                                                                    <b>{{ $admitted ?? '' }}</b>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-6 ">
+                                                        <div class="col-md-6 fs-6">
                                                             <div class="col-md-12 row">
                                                                 <div class="col-md-3 mb-3">Company:</div>
-                                                                <div class="col-md-3 mb-3">{{ $data->company_name }}</div>
+                                                                <div class="col-md-3 mb-3">{{ $data->company_name ?? '' }}
+                                                                </div>
                                                             </div>
                                                             <div class="col-md-12 row">
                                                                 <div class="col-md-3 mb-3">Phone:</div>
-                                                                <div class="col-md-3 mb-3">{{ $data->phone }}</div>
+                                                                <div class="col-md-3 mb-3">{{ $data->phone ?? '' }}</div>
                                                             </div>
                                                             <div class="col-md-12 row">
                                                                 <div class="col-md-3 mb-3">Email:</div>
-                                                                <div class="col-md-3 mb-3">{{ $data->email }}</div>
+                                                                <div class="col-md-3 mb-3">{{ $data->email ?? '' }}</div>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
+                                                        <table class=" table table-bordered certificate-table"
+                                                            border="1">
+                                                            <tbody>
+
+                                                                <tr>
+                                                                    <td>Client Name: {{ $name ?? '' }}</td>
+
+                                                                    <td>Company: {{ $data->company_name ?? '' }}</td>
+                                                                    <td rowspan="3">
+                                                                        <div class="col-md-12 ">
+                                                                            <img class="logo-img2 float-md-right"
+                                                                                src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
+                                                                                alt="{{ $data->company_name ?? '' }}">
+                                                                        </div>
+                                                                    </td>
+
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Date of Birth: {{ $birth ?? '' }}</td>
+
+                                                                    <td>Phone: {{ $data->phone ?? '' }}</td>
+
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Admitted Date: {{ $admitted ?? '' }}</td>
+
+                                                                    <td>Email: {{ $data->email ?? '' }}</td>
+
+                                                                </tr>
+
+                                                            </tbody>
+
+                                                        </table>
                                                     </div>
                                                     <section class="mt-5">
                                                         <div class="container2">
                                                             <div id="myDIV">
                                                                 <div
                                                                     class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
-                                                                    <h4><u>Report of how medicine taken</u></h4>
+                                                                    <h4>Medication Administration Record</h4>
                                                                 </div>
                                                                 @if ($echats->count() > 0)
                                                                     <table class="table table-bordered certificate-table"
@@ -133,10 +168,12 @@
                                                                                 <th class="min-w-125px hidde-responsive-j6">
                                                                                     Medication
                                                                                 </th>
-                                                                                <th>Dose Quantity</th>
+
+                                                                                <th>Dose Unit</th>
+                                                                                <th>Frequency</th>
+                                                                                <th>Dose Qty</th>
                                                                                 <th>action</th>
-                                                                                {{-- <th>Email</th> --}}
-                                                                                <th>Quantity</th>
+
                                                                                 <th>recorded at</th>
                                                                                 {{-- <th>SSN</th> --}}
                                                                                 <th>comment</th>
@@ -154,21 +191,24 @@
                                                                                     <td>
                                                                                         {{ $client->medication_name }}
                                                                                     </td>
+                                                                                    <td>{{ $client->dose_units }}</td>
+
+
+                                                                                    <td>{{ $client->frequency }}</td>
                                                                                     <td>{{ $client->dose_quantity }}</td>
                                                                                     <td>{{ $client->action }}
                                                                                     </td>
-                                                                                    <td>{{ $client->qty }}</td>
+
                                                                                     <td>{{ $client->recorded_at }}
                                                                                     </td>
                                                                                     <td>{{ $client->comment }}
                                                                                     </td>
                                                                                     {{-- <td>{{ $client->SSN }}</td> --}}
-                                                                                    <td><img src='{{ $client->client_pin }}'
-                                                                                            height="40" />
+                                                                                    <td><b><i>{{ $client->client_name }}</i></b>
                                                                                     </td>
 
-                                                                                    <td><img src='{{ $client->staff_signature }}'
-                                                                                            height="40" />
+                                                                                    <td>
+                                                                                        <b><i>{{ $client->first_name . ' ' . $client->last_name }}</i></b>
                                                                                     </td>
                                                                                 </tr>
 
@@ -207,7 +247,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <h5 class="modal-title" id="exampleModalLabel">ECHAT FOR {{ $name }}</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">E-CHAT FOR {{ $name }}</h5>
                                 <hr />
                                 <section class="mt-5">
                                     @if ($medications->count() > 0)
@@ -216,7 +256,7 @@
                                                 <form role="form" id="echat-medical"
                                                     action="{{ route('echat-medicals') }}" name="add-category"
                                                     method="POST" enctype="multipart/form-data">
-                                                    @csrf
+                                                    {{-- @csrf --}}
                                                     <div class="mt-4">
                                                         <div class="form-row">
                                                             <div class="col-md-12 mb-3">
@@ -246,27 +286,26 @@
 
                                                                     </div>
                                                                     </hr>
-
+                                                                    <input type="hidden" name="clientID"
+                                                                        value="{{ $medications[0]->client_id ?? '' }}"
+                                                                        id="idss">
                                                                     @foreach ($medications as $key => $med)
                                                                         <div class="form-row">
                                                                             <div class="col-md-2 ">
                                                                                 <div class="form-group">
                                                                                     <label
                                                                                         class="">{{ $med->medication_name }}
-                                                                                        <input type="checkbox"
+                                                                                        <input type="hidden"
                                                                                             name="medical_id[]"
                                                                                             value="{{ $med->id }}"
-                                                                                            checked>
-                                                                                        <span class="checkmark"></span>
+                                                                                            id="medical<?= $key ?>">
+
                                                                                     </label>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="col-md-1">
                                                                                 {{ $med->dose_units }}</div>
-                                                                            {{-- <div class="col-md-1">
-                                                                                {{ $med->dose_quantity }}</div> --}}
-                                                                            {{-- <input type="hidden" name="client_id" id="client_id"
-                                                                    value="{{ $client }}"> --}}
+
                                                                             <div class="col-md-2 ">
                                                                                 <div class="form-group">
 
@@ -292,6 +331,9 @@
                                                                                         </option>
                                                                                         <option value="refused">
                                                                                             Refused
+                                                                                        </option>
+                                                                                        <option value="Missed">
+                                                                                            Missed
                                                                                         </option>
                                                                                         <option value="Taken">
                                                                                             Taken
@@ -323,27 +365,9 @@
                                                                                 <label for="category_name">Client
                                                                                     Signature<span
                                                                                         class="text-danger">*</span></label>
-                                                                                <canvas id="signature" class="signature"
-                                                                                    height="90"
-                                                                                    style="border: 1px solid #ddd;"></canvas>
-                                                                                <br>
 
-                                                                                <div class="col-md-12 row">
-                                                                                    <div class="col-md-3">
-                                                                                        <input type="button"
-                                                                                            value="Clear"
-                                                                                            id="clear-signature"></input>
-                                                                                    </div>
-                                                                                    <div class="col-md-3">
-                                                                                        <input type="button"
-                                                                                            value="Confirm"
-                                                                                            id="confirm"></input>
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <img src='' id='sign_prev'
-                                                                                    style='display: block;' />
-                                                                                <input type="hidden" class="form-control"
+                                                                                <input type="password"
+                                                                                    class="form-control ignore"
                                                                                     id="client_pin" name="client_pin">
                                                                                 <small
                                                                                     class="text-danger">{{ $errors->first('client_pin') }}</small>
@@ -394,7 +418,7 @@
         <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
         <script type="text/javascript">
             /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
             function myFunction() {
                 document.getElementById("myDropdown").classList.toggle("show");
             }
@@ -432,14 +456,14 @@
             $(document).ready(function() {
                 $('#echat-medical').validate({
                     rules: {
-                        'client_pin': {
+                        'client_pin3': {
                             required: true,
                         },
 
 
                     },
                     messages: {
-                        'client_pin': {
+                        'client_pin3': {
                             required: "Please client pin required",
                         },
 
@@ -458,63 +482,68 @@
                     unhighlight: function(element, errorClass, validClass) {
                         $(element).removeClass('is-invalid');
                     },
-                    // submitHandler: function(form, e) {
-                    //     e.preventDefault();
-                    //     console.log('Form submitted');
+                    submitHandler: function(form, e) {
+                        e.preventDefault();
+                        console.log('Form submitted');
 
-                    //     var form_data = new FormData();
+                        var form_data = new FormData();
 
+                        $('#echat-medical input').each(function(i, e) {
+                            var getID = $(this).attr('id');
+                            var name = $(this).attr('name');
+                            form_data.append(name, $("#" + getID).val());
+                        });
+                        $('#echat-medical select').each(function() {
+                            var getID = $(this).attr('id');
+                            var name = $(this).attr('name');
 
-                    //     var client = $("#client_pin").val();
-                    //     form_data.append("client_pin", client);
-                    //     var staff = $('#staff_id').val();
-                    //     form_data.append("staff_id", staff);
-                    //     var action = $('#action').val();
-                    //     form_data.append("action", action);
-                    //     var qty = $('#qty').val();
-                    //     form_data.append("qty", qty);
-                    //     var comment = $('#comments').val();
-                    //     form_data.append("comment", comment);
-                    //     var chk = $("input[type='checkbox']:checked").each(function() {
+                            form_data.append(name, $("#" + getID).val());
+                        });
+                        $('#echat-medical textarea').each(function() {
+                            var getID = $(this).attr('id');
+                            var name = $(this).attr('name');
 
-                    //         form_data.append('medical_id[]', this.value)
-                    //     });
+                            form_data.append(name, $("#" + getID).val());
+                        });
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
 
-                    //     // $(".addChk").click(function() {
-                    //     //     var selectedLanguage = new Array();
-                    //     //     $('input[name="medical_id"]:checked').each(function() {
-                    //     //         selectedLanguage.push(this.value);
-                    //     //     });
-                    //     //     alert("Number of selected Languages: " + selectedLanguage);
-                    //     // });
-                    //     $.ajaxSetup({
-                    //         headers: {
-                    //             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                    //         }
-                    //     });
-
-                    //     $.ajax({
-                    //         url: "{{ route('echat-medicals') }}",
-                    //         type: "POST",
-                    //         dataType: "json",
-                    //         data: form_data,
-                    //         cache: false,
-                    //         contentType: false,
-                    //         processData: false,
-                    //         beforeSend: function() {
-                    //             $('#send_btn').html(
-                    //                 "<i class='fa fa-spin fa-spinner'></i> Submit");
-                    //         },
-                    //         success: function(result) {
-                    //             // window.location.href = "{{ route('client-list') }}";
-                    //             // $('#send_btn').html(" Submit");
-                    //         },
-                    //         error: function(error) {
-                    //             console.log(error);
-                    //         }
-                    //     });
-                    //     return false;
-                    // }
+                        $.ajax({
+                            url: "{{ route('echat-medicals') }}",
+                            type: "POST",
+                            dataType: "json",
+                            data: form_data,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            beforeSend: function() {
+                                $('#send_btn').html(
+                                    "<i class='fa fa-spin fa-spinner'></i> Submit");
+                            },
+                            success: function(result) {
+                                console.log(result.status);
+                                if (result.status == 201) {
+                                    window.location.reload();
+                                    // window.location.href = "{{ route('client-list') }}";
+                                } else if (result.status == 401) {
+                                    var msg = result.message != null ?
+                                        'You add wrong pin realy one is ' + result.data : "";
+                                    $(`<span id="client_pin-error" class="error invalid-feedback">` +
+                                        msg +
+                                        `</span>`).insertAfter($('#client_pin'));
+                                    $('#client_pin').attr('class',
+                                        'form-control text-box is-invalid');
+                                }
+                            },
+                            error: function(error) {
+                                console.log(error);
+                            }
+                        });
+                        return false;
+                    }
                 });
             });
 
@@ -561,66 +590,66 @@
             function resetForm() {
                 document.getElementById("add-user").reset();
             }
-            $(document).ready(function() {
 
-                $('#echat-medical').validate();
-                $('input[type="text"]').each(function() {
-                    $(this).rules('add', {
-                        required: true
+            function actions(keyVal) {
+                var missed = $('#action' + keyVal).val();
+                if (missed == "Missed") {
+
+                    $("#echat-medical").validate({
+                        ignore: "#client_pin",
+
                     });
+                    $('#client_pin').attr('class', 'form-control text-box  is-valid');
+                }
 
-                });
-                $('select').each(function() {
-                    $(this).rules('add', {
-                        required: true
-                    });
+            }
 
-                });
-
-            });
-            jQuery(document).ready(function($) {
-
-                var canvas = document.getElementById("signature");
-                var signaturePad = new SignaturePad(canvas);
-                $('#confirm').click(function() {
-                    var data = signaturePad.toDataURL('image/png');
-                    $('#client_pin').val(data);
-
-                    $("#sign_prev").show();
-                    $("#sign_prev").attr("src", data);
-                    // Open image in the browser
-                    //window.open(data);
-                });
-                $('#clear-signature').on('click', function() {
-                    signaturePad.clear();
-                });
-                var canvas = document.getElementById("signature1");
-                var signaturePad1 = new SignaturePad(canvas);
-                $('#confirm1').click(function() {
-                    var data = signaturePad1.toDataURL('image/png');
-                    $('#staff_signature').val(data);
-
-                    $("#sign_prev1").show();
-                    $("#sign_prev1").attr("src", data);
-                    // Open image in the browser
-                    //window.open(data);
-                });
-                $('#clear-signature1').on('click', function() {
-                    signaturePad1.clear();
-                });
-
-            });
             $(document).ready(function() {
                 document.title = '{{ $data->company_name }}';
 
                 function printData() {
-                    var divToPrint = document.getElementById("printData");
-                    newWin = window.print();
+                var contents = document.getElementById("printData").innerHTML;
+                var frame1 = document.createElement('iframe');
+                frame1.name = "printData";
+                frame1.style.position = "absolute";
+                frame1.style.top = "-1000000px";
+                document.body.appendChild(frame1);
+                var frameDoc = (frame1.contentWindow) ? frame1.contentWindow : (frame1.contentDocument.document) ?
+                    frame1.contentDocument.document : frame1.contentDocument;
+                frameDoc.document.open();
+                frameDoc.document.write('<html><head><title>{{ $data->company_name }}</title>');
 
-                    newWin
-                        .close();
 
-                }
+                frameDoc.document.write(
+                    ' <link href = "{{ asset('/dist/css/adminlte.min.css') }}"rel = "stylesheet" / >'
+                );
+                frameDoc.document.write(
+                    '<link href = "{{ asset('assets/css/style.css') }}"rel = "stylesheet" / > '
+                );
+                frameDoc.document.write(
+                    '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'
+
+
+                );
+                // frameDoc.document.write(
+                //     '<img class="logo-img2 float-md-right" src="{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}" alt="{{ $data->company_name ?? '' }}">'
+                // );
+                frameDoc.document.write(
+                    '</head><body >'
+                );
+                frameDoc.document.write(contents);
+                frameDoc.document.write(
+                    ' </body></html>'
+                );
+                frameDoc.document.close();
+                setTimeout(function() {
+                    window.frames["printData"].focus();
+                    window.frames["printData"].print();
+                    document.body.removeChild(frame1);
+                }, 100);
+                return false;
+            }
+
 
 
                 $('input#print-data').on('click', function() {

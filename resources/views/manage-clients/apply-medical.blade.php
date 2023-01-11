@@ -31,7 +31,7 @@
                         <br>
 
                         <!-- /.card-header -->
-                        <div class="card-body">
+                        <div class="card-body" id="printData">
                             <div class="row col-12 d-print-none ">
                                 <div class=" col-lg-3 col-md-4 col-sm-3">
                                     <div class="search">
@@ -51,15 +51,16 @@
                             </div>
                             <br>
                             <br>
-                            <div class="col-12 container">
-                                <input class="btn btn-primary d-print-none" type='button' id='print-data' value='Print'>
+                            <div class="col-11 container">
+                                <input class="btn btn-primary d-print-none float-right" type='button' id='print-data'
+                                    value='Print'>
                             </div>
-                            <div class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
-                                <h4>List of medical taken by <b>{{ $name??'' }}></b></h4>
-                            </div>
-                            <section class="mt-5">
-                                <div class="container2" id="printData">
 
+                            <section class="mt-5">
+                                <div class="container2">
+                                    <div class="col-md-12 mt-3 d-flex justify-content-center text-uppercase">
+                                        <h4>List of medical taken by <b>{{ $name ?? '' }}></b></h4>
+                                    </div>
                                     <div id="myDIV">
 
 
@@ -244,7 +245,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }
@@ -488,20 +489,46 @@
             document.title = '{{ $data->company_name }}';
 
             function printData() {
-                var divToPrint = document.getElementById("printData");
-
-                newWin = window.print();
-                // newWin = window.open('', '', 'height=700,width=900');
-                // newWin.document.write(divToPrint.outerHTML);
-                // newWin.document.write('<html><head><title></title>');
-
-
-                // newWin.print();
-
-                newWin
-                    .close();
+                var contents = document.getElementById("printData").innerHTML;
+                var frame1 = document.createElement('iframe');
+                frame1.name = "printData";
+                frame1.style.position = "absolute";
+                frame1.style.top = "-1000000px";
+                document.body.appendChild(frame1);
+                var frameDoc = (frame1.contentWindow) ? frame1.contentWindow : (frame1.contentDocument.document) ?
+                    frame1.contentDocument.document : frame1.contentDocument;
+                frameDoc.document.open();
+                frameDoc.document.write('<html><head><title>{{ $data->company_name }}</title>');
 
 
+                frameDoc.document.write(
+                    ' <link href = "{{ asset('/dist/css/adminlte.min.css') }}"rel = "stylesheet" / >'
+                );
+                frameDoc.document.write(
+                    '<link href = "{{ asset('assets/css/style.css') }}"rel = "stylesheet" / > '
+                );
+                frameDoc.document.write(
+                    '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'
+
+
+                );
+                // frameDoc.document.write(
+                //     '<img class="logo-img2 float-md-right" src="{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}" alt="{{ $data->company_name ?? '' }}">'
+                // );
+                frameDoc.document.write(
+                    '</head><body >'
+                );
+                frameDoc.document.write(contents);
+                frameDoc.document.write(
+                    '</body></html>'
+                );
+                frameDoc.document.close();
+                setTimeout(function() {
+                    window.frames["printData"].focus();
+                    window.frames["printData"].print();
+                    document.body.removeChild(frame1);
+                }, 100);
+                return false;
             }
 
 

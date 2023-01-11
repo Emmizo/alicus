@@ -20,46 +20,39 @@
     <div class="card-body" id="card-body">
         <fieldset class="border p-2 mt-3">
             <legend class="float-none w-auto">Progress Notes</legend>
+            <table class=" table table-bordered certificate-table" border="1">
+                <tbody>
 
-            <table border="1" class="table table-bordered certificate-table" width="400">
-
-                @foreach ($groups as $group)
                     <tr>
-                        <td>
-                            <div class="col-md-12 fs-6 font-weight-bold mt-3 ">
-                                <div class="col-md-6">
-                                    <div class="col-md-12 row">
-                                        <div class="col-md-6">
-                                            Client Name:
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <b>{{ $name ?? '' }}</b>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-12 row">
-                                        <div class="col-md-6 mb-3">
-                                            Date of Birth:
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <b>{{ $birth }}</b>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-12 row">
-                                        <div class="col-md-6 mb-3">
-                                            Admitted Date:
-                                        </div>
-                                        <div class="col-md-6">
-                                            <b>{{ $created }}</b>
-                                        </div>
-                                    </div>
-                                </div>
+                        <td>Client Name: {{ $name ?? '' }}</td>
+
+                        <td>Company: {{ $data->company_name ?? '' }}</td>
+                        <td rowspan="3">
+                            <div class="col-md-12 ">
+                                <img class="logo-img2 float-md-right"
+                                    src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
+                                    alt="{{ $data->company_name ?? '' }}">
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>Date of Birth: {{ $birth ?? '' }}</td>
+
+                        <td>Phone: {{ $data->phone ?? '' }}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Admitted Date: {{ $created ?? '' }}</td>
+
+                        <td>Email: {{ $data->email ?? '' }}</td>
+
+                    </tr>
+                </tbody>
+
+            </table>
+            <table border="1" class="table table-bordered certificate-table" width="400">
+
+                @foreach ($groups as $group)
                     <tr>
                         <th colspan="2">PROGRESS NOTE</th>
                     </tr>
@@ -154,7 +147,7 @@
                 var frameDoc = (frame1.contentWindow) ? frame1.contentWindow : (frame1.contentDocument.document) ?
                     frame1.contentDocument.document : frame1.contentDocument;
                 frameDoc.document.open();
-                frameDoc.document.write('<html><head><title>{{ $data->company_name ?? '' }}</title>');
+                frameDoc.document.write('<html><head><title>{{ $data->company_name }}</title>');
 
 
                 frameDoc.document.write(
@@ -168,6 +161,9 @@
 
 
                 );
+                // frameDoc.document.write(
+                //     '<img class="logo-img2 float-md-right" src="{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}" alt="{{ $data->company_name ?? '' }}">'
+                // );
                 frameDoc.document.write(
                     '</head><body >'
                 );
@@ -183,7 +179,6 @@
                 }, 100);
                 return false;
             }
-
 
             $('input#print-data').on('click', function() {
                 printData();

@@ -108,7 +108,7 @@ class IndividualController extends Controller
         $data['name']=$request->name;
         $data['birth'] = $request->birth;
         $data['created']=$request->created;
-        $data['groups'] = Individiual::where('id',$request->id)->where('discharged',0)->get();
+        $data['groups'] = Individiual::where('id',$request->id)->get();
         return view('individual-therapy-notes.view',$data);
     }
     public function showDis(Request $request)

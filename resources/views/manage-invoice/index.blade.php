@@ -22,41 +22,41 @@
                 <div class="col-12  font-weight-bold row">
                     <div class="col-md-6 fs-6">
                         <div class="col-md-12 row mb-3">
-                            <div class="col-md-3 ">
+                            <div class="col-md-4 ">
                                 Client Name:
                             </div>
-                            <div class="col-md-7 ">
+                            <div class="col-md-8 ">
                                 <b>{{ $client->client_name ?? '' }}</b>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3 row">
-                            <div class="col-md-3 ">
+                            <div class="col-md-4 ">
                                 Date of Birth:
                             </div>
-                            <div class="col-md-7 ">
+                            <div class="col-md-8 ">
                                 <b>{{ $client->BOD ?? '' }}</b>
                             </div>
                         </div>
                         <div class="col-md-12 mb-3 row">
-                            <div class="col-md-3 ">
+                            <div class="col-md-4 ">
                                 Admitted Date:
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-8">
                                 <b>{{ $client->created_at ?? '' }}</b>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 fs-6 ">
                         <div class="col-md-12 row">
-                            <div class="col-md-3 mb-3">Company:</div>
+                            <div class="col-md-4 mb-3">Company:</div>
                             <div class="col-md-8 mb-3">{{ $data->company_name ?? '' }}</div>
                         </div>
                         <div class="col-md-12 row">
-                            <div class="col-md-3 mb-3">Phone:</div>
+                            <div class="col-md-4 mb-3">Phone:</div>
                             <div class="col-md-8 mb-3">{{ $data->phone ?? '' }}</div>
                         </div>
                         <div class="col-md-12 row">
-                            <div class="col-md-3 mb-3 ">Email:</div>
+                            <div class="col-md-4 mb-3 ">Email:</div>
                             <div class="col-md-8 mb-3">{{ $data->email ?? '' }}</div>
                         </div>
                     </div>

@@ -21,10 +21,39 @@
         <fieldset class="border p-2 mt-3 " id="field">
             <legend class="float-none w-auto">Group Therapy Note</legend>
 
+            <table class=" table table-bordered certificate-table" border="1">
+                <tbody>
 
+                    <tr>
+                        <td>Client Name: {{ $name ?? '' }}</td>
+
+                        <td>Company: {{ $data->company_name ?? '' }}</td>
+                        <td rowspan="3">
+                            <div class="col-md-12 ">
+                                <img class="logo-img2 float-md-right"
+                                    src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
+                                    alt="{{ $data->company_name ?? '' }}">
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Date of Birth: {{ $birth ?? '' }}</td>
+
+                        <td>Phone: {{ $data->phone ?? '' }}</td>
+
+                    </tr>
+                    <tr>
+                        <td>Admitted Date: {{ $created ?? '' }}</td>
+
+                        <td>Email: {{ $data->email ?? '' }}</td>
+
+                    </tr>
+                </tbody>
+
+            </table>
             <table border="1" class="table table-bordered certificate-table" width="1000">
                 @foreach ($groups as $group)
-                    <td>
+                    {{-- <td>
                         <div class=" fs-6 font-weight-bold mt-3 ">
                             <div class="col-md-6">
                                 <div class="col-md-12 row">
@@ -59,7 +88,7 @@
                         </div>
                     </td>
 
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <th colspan="2">GROUP SESSION NOTES</th>
                     </tr>
@@ -405,13 +434,7 @@
         $(document).ready(function() {
             document.title = '{{ $data->company_name ?? '' }}';
 
-            // function printData() {
-            //     var divToPrint = document.getElementById("printData");
-            //     newWin = window.print();
 
-            //     newWin.close();
-
-            // }
             function printData() {
                 var contents = document.getElementById("card-body").innerHTML;
                 var frame1 = document.createElement('iframe');
@@ -436,6 +459,9 @@
 
 
                 );
+                // frameDoc.document.write(
+                //     '<img class="logo-img2 float-md-right" src="{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}" alt="{{ $data->company_name ?? '' }}">'
+                // );
                 frameDoc.document.write(
                     '</head><body >'
                 );

@@ -18,8 +18,12 @@
     <section>
 
         <div class="mt-5">
-
-            <div class="card-body ">
+            <div class="form-row">
+                <div class="col-md-11 d-print-none">
+                    <input class="btn btn-primary float-right" type='button' id='print-data' value='Print'>
+                </div>
+            </div>
+            <div class="card-body " id="printData">
                 <div class=" col-lg-12 col-md-4 col-sm-3 d-print-none">
                     {{-- <div class="search">
                         <i class="fa fa-search"></i>
@@ -54,7 +58,7 @@
                 <fieldset class="border p-2 mt-3">
                     <legend class="float-none w-auto">Invoice</legend>
                     <div id="print-invoice33" class="mb-5">
-                        <div class="col-12 container font-weight-bold row">
+                        {{-- <div class="col-12 container font-weight-bold row">
 
                             <div class="col-md-6 ">
                                 <div class="col-md-12 fs-6 row">
@@ -75,7 +79,40 @@
                                     src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
                                     alt="{{ $data->company_name ?? '' }}">
                             </div>
-                        </div>
+                        </div> --}}
+                        <table class=" table table-bordered certificate-table" border="1">
+                            <tbody>
+
+                                <tr>
+                                    <td>Client Name: {{ $invoice->client_name ?? '' }}</td>
+
+                                    <td>Company: {{ $data->company_name ?? '' }}</td>
+                                    <td rowspan="3">
+                                        <div class="col-md-12 ">
+                                            <img class="logo-img2 float-md-right"
+                                                src='{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}'
+                                                alt="{{ $data->company_name ?? '' }}">
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>Date of Birth: {{ $invoice->BOD ?? '' }}</td>
+
+                                    <td>Phone: {{ $data->phone ?? '' }}</td>
+
+                                </tr>
+                                <tr>
+                                    <td>Admitted Date: {{ $invoice->admitted ?? '' }}</td>
+
+                                    <td>Email: {{ $data->email ?? '' }}</td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
                         @if ($insurances->count() > 0)
                             <div class="col-md-4 mt-5">
                                 <table border="1" class="table table-bordered certificate-table">
@@ -101,67 +138,72 @@
                                 </table>
                             </div>
                         @endif
+
+
+                        @if ($invoices->count() > 0)
+                            <table border="1" class="table table-bordered certificate-table" width="500">
+                                <tbody>
+                                    <tr>
+                                        <th>Client name</th>
+                                        <th>Start date</th>
+                                        <th>Billing date</th>
+                                        <th>No ofDay</th>
+                                        <th>Price per day</th>
+                                        <th>Amount</th>
+
+                                    </tr>
+
+                                    <?php $sum = 0; ?>
+
+                                    @foreach ($invoices as $key => $invoice)
+                                <tbody id="myTable">
+                                    <tr>
+                                        <td>{{ $invoice->client_name }}</td>
+                                        <td>{{ $invoice->start_date }}</td>
+                                        <td>{{ $invoice->billing_date }}</td>
+                                        <td>{{ $invoice->no_of_day }}</td>
+                                        <td>{{ $invoice->price_per_day }}$</td>
+                                        <td>{{ $invoice->tot }}$</td>
+
+                                        <?php $sum += $invoice->tot; ?>
+
+                                    </tr>
+                                </tbody>
+                        @endforeach
+                        <tr>
+                            <td style="text-align:right;" colspan="5">Grand Total:</td>
+                            <td>{{ $sum }}$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;" colspan="5">Payment:</td>
+                            <td>{{ $paid ?? '' }}$</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:right;" colspan="5">Due Balance:</td>
+                            <td class="text-red">{{ $sum - $paid ?? '' }}$</td>
+                        </tr>
+                        </tbody>
+                        </table>
+                    @else
+                        <div class="d-flex justify-content-center">From <b>{{ ' ' . $from ?? '' }}</b> to
+                            <b>{{ $to . ' ' ?? '' }}</b> No Invoice
+                            available
+                        </div>
+                        @endif
                     </div>
+                </fieldset>
+                <footer class=" print">
+                    <strong>
+                        <div class="float-right">Logged Into As
+                            {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }}
+                            on
+                            {{ date('Y-m-d H:i:s') }}</div>
+                    </strong>
 
-                    @if ($invoices->count() > 0)
-                        <table border="1" class="table table-bordered certificate-table" width="500">
-                            <tbody>
-                                <tr>
-                                    <th>Client name</th>
-                                    <th>Start date</th>
-                                    <th>Billing date</th>
-                                    <th>No ofDay</th>
-                                    <th>Price per day</th>
-                                    <th>Amount</th>
+                </footer>
 
-                                </tr>
-
-                                <?php $sum = 0; ?>
-
-                                @foreach ($invoices as $key => $invoice)
-                            <tbody id="myTable">
-                                <tr>
-                                    <td>{{ $invoice->client_name }}</td>
-                                    <td>{{ $invoice->start_date }}</td>
-                                    <td>{{ $invoice->billing_date }}</td>
-                                    <td>{{ $invoice->no_of_day }}</td>
-                                    <td>{{ $invoice->price_per_day }}$</td>
-                                    <td>{{ $invoice->tot }}$</td>
-
-                                    <?php $sum += $invoice->tot; ?>
-
-                                </tr>
-                            </tbody>
-                    @endforeach
-                    <tr>
-                        <td style="text-align:right;" colspan="5">Grand Total:</td>
-                        <td>{{ $sum }}$</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:right;" colspan="5">Payment:</td>
-                        <td>{{ $paid ?? '' }}$</td>
-                    </tr>
-                    <tr>
-                        <td style="text-align:right;" colspan="5">Due Balance:</td>
-                        <td class="text-red">{{ $sum - $paid ?? '' }}$</td>
-                    </tr>
-                    </tbody>
-                    </table>
-                @else
-                    <div class="d-flex justify-content-center">From <b>{{ ' ' . $from ?? '' }}</b> to
-                        <b>{{ $to . ' ' ?? '' }}</b> No Invoice
-                        available
-                    </div>
-                    @endif
             </div>
-            </fieldset>
 
-        </div>
-        <div class="form-row">
-            <div class="col-md-4 d-print-none">
-                <input class="btn btn-primary" type='button' id='print-data' value='Print'>
-            </div>
-        </div>
 
         </div>
 
@@ -178,13 +220,49 @@
             document.title = '{{ $data->company_name }}';
 
             function printData() {
+                var contents = document.getElementById("printData").innerHTML;
+                var frame1 = document.createElement('iframe');
+                frame1.name = "printData";
+                frame1.style.position = "absolute";
+                frame1.style.top = "-1000000px";
+                document.body.appendChild(frame1);
+                var frameDoc = (frame1.contentWindow) ? frame1.contentWindow : (frame1.contentDocument.document) ?
+                    frame1.contentDocument.document : frame1.contentDocument;
+                frameDoc.document.open();
+                frameDoc.document.write('<html><head><title></title>');
 
-                var divToPrint = document.getElementById("printData");
 
-                newWin = window.print();
+                frameDoc.document.write(
+                    ' <link href = "{{ asset('/dist/css/adminlte.min.css') }}"rel = "stylesheet" / >'
+                );
+                frameDoc.document.write(
+                    '<link href = "{{ asset('assets/css/style.css') }}"rel = "stylesheet" / > '
+                );
+                frameDoc.document.write(
+                    '<link rel="stylesheet" type="text/css" href="{{ asset('custom/sweetalert2/css/sweetalert2.min.css') }}" />'
+                );
+                frameDoc.document.write(
+                    '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'
 
-                newWin.close();
 
+                );
+                // frameDoc.document.write(
+                //     '<img class="logo-img2 float-md-right" src="{{ URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}" alt="{{ $data->company_name ?? '' }}">'
+                // );
+                frameDoc.document.write(
+                    '</head><body >'
+                );
+                frameDoc.document.write(contents);
+                frameDoc.document.write(
+                    ' </body></html>'
+                );
+                frameDoc.document.close();
+                setTimeout(function() {
+                    window.frames["printData"].focus();
+                    window.frames["printData"].print();
+                    document.body.removeChild(frame1);
+                }, 100);
+                return false;
             }
 
 
