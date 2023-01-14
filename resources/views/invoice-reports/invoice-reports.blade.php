@@ -119,7 +119,7 @@
                                     ' to ' .
                                     $to .
                                     " Invoice available
-                                                                                                                are bellow"
+                                                                                                                                            are bellow"
                                 : 'All invoices' }}
                         </div>
                         <table border="1" class="table table-bordered certificate-table" width="500">
@@ -143,8 +143,8 @@
                                     <td>{{ $invoice->start_date }}</td>
                                     <td>{{ $invoice->billing_date }}</td>
                                     <td>{{ $invoice->no_of_day }}</td>
-                                    <td>{{ $invoice->price_per_day }}</td>
-                                    <td>{{ $invoice->tot }}</td>
+                                    <td>{{ $invoice->price_per_day }}$</td>
+                                    <td>{{ $invoice->tot }}$</td>
 
                                     <?php $sum += $invoice->tot; ?>
 
@@ -153,15 +153,15 @@
                     @endforeach
                     <tr>
                         <td style="text-align:right;" colspan="5">Grand Total:</td>
-                        <td>{{ $sum }}</td>
+                        <td>{{ $sum }}$</td>
                     </tr>
                     <tr>
                         <td style="text-align:right;" colspan="5">Payment:</td>
-                        <td>{{ $paid ?? '' }}</td>
+                        <td>{{ $paid ?? '' }}$</td>
                     </tr>
                     <tr>
                         <td style="text-align:right;" colspan="5">Due Balance:</td>
-                        <td class="text-red">{{ $sum - $paid ?? '' }}</td>
+                        <td class="text-red">{{ $sum - $paid ?? '' }}$</td>
                     </tr>
                     </tbody>
                     </table>
