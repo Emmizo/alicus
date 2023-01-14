@@ -135,6 +135,14 @@
 
                                     </div>
                                 </div>
+                                <footer class=" print">
+                                    <strong>
+                                        <div class="float-right">Logged Into As
+                                            {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }} on
+                                            {{ date('Y-m-d H:i:s') }}</div>
+                                    </strong>
+
+                                </footer>
                         </div>
 
 
@@ -245,7 +253,7 @@
     <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
     <script type="text/javascript">
         /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            toggle between hiding and showing the dropdown content */
         function myFunction() {
             document.getElementById("myDropdown").classList.toggle("show");
         }

@@ -29,11 +29,16 @@ class InvoiceController extends Controller
         ->where('clients.id',$request->id)
         ->where('invoices.discharged',0)
         ->get();
+        $invoices=Invoice::rightjoin('clients','clients.id','invoices.client_id')
+        ->select('clients.client_name','clients.id as clientId','clients.telephone','clients.BOD','clients.created_at as admitted','invoices.*')
+        ->where('clients.id',$request->id)
+        ->where('invoices.discharged',0)
+        ->first();
         $data['invoicess']= $invoice;
         $data['clientId']=$request->id;
         // $createDate = new \DateTime($invoice[0]->created_at);
         // $strip = $createDate->format('Y-m-d');
-        $data['started']= '';
+        // $data['started']='';
         $data['invoices']=Invoice::where('client_id',$request->id)->where('discharged',0)->count();
         return view('manage-invoice.index',$data);
         //

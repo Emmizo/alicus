@@ -80,7 +80,7 @@
                                 <div class="form-group">
                                     <label for="category_name">Day started<span class="text-danger">*</span></label>
                                     <input type="text" class="form-control" id="start_date" name="start_date"
-                                        value="{{ $started }}">
+                                        value="{{ date_format($client->created_at, 'Y-m-d' ?? '') }}">
                                     <small class="text-danger">{{ $errors->first('start_date') }}</small>
                                 </div>
                             </div>

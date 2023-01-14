@@ -41,7 +41,6 @@
 <script src="https://cdn.tiny.cloud/1/0cya78rys8j9jo5fgmt3k11w4fu759xg62stkseodokqgttu/tinymce/6/tinymce.min.js"
     referrerpolicy="origin"></script>
 
-
 <script type="text/javascript">
     // tinymce.init({
     //     selector: 'textarea.tinymce-editor',
