@@ -119,8 +119,8 @@
                                     ' to ' .
                                     $to .
                                     " Invoice available
-                                                                                    are bellow"
-                                : '' }}
+                                                                                                                are bellow"
+                                : 'All invoices' }}
                         </div>
                         <table border="1" class="table table-bordered certificate-table" width="500">
                             <tbody>
