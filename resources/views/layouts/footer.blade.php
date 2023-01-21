@@ -31,6 +31,7 @@
 <script type="text/javascript" src="{{ asset('assets/js/jquery.dirtyFields.packed.js') }}"></script>
 
 <script src="{{ asset('jSignature-master/libs/jSignature.min.js') }}"></script>
+<script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('jSignature-master/libs/modernizr.js') }}"></script>
 
 
@@ -38,19 +39,19 @@
     rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js">
 </script>
-<script src="https://cdn.tiny.cloud/1/0cya78rys8j9jo5fgmt3k11w4fu759xg62stkseodokqgttu/tinymce/6/tinymce.min.js"
-    referrerpolicy="origin"></script>
+{{-- <script src="https://cdn.tiny.cloud/1/0cya78rys8j9jo5fgmt3k11w4fu759xg62stkseodokqgttu/tinymce/6/tinymce.min.js"
+    referrerpolicy="origin"></script> --}}
 
 <script type="text/javascript">
     // tinymce.init({
     //     selector: 'textarea.tinymce-editor',
     //     height: 200,
     //     menubar: false,
-    //     plugins: [
-    //         'advlist autolink lists link image charmap print preview anchor',
-    //         'searchreplace visualblocks code fullscreen',
-    //         'insertdatetime media table paste code help wordcount', 'image'
-    //     ],
+        // plugins: [
+        //     'advlist autolink lists link image charmap print preview anchor',
+        //     'searchreplace visualblocks code fullscreen',
+        //     'insertdatetime media table paste code help wordcount', 'image'
+        // ],
     //     toolbar: 'undo redo | formatselect | ' +
     //         'bold italic backcolor | alignleft aligncenter ' +
     //         'alignright alignjustify | bullist numlist outdent indent | ' +
@@ -72,8 +73,9 @@
     tinymce.init({
         selector: 'textarea.tinymce-editor',
         height: 300,
-        // menubar: false,
-        plugins: 'anchor autolink charmap codesample emoticons link lists  searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect typography inlinecss',
+        
+        plugins: [ "image", "code", "table", "link", "media", "codesample"],
+        
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
