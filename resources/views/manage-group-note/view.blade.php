@@ -412,6 +412,13 @@
                             <b>COMMENT</b><br /><br />
                             <div class="group-content">{!! $group->comments ?? 'No Comment' !!}</div>
                         </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Addmitted at</b><br /><br />
+                            <div class="group-content">{{ $group->created_at ?? '' }}</div>
+                        </td>
                     </tr>
                 @endforeach
             </table>

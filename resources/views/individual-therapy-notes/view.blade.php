@@ -356,6 +356,12 @@
                             <div class="group-content">{!! $group->comments ?? 'No comment' !!}</div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <b>Addmitted at</b><br /><br />
+                            <div class="group-content">{{ $group->created_at ?? '' }}</div>
+                        </td>
+                    </tr>
                 @endforeach
             </table>
         </fieldset>
