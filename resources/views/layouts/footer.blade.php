@@ -73,12 +73,12 @@
     tinymce.init({
         selector: 'textarea.tinymce-editor',
         height: 300,
-        entity_encoding: "raw",
-        plugins: ["image", "code", "table", "link", "media", "codesample"],
 
+        plugins: ["image", "code", "table", "link", "media", "codesample"],
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
+        entity_encoding: "raw",
         mergetags_list: [{
                 value: 'First.Name',
                 title: 'First Name'
