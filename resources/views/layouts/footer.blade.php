@@ -47,11 +47,11 @@
     //     selector: 'textarea.tinymce-editor',
     //     height: 200,
     //     menubar: false,
-        // plugins: [
-        //     'advlist autolink lists link image charmap print preview anchor',
-        //     'searchreplace visualblocks code fullscreen',
-        //     'insertdatetime media table paste code help wordcount', 'image'
-        // ],
+    // plugins: [
+    //     'advlist autolink lists link image charmap print preview anchor',
+    //     'searchreplace visualblocks code fullscreen',
+    //     'insertdatetime media table paste code help wordcount', 'image'
+    // ],
     //     toolbar: 'undo redo | formatselect | ' +
     //         'bold italic backcolor | alignleft aligncenter ' +
     //         'alignright alignjustify | bullist numlist outdent indent | ' +
@@ -73,9 +73,9 @@
     tinymce.init({
         selector: 'textarea.tinymce-editor',
         height: 300,
-        
-        plugins: [ "image", "code", "table", "link", "media", "codesample"],
-        
+        entity_encoding: "raw",
+        plugins: ["image", "code", "table", "link", "media", "codesample"],
+
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
