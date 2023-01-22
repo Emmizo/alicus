@@ -79,7 +79,13 @@
         tinycomments_mode: 'embedded',
         tinycomments_author: 'Author name',
         entity_encoding: "raw",
-        inline_styles: true,
+        inline_styles: false,
+        formats: {
+            underline: {
+                inline: 'u',
+                exact: true
+            }
+        },
         mergetags_list: [{
                 value: 'First.Name',
                 title: 'First Name'
