@@ -31,7 +31,7 @@
 <script type="text/javascript" src="{{ asset('assets/js/jquery.dirtyFields.packed.js') }}"></script>
 
 <script src="{{ asset('jSignature-master/libs/jSignature.min.js') }}"></script>
-{{-- <script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script> --}}
+<script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
 <script src="{{ asset('jSignature-master/libs/modernizr.js') }}"></script>
 
 
@@ -39,62 +39,26 @@
     rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js">
 </script>
-<script src="https://cdn.tiny.cloud/1/0cya78rys8j9jo5fgmt3k11w4fu759xg62stkseodokqgttu/tinymce/6/tinymce.min.js"
-    referrerpolicy="origin"></script>
+{{-- <script src="https://cdn.tiny.cloud/1/0cya78rys8j9jo5fgmt3k11w4fu759xg62stkseodokqgttu/tinymce/6/tinymce.min.js"
+    referrerpolicy="origin"></script> --}}
 
 <script type="text/javascript">
-    // tinymce.init({
-    //     selector: 'textarea.tinymce-editor',
-    //     height: 200,
-    //     menubar: false,
-    // plugins: [
-    //     'advlist autolink lists link image charmap print preview anchor',
-    //     'searchreplace visualblocks code fullscreen',
-    //     'insertdatetime media table paste code help wordcount', 'image'
-    // ],
-    //     toolbar: 'undo redo | formatselect | ' +
-    //         'bold italic backcolor | alignleft aligncenter ' +
-    //         'alignright alignjustify | bullist numlist outdent indent | ' +
-    //         ' blocks fontfamily fontsize | bold italic underline strikethrough |' +
-    //         'removeformat | help',
-    //     tinycomments_mode: 'embedded',
-    //     tinycomments_author: 'Author name',
-    //     mergetags_list: [{
-    //             value: 'First.Name',
-    //             title: 'First Name'
-    //         },
-    //         {
-    //             value: 'Email',
-    //             title: 'Email'
-    //         },
-    //     ],
-    //     content_css: '//www.tiny.cloud/css/codepen.min.css'
-    // });
     tinymce.init({
-        selector: 'textarea.tinymce-editor',
-        height: 300,
-
-        plugins: ["image", "code", "table", "link", "media", "codesample"],
-        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-        tinycomments_mode: 'embedded',
-        tinycomments_author: 'Author name',
-        entity_encoding: "raw",
-        inline_styles: false,
         formats: {
             underline: {
                 inline: 'u',
                 exact: true
             }
         },
-        mergetags_list: [{
-                value: 'First.Name',
-                title: 'First Name'
-            },
-            {
-                value: 'Email',
-                title: 'Email'
-            },
-        ],
+        selector: 'textarea.tinymce-editor',
+        height: 300,
+        plugins: ["image", "code", "table", "link", "media", "codesample"],
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough  | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        // entity_encoding: "raw",
+        // inline_styles: false,
+
 
     });
 </script>
