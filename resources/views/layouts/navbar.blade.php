@@ -1,6 +1,6 @@
 <header class="header d-print-none" id="header">
     <div class="header_toggle"><i id="header-toggle" class="fa fa-bars text-block"></i> </div>
-    <div class="header_logo"> <a href="{{ url('/dashboard') }}" class="logo-img"><img
+    <div class="header_logo d-print-none"> <a href="{{ url('/dashboard') }}" class="logo-img"><img
                 src="{{ Auth::user()->role == 1 && Auth::user()->company_id == null ? asset('assets/images/admin-logo.png') : URL::asset($data->company_logo ?? 'companies_logo/no-logo.png') }}"
                 alt="" class="logo-img"></a> </div>
     <div class="center-digital">
