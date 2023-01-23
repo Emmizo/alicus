@@ -73,47 +73,7 @@
                                                 <br>
                                                 <div id="printData">
                                                     <div class="col-12 container row">
-                                                        {{-- <div class="col-md-6">
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">
-                                                                    Cleint Name:
-                                                                </div>
-                                                                <div class="col-md-4 ">
-                                                                    <b>{{ $name ?? '' }}</b>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">
-                                                                    Date of Birth:
-                                                                </div>
-                                                                <div class="col-md-3 ">
-                                                                    <b>{{ $birth ?? '' }}</b>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12  row">
-                                                                <div class="col-md-3 mb-3">
-                                                                    Admitted Date:
-                                                                </div>
-                                                                <div class="col-md-5">
-                                                                    <b>{{ $admitted ?? '' }}</b>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6 fs-6">
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">Company:</div>
-                                                                <div class="col-md-3 mb-3">{{ $data->company_name ?? '' }}
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">Phone:</div>
-                                                                <div class="col-md-3 mb-3">{{ $data->phone ?? '' }}</div>
-                                                            </div>
-                                                            <div class="col-md-12 row">
-                                                                <div class="col-md-3 mb-3">Email:</div>
-                                                                <div class="col-md-3 mb-3">{{ $data->email ?? '' }}</div>
-                                                            </div>
-                                                        </div> --}}
+
                                                         <table class=" table table-bordered certificate-table"
                                                             border="1">
                                                             <tbody>
@@ -418,7 +378,7 @@
         <script type="text/javascript" src="{{ asset('js/jquery.mask.min.js') }}"></script>
         <script type="text/javascript">
             /* When the user clicks on the button, 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        toggle between hiding and showing the dropdown content */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                toggle between hiding and showing the dropdown content */
             function myFunction() {
                 document.getElementById("myDropdown").classList.toggle("show");
             }
@@ -566,10 +526,21 @@
 
             function actions(keyVal) {
                 var input = event.target.value;
-
+                // alert(input)
                 var min = $('#action' + keyVal).val();
-                if (input == "refused") {
+                // alert(input)
+                if (input == "refused" || input == "Missed") {
                     $('#qty' + keyVal).val(0);
+                }
+                if (input == "Missed") {
+
+                    $("#echat-medical").validate({
+                        ignore: "#client_pin",
+
+                    });
+                    $('#client_pin').attr('class', 'form-control text-box  is-valid');
+                } else {
+                    $('#client_pin').attr('class', 'form-control text-box  is-invalid');
                 }
                 if (input) {
                     $('#action' + keyVal).attr('class', 'form-control text-box is-valid');
@@ -582,6 +553,19 @@
 
                 }
             }
+
+            // function actions(keyVal) {
+            //     var missed = $('#action' + keyVal).val();
+            // if (missed == "Missed") {
+
+            //     $("#echat-medical").validate({
+            //         ignore: "#client_pin",
+
+            //     });
+            //     $('#client_pin').attr('class', 'form-control text-box  is-valid');
+            // }
+
+            // }
             $(document).ready(function() {
                 $('#telephone1').mask('(000) 000-0000');
                 $('#emergency_phone1').mask('(000) 000-0000');
@@ -589,19 +573,6 @@
 
             function resetForm() {
                 document.getElementById("add-user").reset();
-            }
-
-            function actions(keyVal) {
-                var missed = $('#action' + keyVal).val();
-                if (missed == "Missed") {
-
-                    $("#echat-medical").validate({
-                        ignore: "#client_pin",
-
-                    });
-                    $('#client_pin').attr('class', 'form-control text-box  is-valid');
-                }
-
             }
 
             $(document).ready(function() {

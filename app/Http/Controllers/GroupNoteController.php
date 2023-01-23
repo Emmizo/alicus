@@ -109,7 +109,9 @@ class GroupNoteController extends Controller
         $data['name']=$request->name;
         $data['birth'] = $request->birth;
         $data['created']=$request->created;
-        $data['groups'] = GroupNote::where('id',$request->id)->get();
+        $data['groups'] = GroupNote::join('users','users.id','group_notes.staff_id')
+        ->select('group_notes.*','users.first_name','users.last_name')
+        ->where('group_notes.id',$request->id)->get();
         return view('manage-group-note.view',$data);
     }
     public function showDis(Request $request)

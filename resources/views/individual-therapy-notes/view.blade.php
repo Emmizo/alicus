@@ -57,17 +57,17 @@
                     </tr>
                     <tr>
 
-                        <td><b>Topic</b><br /><br />{{ $group->topic }}</td>
+                        <td colspan="2"><b>Topic</b><br /><br />{{ $group->topic }}</td>
                     </tr>
                     <tr>
 
-                        <td><b>INDIVIDUAL NOTE</b><br /><br />
+                        <td colspan="2"><b>INDIVIDUAL NOTE</b><br /><br />
                             <div class="group-content">{!! $group->individual_therapy !!}</div>
                         </td>
                     </tr>
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b class="text-uppercase">Mental Status Examination</b><br><br>
                             <div class="form-row">
                                 <?php
@@ -250,7 +250,7 @@
                     </tr>
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b>EFFECT</b><br /><br />
                             <div class="form-row">
                                 <?php
@@ -312,7 +312,7 @@
                     </tr>
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b>LEVEL OF PARTICIPATION</b><br><br />
                             <div class="form-row">
                                 <?php
@@ -352,26 +352,31 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><b>Comments</b><br /><br />
+                        <td colspan="2"><b>Comments</b><br /><br />
                             <div class="group-content">{!! $group->comments ?? 'No comment' !!}</div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <b>Addmitted at</b><br /><br />
+                            <b>Finalized on</b><br /><br />
                             <div class="group-content">{{ $group->created_at ?? '' }}</div>
                         </td>
-                    </tr>
-                @endforeach
-            </table>
-        </fieldset>
-        <footer class=" print">
-            <strong>
-                <div class="float-right">Logged Into As {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }} on
-                    {{ date('Y-m-d H:i:s') }}</div>
-            </strong>
+                        <td>
+                            <b>Finalized by</b><br /><br />
+                            <div class="group-content">{{ $group->first_name . ' ' . $group->last_name }}</div>
+    </div>
+    </td>
+    </tr>
+    @endforeach
+    </table>
+    </fieldset>
+    <footer class=" print">
+        <strong>
+            <div class="float-right">Logged Into As {{ Auth::user()->first_name . '  ' . Auth::user()->last_name }} on
+                {{ date('Y-m-d H:i:s') }}</div>
+        </strong>
 
-        </footer>
+    </footer>
     </div>
 @endsection
 @section('script')

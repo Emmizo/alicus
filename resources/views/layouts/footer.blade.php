@@ -31,14 +31,15 @@
 <script type="text/javascript" src="{{ asset('assets/js/jquery.dirtyFields.packed.js') }}"></script>
 
 <script src="{{ asset('jSignature-master/libs/jSignature.min.js') }}"></script>
-<script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
-<script src="{{ asset('jSignature-master/libs/modernizr.js') }}"></script>
+
+{{-- <script src="{{ asset('jSignature-master/libs/modernizr.js') }}"></script> --}}
 
 
 <link type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
     rel="stylesheet">
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js">
 </script>
+<script src="{{ asset('tinymce/js/tinymce/tinymce.min.js') }}"></script>
 {{-- <script src="https://cdn.tiny.cloud/1/0cya78rys8j9jo5fgmt3k11w4fu759xg62stkseodokqgttu/tinymce/6/tinymce.min.js"
     referrerpolicy="origin"></script> --}}
 

@@ -59,7 +59,7 @@
 
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b>PROGRESS NOTE</b><br /><br />
                             <div class="group-content">{!! $group->progress_note !!}</div>
                         </td>
@@ -67,7 +67,7 @@
 
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b>LEVEL OF PARTICIPATION</b><br /><br />
                             <div class="form-row">
                                 <?php $level = json_decode($group->level_participation, true); ?>
@@ -110,8 +110,12 @@
                     </tr>
                     <tr>
                         <td>
-                            <b>Addmitted at</b><br /><br />
+                            <b>Finalized on</b><br /><br />
                             <div class="group-content">{{ $group->created_at ?? '' }}</div>
+                        </td>
+                        <td>
+                            <b>Finalized by</b><br /><br />
+                            <div class="group-content">{{ $group->first_name.' '<div class=""></div> }}</div>
                         </td>
                     </tr>
                 @endforeach

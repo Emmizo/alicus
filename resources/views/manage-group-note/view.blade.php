@@ -94,18 +94,18 @@
                     </tr>
                     <tr>
 
-                        <td><b>Topic</b><br /><br />{{ $group->topic }}</td>
+                        <td colspan="2"><b>Topic</b><br /><br />{{ $group->topic }}</td>
                     </tr>
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b>GROUP NOTE</b><br><br />
                             <div class="group-content">{!! $group->group_note !!}</div>
                         </td>
                     </tr>
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b>MOOD</b><br /><br />
                             <div class="form-row">
                                 <?php
@@ -295,7 +295,7 @@
                     </tr>
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b>EFFECT</b><br><br /><br />
                             <div class="form-row">
                                 <?php
@@ -361,7 +361,7 @@
                     </tr>
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b>LEVEL OF PARTICIPATION</b><br /><br />
                             <div class="form-row">
                                 <?php
@@ -408,7 +408,7 @@
                     </tr>
                     <tr>
 
-                        <td>
+                        <td colspan="2">
                             <b>COMMENT</b><br /><br />
                             <div class="group-content">{!! $group->comments ?? 'No Comment' !!}</div>
                         </td>
@@ -416,8 +416,12 @@
                     </tr>
                     <tr>
                         <td>
-                            <b>Addmitted at</b><br /><br />
+                            <b>Finilized on</b><br /><br />
                             <div class="group-content">{{ $group->created_at ?? '' }}</div>
+                        </td>
+                        <td>
+                            <b>Finilized by</b><br /><br />
+                            <div class="group-content">{{ $group->first_name . ' ' . $group->last_name }}</div>
                         </td>
                     </tr>
                 @endforeach
