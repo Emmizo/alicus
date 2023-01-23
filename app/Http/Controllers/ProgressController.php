@@ -117,7 +117,9 @@ class ProgressController extends Controller
         $data['name']=$request->name;
         $data['birth'] = $request->birth;
         $data['created']=$request->created;
-        $data['groups'] = Progress::where('id',$request->id)->where('discharged',1)->get();
+        $data['groups'] = Progress::join('users','users.id','progress_notes.staff_id')
+        ->select('progress_notes.*','users.first_name','users.last_name')
+        ->where('progress_notes.id',$request->id)->where('progress_notes.discharged',1)->get();
         return view('manage-archive.view-progress',$data);
     }
 

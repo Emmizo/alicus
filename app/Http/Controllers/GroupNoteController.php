@@ -123,7 +123,9 @@ class GroupNoteController extends Controller
         $data['name']=$request->name;
         $data['birth'] = $request->birth;
         $data['created']=$request->created;
-        $data['groups'] = GroupNote::where('id',$request->id)->where('discharged',1)->get();
+        $data['groups'] =GroupNote::join('users','users.id','group_notes.staff_id')
+        ->select('group_notes.*','users.first_name','users.last_name')
+        ->where('group_notes.id',$request->id)->where('group_notes.discharged',1)->get();
         return view('manage-archive.view-group-note',$data);
     }
 
