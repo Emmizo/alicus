@@ -115,7 +115,7 @@
                         </td>
                         <td>
                             <b>Finalized by</b><br /><br />
-                            <div class="group-content">{{ $group->first_name.' '<div class=""></div> }}</div>
+                            <div class="group-content">{{ $group->first_name . ' ' . $group->last_name }}</div>
                         </td>
                     </tr>
                 @endforeach
