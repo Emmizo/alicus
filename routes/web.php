@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 /* Auth controller*/
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/', 'AuthController@index')->name('admin-login');
-    Route::post('/admin-login', 'AuthController@login')->name('admin-login-post');
+    Route::any('/admin-login', 'AuthController@login')->name('admin-login-post');
     Route::get('/forgot-password', 'PasswordController@index')->name('forgot-password');
     Route::post('/forgot-password', 'PasswordController@store')->name('forgot-password-post');
     Route::get('/reset-password/{token}', 'PasswordController@viewReset')->name('reset-password');
