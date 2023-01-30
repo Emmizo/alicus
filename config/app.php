@@ -69,7 +69,9 @@ return [
     |
     */
 
-    'timezone' => 'MST',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
+    // 'timezone' => 'America/New_york',
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -184,6 +186,8 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
+        // \Illuminate\Auth\Events\Login::class,
+        // UpdateUsersTimezone::class,
         /*
          * Package Service Providers...
          */

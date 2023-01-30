@@ -15,6 +15,7 @@ use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
+
 /**
  * Class ManageUserController
  * namespace App\Http\Controllers
