@@ -8,6 +8,7 @@ use Exception;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 use Auth;
+//class for authentications
 class AuthController extends Controller
 {
 
